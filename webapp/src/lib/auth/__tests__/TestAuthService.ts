@@ -1,4 +1,4 @@
-import { AuthService, AuthResponse, User } from '../types'
+import { type AuthService, type AuthResponse, type User } from '../types'
 
 export class TestAuthService implements AuthService {
   private user: User | null = null

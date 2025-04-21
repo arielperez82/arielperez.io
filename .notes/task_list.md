@@ -13,11 +13,11 @@ This task list follows a Test-Driven Development approach with small, incrementa
 - [x] Install necessary dependencies (React Query, Tailwind, etc.)
 
 ### 2. Auth Foundation
-- [ ] Set up Supabase Auth integration
-- [ ] Create basic login/register page
-- [ ] Implement authentication context
-- [ ] Set up protected routes
-- [ ] Write tests for auth flows
+- [x] Set up Supabase Auth integration
+- [x] Create basic login/register page
+- [x] Implement authentication context
+- [x] Set up protected routes
+- [x] Write tests for auth flows
 
 ### 3. Database Schema
 - [ ] Implement organizations table in Supabase
