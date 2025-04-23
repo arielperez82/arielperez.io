@@ -1,5 +1,5 @@
 import { AuthService, AuthResponse, User } from './types'
-import { supabase } from '../supabase'
+import { supabase } from '../supabase/client'
 import { User as SupabaseUser } from '@supabase/supabase-js'
 
 function convertUser(supabaseUser: SupabaseUser | null): User | null {
