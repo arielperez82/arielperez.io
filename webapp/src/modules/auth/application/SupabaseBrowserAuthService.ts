@@ -1,16 +1,9 @@
-import { AuthService, AuthResponse, User } from './types'
-import { supabase } from '../supabase/client'
-import { User as SupabaseUser } from '@supabase/supabase-js'
+import { type BrowserAuthService, type AuthResponse, type User } from '../types'
+import { browserClient as supabase } from '../lib/supabase/client'
+import { convertUser } from './convert-user'
 
-function convertUser(supabaseUser: SupabaseUser | null): User | null {
-  if (!supabaseUser || !supabaseUser.email) return null
-  return {
-    id: supabaseUser.id,
-    email: supabaseUser.email
-  }
-}
 
-export class SupabaseAuthAdapter implements AuthService {
+export class SupabaseBrowserAuthService implements BrowserAuthService {
   async getSession(): Promise<AuthResponse> {
     const { data, error } = await supabase.auth.getSession()
     return {

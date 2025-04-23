@@ -1,27 +1,15 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
-import { AuthService, User } from './types'
-import { SupabaseAuthAdapter } from './SupabaseAuthAdapter'
-
-const defaultAuthService = new SupabaseAuthAdapter()
-
-interface AuthContextType {
-  user: User | null
-  error: string | null
-  signIn: (email: string, password: string) => Promise<void>
-  signUp: (email: string, password: string) => Promise<void>
-  signOut: () => Promise<void>
-}
-
-const AuthContext = createContext<AuthContextType | null>(null)
+import { useEffect, useState } from 'react'
+import { AuthContextProvider } from './auth-context'
+import { type BrowserAuthService, type User } from '../types'
 
 interface AuthProviderProps {
   children: React.ReactNode
-  authService?: AuthService
+  authService: BrowserAuthService
 }
 
-export function AuthProvider({ children, authService = defaultAuthService }: AuthProviderProps) {
+export function AuthProvider({ children, authService }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
   const [error, setError] = useState<string | null>(null)
 
@@ -77,16 +65,8 @@ export function AuthProvider({ children, authService = defaultAuthService }: Aut
   }
 
   return (
-    <AuthContext.Provider value={{ user, error, signIn, signUp, signOut }}>
+    <AuthContextProvider value={{ user, error, signIn, signUp, signOut }}>
       {children}
-    </AuthContext.Provider>
+    </AuthContextProvider>
   )
 }
-
-export function useAuth() {
-  const context = useContext(AuthContext)
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider')
-  }
-  return context
-} 

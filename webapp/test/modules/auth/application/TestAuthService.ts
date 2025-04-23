@@ -1,6 +1,6 @@
-import { type AuthService, type AuthResponse, type User } from '../types'
+import { type BrowserAuthService, type AuthResponse, type User } from '../../../../src/modules/auth/types'
 
-export class TestAuthService implements AuthService {
+export class TestAuthService implements BrowserAuthService {
   private user: User | null = null
   private error: Error | null = null
   private unsubscribe = jest.fn()
@@ -49,7 +49,7 @@ export class TestAuthService implements AuthService {
 
   async signOut(): Promise<{ error: Error | null }> {
     this.user = null
-    return { error: null }
+    return { error: this.error }
   }
 
   onAuthStateChange(callback: (event: string, session: any) => void) {

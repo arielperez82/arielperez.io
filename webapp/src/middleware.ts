@@ -1,8 +1,28 @@
-import type { NextRequest } from 'next/server'
-import { updateSession } from './lib/supabase/middleware'
+import { NextResponse, type NextRequest } from 'next/server'
+import { updateSession } from './modules/auth/application/middleware'
+import { SupabaseServerAuthService } from './modules/auth/application/SupabaseServerAuthService'
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request)
+  let authResponse = NextResponse.next({
+    request,
+  })
+  
+  const authService = new SupabaseServerAuthService({
+    getAll() {
+      return request.cookies.getAll()
+    },
+    setAll(cookiesToSet) {
+      cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+      authResponse = NextResponse.next({
+        request,
+      })
+      cookiesToSet.forEach(({ name, value, options }) =>
+        authResponse.cookies.set(name, value, options)
+      )
+    },
+  });
+
+  return await updateSession(request, authResponse, authService)
 }
 
 export const config = {
