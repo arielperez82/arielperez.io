@@ -30,7 +30,7 @@ export default function RegisterPage() {
     
     setIsLoading(true)
     await signUp(email, password)
-    
+   
     if (!error) {
       router.push('/login?registered=true')
     }
