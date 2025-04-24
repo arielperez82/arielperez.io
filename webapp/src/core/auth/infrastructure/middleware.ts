@@ -12,6 +12,7 @@ export const updateSession = async (request: NextRequest, response: NextResponse
     // no user, potentially respond by redirecting the user to the login page
     const url = request.nextUrl.clone()
     url.pathname = '/login'
+    
     return NextResponse.redirect(url)
   }
   // IMPORTANT: You *must* return the supabaseResponse object as it is.

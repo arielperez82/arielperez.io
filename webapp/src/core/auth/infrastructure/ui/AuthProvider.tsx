@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from 'react'
 import { AuthContextProvider } from './auth-context'
-import { type BrowserAuthService, type User } from '../types'
+import { type BrowserAuthService } from '../../application/auth-service'
+import { type User } from '../../domain/user'
 
 interface AuthProviderProps {
   children: React.ReactNode
