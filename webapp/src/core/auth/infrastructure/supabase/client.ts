@@ -1,4 +1,4 @@
-import { type CookieMethodsServer, createServerClient as unwrappedCreateServerClient, createBrowserClient } from '@supabase/ssr'
+import { type CookieMethodsServer, createServerClient as supabaseCreateServerClient, createBrowserClient } from '@supabase/ssr'
 
 if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
   throw new Error('Missing env.NEXT_PUBLIC_SUPABASE_URL')
@@ -12,7 +12,7 @@ export const browserClient = createBrowserClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 ) 
 
-export const createServerClient = (cookies: CookieMethodsServer) => unwrappedCreateServerClient(
+export const createServerClient = (cookies: CookieMethodsServer) => supabaseCreateServerClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
   {

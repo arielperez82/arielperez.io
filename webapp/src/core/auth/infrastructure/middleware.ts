@@ -1,5 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { ServerAuthService } from '../types'
+import { ServerAuthService } from '../application/auth-service'
 
 export const updateSession = async (request: NextRequest, response: NextResponse, serverAuthService: ServerAuthService) => {
   const user = await serverAuthService.getUser()

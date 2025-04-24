@@ -1,17 +1,15 @@
 'use client'
 
-import { AuthProvider } from '../../modules/auth/ui/AuthProvider'
-import { SupabaseBrowserAuthService } from '../../modules/auth/application/SupabaseBrowserAuthService'
+import { AppProvider } from '../providers/AppProvider'
 
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const authService = new SupabaseBrowserAuthService()
   return (
-    <AuthProvider authService={authService}>
+    <AppProvider>
       {children}
-    </AuthProvider>
+    </AppProvider>
   )
 } 

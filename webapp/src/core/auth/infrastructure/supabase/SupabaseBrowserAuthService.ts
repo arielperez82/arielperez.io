@@ -1,7 +1,7 @@
-import { type BrowserAuthService, type AuthResponse, type User } from '../types'
-import { browserClient as supabase } from '../lib/supabase/client'
+import { BrowserAuthService } from '../../application/auth-service'
+import { type AuthResponse } from '../../domain/auth-response'
+import { browserClient as supabase } from './client'
 import { convertUser } from './convert-user'
-
 
 export class SupabaseBrowserAuthService implements BrowserAuthService {
   async getSession(): Promise<AuthResponse> {

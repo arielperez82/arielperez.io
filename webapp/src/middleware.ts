@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server'
-import { updateSession } from './modules/auth/application/middleware'
-import { SupabaseServerAuthService } from './modules/auth/application/SupabaseServerAuthService'
+import { updateSession } from './core/auth/infrastructure/middleware'
+import { SupabaseServerAuthService } from './core/auth/infrastructure/supabase/SupabaseServerAuthService'
 
 export async function middleware(request: NextRequest) {
   let authResponse = NextResponse.next({
