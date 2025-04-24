@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext } from 'react'
-import { type User } from '../../domain/user'
+import { type User } from '@/core/auth/domain/user'
 
 interface AuthContextType {
   user: User | null

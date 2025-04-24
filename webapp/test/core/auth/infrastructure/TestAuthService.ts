@@ -1,4 +1,6 @@
-import { type BrowserAuthService, type AuthResponse, type User } from '../../../../src/modules/auth/types'
+import { type BrowserAuthService } from '@/core/auth/application/auth-service'
+import { type AuthResponse } from '@/core/auth/domain/auth-response'
+import { type User } from '@/core/auth/domain/user'
 
 export class TestAuthService implements BrowserAuthService {
   private user: User | null = null

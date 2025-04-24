@@ -1,5 +1,5 @@
-import { BrowserAuthService } from '../../application/auth-service'
-import { type AuthResponse } from '../../domain/auth-response'
+import { BrowserAuthService } from '@/core/auth/application/auth-service'
+import { type AuthResponse } from '@/core/auth/domain/auth-response'
 import { browserClient as supabase } from './client'
 import { convertUser } from './convert-user'
 

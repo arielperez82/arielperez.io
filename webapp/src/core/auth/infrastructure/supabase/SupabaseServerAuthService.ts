@@ -1,6 +1,6 @@
-import { type AuthResponse } from '../../domain/auth-response'
-import { type User } from '../../domain/user'
-import { ServerAuthService } from '../../application/auth-service'
+import { type AuthResponse } from '@/core/auth/domain/auth-response'
+import { type User } from '@/core/auth/domain/user'
+import { ServerAuthService } from '@/core/auth/application/auth-service'
 import { convertUser } from './convert-user'
 import { SupabaseClient, createServerClient, type CookieMethodsServer  } from './client'
 

@@ -1,5 +1,5 @@
-import { AuthResponse } from "../domain/auth-response"
-import { User } from "../domain/user"
+import { AuthResponse } from "@/core/auth/domain/auth-response"
+import { User } from "@/core/auth/domain/user"
 
 export interface BrowserAuthService {
     getSession: () => Promise<AuthResponse>

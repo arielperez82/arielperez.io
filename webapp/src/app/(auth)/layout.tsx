@@ -1,6 +1,6 @@
 'use client'
 
-import { AppProvider } from '../providers/AppProvider'
+import { AppProvider } from '@/app/providers/AppProvider'
 
 export default function AuthLayout({
   children,
