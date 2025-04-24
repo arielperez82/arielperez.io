@@ -1,5 +1,36 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+# Node.js Setup
+
+This project uses Node Version Manager (nvm) to ensure consistent Node.js versions across development environments.
+
+## Required Versions
+- Node.js: v20.11.1 (LTS)
+- npm: >=10.2.0
+
+## Setup Instructions
+
+1. Install nvm (if not already installed):
+   ```bash
+   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
+   ```
+
+2. Restart your terminal and verify nvm installation:
+   ```bash
+   nvm --version
+   ```
+
+3. Install and use the correct Node.js version:
+   ```bash
+   nvm install
+   nvm use
+   ```
+
+4. Install dependencies:
+   ```bash
+   npm install
+   ```
+
 ## Getting Started
 
 First, run the development server:

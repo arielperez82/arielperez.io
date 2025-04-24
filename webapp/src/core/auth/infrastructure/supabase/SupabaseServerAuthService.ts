@@ -2,7 +2,7 @@ import { type AuthResponse } from '@/core/auth/domain/auth-response'
 import { type User } from '@/core/auth/domain/user'
 import { ServerAuthService } from '@/core/auth/application/auth-service'
 import { convertUser } from './convert-user'
-import { SupabaseClient, createServerClient, type CookieMethodsServer  } from './client'
+import { SupabaseClient, createServerClient, type CookieMethodsServer  } from '@/shared/infrastructure/supabase/client'
 
 export class SupabaseServerAuthService implements ServerAuthService {
   private supabase: SupabaseClient

@@ -1,6 +1,6 @@
 import { BrowserAuthService } from '@/core/auth/application/auth-service'
 import { type AuthResponse } from '@/core/auth/domain/auth-response'
-import { browserClient as supabase } from './client'
+import { browserClient as supabase } from '@/shared/infrastructure/supabase/client'
 import { convertUser } from './convert-user'
 
 export class SupabaseBrowserAuthService implements BrowserAuthService {
