@@ -13,7 +13,12 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "test": "jest",
-    "test:coverage": "jest --collectCoverage"
+    "test:coverage": "jest --collectCoverage",
+    "test:e2e": "playwright test -c test/e2e/configs/playwright.local.ts",
+    "test:e2e:ci": "playwright test -c test/e2e/configs/playwright.ci.ts",
+    "test:e2e:smoke": "playwright test -c test/e2e/configs/playwright.smoke.ts",
+    "test:e2e:ui": "playwright test -c test/e2e/configs/playwright.local.ts --ui",
+    "test:e2e:debug": "playwright test -c test/e2e/configs/playwright.local.ts --debug"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.1",
@@ -28,6 +33,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.52.0",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
