@@ -1,4 +1,5 @@
 const nextJest = require('next/jest')
+const { excludeRegexps } = require('./test/coverage.config');
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
@@ -8,16 +9,11 @@ const createJestConfig = nextJest({
 // Add any custom config to be passed to Jest
 const customJestConfig = {
   collectCoverageFrom: [
-      "src/**/*.ts"
+      "src/**/*.ts",
+      "src/**/*.tsx"
   ],
-  coveragePathIgnorePatterns: [
-      "node_modules",
-      "__tests__",
-      "\\.test\\.ts",
-      "\\.test\\.tsx",
-      "\\.test\\.js"
-  ],
-  coverageDirectory: "<rootDir>/coverage/",
+  coveragePathIgnorePatterns: excludeRegexps.map(regex => regex.source),
+  coverageDirectory: "<rootDir>/coverage/unit",
   /*coverageThreshold: {
       global: {
           branches: 20,

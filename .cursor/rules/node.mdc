@@ -1,0 +1,13 @@
+---
+description: 
+globs: webapp/**/*.*
+alwaysApply: false
+---
+# Node.js Setup
+
+Use Node Version Manager (nvm) to ensure consistent Node.js versions across development environments.
+Use pnpm for managing dependencies
+
+## Required Versions
+- Node.js: v20.11.1 (LTS)
+- pnpm: >=10.8.0

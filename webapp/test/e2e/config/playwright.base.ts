@@ -1,15 +1,15 @@
-import { devices } from '@playwright/test';
+import { devices, type PlaywrightTestConfig } from '@playwright/test';
 import path from 'path';
 
 // Read environment variables from process.env or .env files
 const DEFAULT_BASE_URL = 'http://localhost:3000';
 
-export const baseConfig = {
+export const baseConfig: PlaywrightTestConfig = {
   timeout: 30 * 1000,
   testDir: '../tests',
   outputDir: path.join(__dirname, '../test-results'),
   fullyParallel: true,
-  reporter: 'html',
+  reporter: [['html']],
   use: {
     baseURL: DEFAULT_BASE_URL,
     trace: 'on-first-retry',
@@ -18,7 +18,7 @@ export const baseConfig = {
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: { ...devices['Desktop Chrome'] }
     },
     {
       name: 'firefox',
@@ -29,4 +29,11 @@ export const baseConfig = {
       use: { ...devices['Desktop Safari'] },
     },
   ],
-};; 
+  globalSetup: [
+    require.resolve('../global-setup')
+  ],
+  globalTeardown: [
+    require.resolve('../global-teardown'),
+  ],
+  testMatch: '**/*.spec.ts',
+}; 

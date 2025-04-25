@@ -1,0 +1,246 @@
+---
+description: 
+globs: webapp/**/*.*
+alwaysApply: false
+---
+# Hexagonal Architecture Guide for React Apps with Feature Slicing
+
+A structured approach to building maintainable, scalable React applications using hexagonal architecture principles, feature slicing, and modern tooling.
+
+## Directory Structure
+
+```
+src/
+├── features/               # Vertical slices (business capabilities)
+│   ├── product/            # Product feature
+│   │   ├── domain/         # Entities, value objects
+│   │   ├── application/    # Use cases, ports
+│   │   └── infrastructure/ # UI components, API adapters
+│   ├── cart/               # Cart feature
+│   └── checkout/
+│
+├── core/                   # Cross-cutting concerns
+│   ├── auth/               # Authentication
+│   │   ├── application/
+│   │   └── infrastructure/
+│   ├── database/           # Database access
+│   ├── analytics/          # Analytics
+│   └── event-bus/          # Event system
+│
+├── app/                    # App configuration
+│   ├── config/             # Environment configs
+│   ├── providers/          # DI container
+│   └── routing/            # Navigation setup
+│
+└── shared/                 # Generic utilities
+    ├── ui/                 # Shared components
+    └── http/               # HTTP client base
+    └── infrastructure/               # Shared infrastructure
+```
+
+## Core Principles
+
+### 1. Hexagonal Architecture Layers
+- **Domain**: Pure business logic (entities, rules)
+- **Application**: Use cases, ports (interfaces)
+- **Infrastructure**: Adapters (UI, databases, APIs)
+
+### 2. Feature Slicing
+- Vertical modules representing business capabilities
+- Fully self-contained with own domain/application/infra
+
+### 3. Dependency Injection
+- Providers initialize and inject implementations
+- Easy swapping of providers (Supabase → AWS)
+
+---
+
+## Implementation Guide
+
+### 1. Authentication Setup
+
+#### Auth Context Provider
+`src/core/auth/infrastructure/ui/AuthContext.tsx`
+```tsx
+import React, { createContext, useContext } from 'react';
+import { type AuthService } from '@core/auth/application';
+
+interface AuthContextType {
+  user: User | null;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+}
+
+export const AuthContext = createContext<AuthContextType | null>(null);
+
+export const AuthProvider = ({ 
+  children,
+  adapter 
+}: { 
+  children: React.ReactNode,
+  authService: AuthService 
+}) => {
+  const [user, setUser] = useState<User | null>(null);
+
+  const login = async (email: string, password: string) => {
+    const user = await authService.signIn(email, password);
+    setUser(user);
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuth = () => useContext(AuthContext)!;
+```
+
+#### Supabase Adapter
+`src/core/auth/infrastructure/supabase/SupabaseAuthService.ts`
+```typescript
+import { type AuthService } from '@core/auth/application';
+import { supabase } from '@/shared/infrastructure/supabase/client';
+
+export class SupabaseAuthService implements AuthService {
+  async signIn(email: string, password: string) {
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) throw new Error(error.message);
+    return data.user!;
+  }
+}
+```
+
+### 2. Database Access
+
+#### Database Port
+`src/products/application/ProductRepository.ts`
+```typescript
+export interface ProductRepository {
+  queryProducts(filter: ProductFilter): Promise<Product[]>;
+}
+```
+
+#### Planetscale Adapter
+`src/products/infrastructure/planetscale/PlanetscaleProductRepository.ts`
+```typescript
+import { connect } from '@planetscale/database';
+import { ProductRepository } from '@core/products/application/ProductRepository';
+
+export class PlanetscaleDatabaseRespository implements DatabaseRepository {
+  private conn = connect({ url: process.env.DATABASE_URL! });
+
+  async queryProducts(filter: ProductFilter) {
+    const results = await this.conn.execute('SELECT * FROM products');
+    return results.rows as Product[];
+  }
+}
+```
+
+### 3. Analytics Integration
+
+#### Amplitude Adapter
+`src/core/analytics/infrastructure/amplitude/AmplitudeAnalyticsService.ts`
+```typescript
+import amplitude from 'amplitude-js';
+import { AnalyticsService } from '@core/analytics/application/AnalyticsService';
+
+export class AmplitudeAnalyticsService implements AnalyticsService {
+  constructor() {
+    amplitude.getInstance().init(process.env.AMPLITUDE_KEY!);
+  }
+
+  trackEvent(event: string, properties?: Record<string, unknown>) {
+    amplitude.getInstance().logEvent(event, properties);
+  }
+}
+```
+
+---
+
+## Provider Configuration
+
+### Service Provider Setup
+`src/app/providers/ServiceProvider.tsx`
+```typescript
+import { AuthProvider } from '@/core/auth/infrastructure/ui/AuthProvider';
+import { SupabaseAuthService } from '@/core/auth/infrastructure/supabase/SupabaseAuthService';
+import { PlanetscaleProductRepository } from '@/core/products/infrastructure/planetscale/PlanetscaleProductRepository';
+
+export const ServiceProvider = ({ children }) => {
+  const authService = new SupabaseAuthService();
+  const productRepository = new PlanetscaleProductRepository();
+
+  return (
+    <AuthProvider authService={authService}>
+      <ProductRepositoryProvider productRepository={productRepository}>
+        {children}
+      </ProductRepositoryProvider>
+    </AuthProvider>
+  );
+};
+```
+
+---
+
+## Testing Strategy
+
+### Unit Test Example
+`test/unit/core/auth/infrastructure/supabase/SupabaseAuthService.test.ts`
+```typescript
+import { SupabaseAuthService } from '@/core/auth/infrastructure/supabase/SupabaseAuthService';
+
+describe('SupabaseAuthService', () => {
+  it('throws error on invalid login', async () => {
+    const adapter = new SupabaseAuthService();
+    await expect(adapter.signIn('bad@email.com', 'wrong'))
+      .rejevalid');
+  });
+});
+```
+
+### Component Test
+`test/integration/features/product/ProductList.test.tsx`
+```tsx
+import { render, screen } from '@testing-library/react';
+import { ServiceProvider } from '@/src/app/providers/ServiceProvider';
+
+test('displays products', async () => {
+  render(
+    <ServiceProvider>
+      <ProductList />
+    </ServiceProvider>
+  );
+  
+  expect(await screen.findByText('Product 1')).toBeInTheDocument();
+});
+```
+
+---
+
+## Key Benefits
+
+1. **Clear Separation of Concerns**
+   - Business logic isolated from technical implementation
+   - Features can be developed/tested independently
+
+2. **Technology Agnostic Core**
+   - Swap Supabase → AWS Cognito with 1 line change
+   - Replace Planetscale → PostgreSQL without touching business logic
+
+3. **Enhanced Testability**
+   - Mock adapters for fast unit tests
+   - Test real integrations in isolation
+
+4. **Team Scalability**
+   - Features can be owned by different teams
+   - Clear contract boundaries via ports
+
+5. **Long-Term Maintainability**
+   - Add/remove features without rippling changes
+   - Update tech stack incrementally
+
+---
+
+This structure has been battle-tested in production applications with 100k+ LOC. It scales well for both startups and enterprise applications while maintaining development velocity.
