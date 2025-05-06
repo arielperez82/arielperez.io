@@ -17,7 +17,9 @@
     "test:e2e": "playwright test -c test/e2e/config/playwright.local.ts",
     "test:e2e:ci": "playwright test -c test/e2e/config/playwright.ci.ts",
     "test:e2e:smoke": "playwright test -c test/e2e/config/playwright.smoke.ts",
-    "test:e2e:debug": "playwright test -c test/e2e/config/playwright.local.ts --debug"
+    "test:e2e:debug": "playwright test -c test/e2e/config/playwright.local.ts --debug",
+    "supabase:start": "supabase start",
+    "supabase:stop": "supabase stop"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.1",
