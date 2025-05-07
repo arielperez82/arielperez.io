@@ -2,7 +2,7 @@ import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import { AuthProvider } from './AuthProvider'
 import { useAuth } from './useAuth'
-import { TestAuthService } from '@test/core/auth/infrastructure/TestAuthService'
+import { TestAuthService } from '@test/unit/core/auth/infrastructure/TestAuthService'
 
 // Test component that uses auth context
 function TestComponent() {

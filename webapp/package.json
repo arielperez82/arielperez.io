@@ -18,7 +18,7 @@
     "test:e2e:ci": "playwright test -c test/e2e/config/playwright.ci.ts",
     "test:e2e:smoke": "playwright test -c test/e2e/config/playwright.smoke.ts",
     "test:e2e:debug": "playwright test -c test/e2e/config/playwright.local.ts --debug",
-    "supabase:start": "supabase start",
+    "supabase:start": "supabase start --exclude studio,storage-api,supavisor,vector,postgrest,logflare,imgproxy,realtime",
     "supabase:stop": "supabase stop"
   },
   "dependencies": {
