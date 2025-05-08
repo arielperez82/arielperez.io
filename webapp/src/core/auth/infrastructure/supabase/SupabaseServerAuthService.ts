@@ -23,7 +23,7 @@ export class SupabaseServerAuthService implements ServerAuthService {
   }
 
   async getUser(): Promise<User | null> {
-    const { data, error } = await this.supabase.auth.getUser()
+    const { data } = await this.supabase.auth.getUser()
     return convertUser(data.user ?? null)
   }
 } 

@@ -27,7 +27,7 @@ export default function MainLayout({
           <div className="flex items-center space-x-4">
             {user && (
               <div className="flex items-center space-x-4">
-                <span className="text-sm text-gray-700">{user.email}</span>
+                <span className="text-sm text-gray-700" title="userId">{user.email}</span>
                 <button
                   onClick={handleSignOut}
                   className="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

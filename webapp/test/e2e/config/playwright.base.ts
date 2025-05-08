@@ -18,7 +18,8 @@ export const baseConfig: PlaywrightTestConfig = {
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] }
+      use: { ...devices['Desktop Chrome']
+      }
     },
     {
       name: 'firefox',

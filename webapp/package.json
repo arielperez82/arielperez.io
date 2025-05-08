@@ -14,14 +14,15 @@
     "type-check": "tsc --noEmit",
     "test": "jest",
     "test:coverage": "jest --collectCoverage",
-    "test:e2e": "playwright test -c test/e2e/config/playwright.local.ts",
+    "test:e2e": "dotenvx run --env-file=.env.local -- playwright test -c test/e2e/config/playwright.local.ts",
     "test:e2e:ci": "playwright test -c test/e2e/config/playwright.ci.ts",
     "test:e2e:smoke": "playwright test -c test/e2e/config/playwright.smoke.ts",
-    "test:e2e:debug": "playwright test -c test/e2e/config/playwright.local.ts --debug",
+    "test:e2e:debug": "pnpm test:e2e --debug",
     "supabase:start": "supabase start --exclude studio,storage-api,supavisor,vector,postgrest,logflare,imgproxy,realtime",
     "supabase:stop": "supabase stop"
   },
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.43.0",
     "@headlessui/react": "^2.2.1",
     "@heroicons/react": "^2.2.0",
     "@supabase/ssr": "^0.6.1",
