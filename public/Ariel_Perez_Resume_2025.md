@@ -61,8 +61,8 @@ Led the strategy and development of the native mobile and web platforms, graphql
 
 #### Head of Product & Engineering \- Dark Canary Feature Flagging Platform, Chase Digital (Sep ‘17 \- May ‘19, New York, NY, US)
 
-* Conceived, built, and launched JPMC's first full-stack feature-flagging platform for progressively delivering features to Chase’s 65MM+ active digital users.   
-* Built an autonomous, cross-functional team to take a scalable, cross-platform, user-friendly feature-flagging platform from concept to implementation in under 9 months.    
+* Conceived, built, and launched JPMC's first full-stack feature-flagging platform for progressively delivering features to Chase’s 65MM+ active digital users.
+* Built an autonomous, cross-functional team to take a scalable, cross-platform, user-friendly feature-flagging platform from concept to implementation in under 9 months.
 * Trained hundreds of engineers and product owners across several geographies and domains in how to progressively deliver features with feature flags, enabling the Chase Online teams to move to trunk-based development.  
 * Enabled the concurrent progressive release of over 1,200 features on Chase Online and the Chase Mobile apps.
 
@@ -70,7 +70,7 @@ Led the strategy and development of the native mobile and web platforms, graphql
 
 Led expert teams responsible for shared components, platform-level non-functional requirements, hybrid web & native integrations, and solution architecture for Chase Online, the online banking portal for the largest bank in the US.
 
-* Improved average page load time by 4.25 seconds by reducing JS bundle sizes through systematic identification and removal of redundant and obsolete code, and increasing cache hit rates.   
+* Improved average page load time by 4.25 seconds by reducing JS bundle sizes through systematic identification and removal of redundant and obsolete code, and increasing cache hit rates.
 * Introduced flyouts/slide-in panels as a new shared component for Chase Online, which quickly became the standard interaction pattern across the application.  
 * Improved the load times for embedded web views in the Chase Mobile app by an average of 1 second through removal of duplicate API calls, preloading required static assets, and parallelizing dependency loading on route changes.  
 * Cut computational complexity in half across Chase Online despite the code base growing 30%.
@@ -79,10 +79,10 @@ Led expert teams responsible for shared components, platform-level non-functiona
 
 #### Co-Founder/Chief Technology Officer (Jul ‘13 \- Apr ‘17, New York, NY, US/Los Angeles, CA, US)
 
-Empowered music content creators and marketers with a suite of tools that optimize the way that music content is promoted, shared, and monetized. 
+Empowered music content creators and marketers with a suite of tools that optimize the way that music content is promoted, shared, and monetized.
 
-* Designed and developed an application that grew to tens of thousands of users with no marketing and only a 2-person team.   
-* Closed a partnership deal with TuneCore, the premier digital music distribution company with one of the largest music catalogs in the world. 
+* Designed and developed an application that grew to tens of thousands of users with no marketing and only a 2-person team.
+* Closed a partnership deal with TuneCore, the premier digital music distribution company with one of the largest music catalogs in the world.
 
 ### [Try the World](https://trytheworld.com/)
 
@@ -111,7 +111,7 @@ Minor in Mathematics, Economics
 
 ## ACHIEVEMENTS
 
-### Patent 
+### Patent
 
 #### [US-10951740](https://ppubs.uspto.gov/dirsearch-public/print/downloadPdf/10951740) (Granted 27 Aug ‘15)
 
