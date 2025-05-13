@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "predeploy": "pnpm build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.2.6",
@@ -23,5 +25,8 @@
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.6",
     "vite-tsconfig-paths": "^5.1.4"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

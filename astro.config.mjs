@@ -11,6 +11,9 @@ import viteTsconfigPaths from 'vite-tsconfig-paths';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://www.arielperez.io',
+  base: '/',
+  output: 'static',
   integrations: [react(), mdx()],
 
   vite: {
