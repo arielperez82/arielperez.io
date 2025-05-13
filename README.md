@@ -1,3 +1,15 @@
+# arielperez.io
+
+This is the personal and professional website of Ariel Perez.
+
+- Built with [Astro](https://astro.build/), [React](https://react.dev/), and [TailwindCSS](https://tailwindcss.com/)
+- All content is managed in Markdown/MDX files
+- Features: professional bio, expertise, blog previews, and contact information
+
+## Purpose
+
+Showcases Ariel Perez's leadership, expertise, and services. Acts as a central hub for professional presence, speaking, and consulting inquiries.
+
 # Astro Starter Kit: Minimal
 
 ```sh
