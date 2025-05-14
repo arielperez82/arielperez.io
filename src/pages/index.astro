@@ -1,15 +1,21 @@
 ---
-import HomeContent from '@/src/content/home.mdx'
+import { Content } from '@/src/content/home.mdx'
 import '@/src/styles/global.css'
 import '@/src/styles/tech-colors.css'
 import CardItem from '@/src/components/CardItem.astro'
 import CardList from '@/src/components/CardList.astro'
+import CollapsibleCard from '@/src/components/CollapsibleCard.astro'
 import H2 from '@/src/components/H2.astro'
 
-const components = { h2: H2, ul: CardList, li: CardItem }
+const components = {
+  h2: H2,
+  ul: CardList,
+  li: CardItem,
+  details: CollapsibleCard
+}
 ---
 
 <meta charset="utf-8" />
 <main>
-  <HomeContent components={components} />
+  <Content components={components} />
 </main>

@@ -1,5 +1,7 @@
 ---
-const { children } = Astro.props
+const { props } = Astro
 ---
 
-<li>{children}</li>
+<li {...props}>
+  <slot />
+</li>
