@@ -6,6 +6,7 @@ import typescriptParser from '@typescript-eslint/parser'
 import { FlatCompat } from '@eslint/eslintrc'
 import path from 'path'
 import { fileURLToPath } from 'url'
+import * as mdx from 'eslint-plugin-mdx'
 
 // For ESM
 const __filename = fileURLToPath(import.meta.url)
@@ -51,5 +52,19 @@ export default [
   },
   {
     ignores: ['dist/**', 'node_modules/**', '.astro/**']
+  },
+  // MDX support (see: https://github.com/mdx-js/eslint-mdx?tab=readme-ov-file#flat-config)
+  {
+    ...mdx.flat,
+    processor: mdx.createRemarkProcessor({ lintCodeBlocks: true })
+  },
+  {
+    ...mdx.flatCodeBlocks,
+    rules: {
+      ...mdx.flatCodeBlocks.rules
+      // Example: override/add rules for code blocks if needed
+      // 'no-var': 'error',
+      // 'prefer-const': 'error',
+    }
   }
 ]

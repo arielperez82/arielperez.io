@@ -1,18 +1,15 @@
 ---
 import HomeContent from '@/src/content/home.mdx'
+import '@/src/styles/global.css'
+import '@/src/styles/tech-colors.css'
+import CardItem from '@/src/components/CardItem.astro'
+import CardList from '@/src/components/CardList.astro'
+import H2 from '@/src/components/H2.astro'
+
+const components = { h2: H2, ul: CardList, li: CardItem }
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Ariel Perez – Product & Technology Leader</title>
-  </head>
-  <body class="bg-white font-sans text-gray-900">
-    <main class="flex min-h-screen flex-col items-center justify-center px-4">
-      <HomeContent />
-    </main>
-  </body>
-</html>
+<meta charset="utf-8" />
+<main>
+  <HomeContent components={components} />
+</main>

@@ -11,10 +11,10 @@
     "deploy": "gh-pages -d dist",
     "lint:md": "markdownlint .",
     "lint:md:fix": "markdownlint --fix .",
-    "lint:prettier": "prettier --check .",
-    "lint:prettier:fix": "prettier --write .",
-    "lint:eslint": "eslint .",
-    "lint:eslint:fix": "eslint --fix .",
+    "lint:format": "prettier --check .",
+    "lint:format:fix": "prettier --write .",
+    "lint:code": "eslint .",
+    "lint:code:fix": "eslint --fix .",
     "lint:fix": "pnpm run lint:md:fix && pnpm run lint:prettier:fix && pnpm run lint:eslint:fix"
   },
   "dependencies": {
@@ -24,7 +24,6 @@
     "@tailwindcss/vite": "^4.1.6",
     "@types/react": "^19.1.4",
     "@types/react-dom": "^19.1.5",
-    "astro": "^5.7.12",
     "autoprefixer": "^10.4.21",
     "eslint-import-resolver-typescript": "^4.3.4",
     "postcss": "^8.5.3",
@@ -39,11 +38,14 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@typescript-eslint/eslint-plugin": "^8.32.1",
     "@typescript-eslint/parser": "^8.32.1",
+    "astro": "^5.7.12",
     "astro-eslint-parser": "^1.2.2",
+    "eslint": "^9.26.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-astro": "^1.3.1",
     "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-mdx": "^3.4.1",
     "gh-pages": "^6.3.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
@@ -55,11 +57,11 @@
   "lint-staged": {
     "*.md": [
       "pnpm run lint:md:fix",
-      "pnpm run lint:prettier:fix"
+      "pnpm run lint:format:fix"
     ],
     "*.{js,jsx,ts,tsx,astro,mdx}": [
-      "pnpm run lint:eslint:fix",
-      "pnpm run lint:prettier:fix"
+      "pnpm run lint:code:fix",
+      "pnpm run lint:format:fix"
     ]
   }
 }
