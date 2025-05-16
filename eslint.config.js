@@ -1,22 +1,29 @@
 // eslint.config.js
 
 import js from '@eslint/js'
+import tsParser from '@typescript-eslint/parser'
 import astroParser from 'astro-eslint-parser'
 import prettier from 'eslint-config-prettier/flat'
 import astro from 'eslint-plugin-astro'
-import prettierPlugin from 'eslint-plugin-prettier'
-import react from 'eslint-plugin-react'
-import * as mdx from 'eslint-plugin-mdx'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
+import * as mdx from 'eslint-plugin-mdx'
+import react from 'eslint-plugin-react'
+import simpleImportSort from 'eslint-plugin-simple-import-sort'
 import tseslint from 'typescript-eslint'
-import tsParser from '@typescript-eslint/parser'
 
 export default [
   // Base Astro/JS/TS config
   ...astro.configs.recommended,
   js.configs.recommended,
   ...tseslint.configs.recommended,
-  prettier,
+  {
+    // Simple import sorting
+    plugins: { 'simple-import-sort': simpleImportSort },
+    rules: {
+      'simple-import-sort/imports': 'error',
+      'simple-import-sort/exports': 'error'
+    }
+  },
   // Type-aware rules only for TS/TSX
   {
     files: ['**/*.{ts,tsx}'],
@@ -88,14 +95,6 @@ export default [
       ...tseslint.configs.recommendedTypeChecked.rules
     }
   },
-
-  // Prettier
-  {
-    plugins: { prettier: prettierPlugin },
-    rules: {
-      'prettier/prettier': 'warn' // or "warn"
-    }
-  },
   // Import resolver for TypeScript path aliases
   {
     settings: {
@@ -103,5 +102,7 @@ export default [
         typescript: {}
       }
     }
-  }
+  },
+  // Prettier
+  prettier
 ]

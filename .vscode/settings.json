@@ -1,5 +1,9 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.validate": ["javascript", "typescript", "astro", "mdx"]
+  "eslint.validate": ["javascript", "typescript", "astro", "mdx"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always",
+    "source.organizeImports": "never" // Disable VS Code's built-in import sorting
+  }
 }

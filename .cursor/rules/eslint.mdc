@@ -1,0 +1,10 @@
+---
+description: 
+globs: *.ts,*.js,*.mdx,*.astro
+alwaysApply: false
+---
+Respect eslint rules when you generate code.
+
+For .astro files, execute `npx eslint --print-config src/pages/index.astro` and comply with the output.
+For .mdx files, execute `npx eslint --print-config src/content/home.mdx` and comply with the output.
+For .js and .ts files, execute `npx eslint --print-config eslint.config.js` and comply with the output.

@@ -25,8 +25,14 @@ const config = {
     {
       files: '*.{yaml,yml}',
       options: {
-        tabWidth: 3,
-        singleQuote: false
+        printWidth: 100,
+        tabWidth: 2,
+        useTabs: false,
+        semi: false,
+        singleQuote: true,
+        trailingComma: 'all',
+        importOrder: [],
+        importOrderSortSpecifiers: false
       }
     }
   ],
