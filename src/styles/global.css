@@ -16,6 +16,7 @@ html {
   font-family: var(--font-sans);
   background: var(--color-bg);
   color: var(--color-text);
+  scroll-behavior: smooth;
 }
 
 html.dark {
@@ -82,23 +83,6 @@ hr {
   margin-bottom: 2.5rem;
 }
 
-a {
-  color: var(--color-primary);
-  font-weight: 400;
-  transition: color 0.2s;
-}
-
-.cta-link {
-  color: var(--color-primary);
-  font-weight: 600;
-}
-
-a:hover,
-.cta-link:hover {
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
 p {
   margin-bottom: 0;
 }
@@ -112,10 +96,46 @@ p:not(:first-child) {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
+
+  a {
+    color: var(--color-primary);
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .cta-link {
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  a:hover,
+  .cta-link:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+}
+
+.nav-container {
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 @media (width <= 1023.98px) and (width >= 768px) {
   .main-content {
+    max-width: 40rem;
+  }
+
+  .header-content {
     max-width: 40rem;
   }
 }

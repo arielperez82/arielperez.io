@@ -33,7 +33,6 @@ export default [
         project: './tsconfig.json'
       }
     },
-    plugins: { '@typescript-eslint': tseslint },
     rules: {
       ...tseslint.configs.recommendedTypeChecked.rules
       // Add or override type-aware rules here
