@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import url('tailwindcss');
 
 html {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -12,14 +12,17 @@ html {
   --color-text-dark: #f8fafc;
   --color-card: #fff;
   --color-card-dark: #23272f;
+
   font-family: var(--font-sans);
   background: var(--color-bg);
   color: var(--color-text);
 }
+
 html.dark {
   background: var(--color-bg-dark);
   color: var(--color-text-dark);
 }
+
 body {
   font-family: var(--font-sans);
   background: var(--color-bg);
@@ -30,10 +33,12 @@ body {
   padding: 1.5rem;
   box-sizing: border-box;
 }
+
 html.dark body {
   background: var(--color-bg-dark);
   color: var(--color-text-dark);
 }
+
 h1,
 .hero-title {
   font-size: 2.5rem;
@@ -44,12 +49,14 @@ h1,
   margin-bottom: 1.5rem;
   line-height: 1.1;
 }
-@media (min-width: 768px) {
+
+@media (width >= 768px) {
   h1,
   .hero-title {
     font-size: 4rem;
   }
 }
+
 h2,
 .headline-2 {
   font-size: 2rem;
@@ -59,6 +66,7 @@ h2,
   margin-bottom: 1.25rem;
   padding-right: 0.5rem;
 }
+
 h3,
 .headline-3 {
   font-size: 1.5rem;
@@ -68,34 +76,41 @@ h3,
   margin-bottom: 1rem;
   padding-right: 0.5rem;
 }
+
 hr {
   margin-top: 2.5rem;
   margin-bottom: 2.5rem;
 }
+
 a,
 .cta-link {
   color: var(--color-primary);
   font-weight: 600;
   transition: color 0.2s;
 }
+
 a:hover,
 .cta-link:hover {
   text-decoration: underline;
   text-underline-offset: 2px;
 }
-p:not(:first-child) {
-  margin-top: 1.25rem;
-}
+
 p {
   margin-bottom: 0;
 }
+
+p:not(:first-child) {
+  margin-top: 1.25rem;
+}
+
 .main-content {
   max-width: 55rem;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
 }
-@media (max-width: 1023.98px) and (min-width: 768px) {
+
+@media (width <= 1023.98px) and (width >= 768px) {
   .main-content {
     max-width: 40rem;
   }

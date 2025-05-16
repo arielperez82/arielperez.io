@@ -15,7 +15,9 @@
     "lint:format:fix": "prettier --write .",
     "lint:code": "eslint src",
     "lint:code:fix": "eslint --fix src",
-    "lint:fix": "pnpm run lint:md:fix && pnpm run lint:format:fix && pnpm run lint:code:fix"
+    "lint:styles": "stylelint 'src/**/*.{css,astro}'",
+    "lint:styles:fix": "stylelint 'src/**/*.{css,astro}' --fix",
+    "lint:fix": "pnpm run lint:code:fix && pnpm run lint:styles:fix && pnpm run lint:format:fix && pnpm run lint:md:fix"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.4",
@@ -55,9 +57,12 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.0.0",
     "markdownlint-cli": "^0.44.0",
+    "postcss-html": "^1.8.0",
     "prettier": "^3.5.3",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "stylelint-config-astro": "^1.0.4",
+    "stylelint-config-standard": "^38.0.0",
     "typescript-eslint": "^8.32.1"
   },
   "lint-staged": {
@@ -68,6 +73,9 @@
     "*.{js,jsx,ts,tsx,astro,mdx}": [
       "pnpm run lint:format:fix",
       "pnpm run lint:code:fix"
+    ],
+    "*.{css,astro}": [
+      "pnpm run lint:styles:fix"
     ]
   }
 }
