@@ -208,7 +208,7 @@ const { title = '', subtitle, image, imageBlurb } = Astro.props
         <p class="hero-subtitle">{subtitle}</p>
         <h1 class="hero-title">
           <span class="hero-title-slide">
-            {title.slice(0, 3).map((t) => <span>{t}</span>)}
+            {title.slice(0, 3).map((t: string) => <span>{t}</span>)}
           </span>
         </h1>
       </div>

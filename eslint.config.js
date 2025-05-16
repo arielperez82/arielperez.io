@@ -2,11 +2,13 @@
 
 import js from '@eslint/js'
 import astroParser from 'astro-eslint-parser'
-import tseslint from 'typescript-eslint'
+import prettier from 'eslint-config-prettier/flat'
 import astro from 'eslint-plugin-astro'
+import prettierPlugin from 'eslint-plugin-prettier'
 import react from 'eslint-plugin-react'
 import * as mdx from 'eslint-plugin-mdx'
 import jsxA11y from 'eslint-plugin-jsx-a11y'
+import tseslint from 'typescript-eslint'
 import tsParser from '@typescript-eslint/parser'
 
 export default [
@@ -14,6 +16,7 @@ export default [
   ...astro.configs.recommended,
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  prettier,
   // Type-aware rules only for TS/TSX
   {
     files: ['**/*.{ts,tsx}'],
@@ -86,6 +89,13 @@ export default [
     }
   },
 
+  // Prettier
+  {
+    plugins: { prettier: prettierPlugin },
+    rules: {
+      'prettier/prettier': 'warn' // or "warn"
+    }
+  },
   // Import resolver for TypeScript path aliases
   {
     settings: {
