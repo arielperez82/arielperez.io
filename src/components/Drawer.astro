@@ -1,0 +1,19 @@
+---
+const { title, children } = Astro.props
+---
+
+<details
+  class="drawer"
+  style="margin:1.5rem 0; border-radius:1.5rem; background:var(--color-card); color:var(--color-text); box-shadow:0 2px 16px 0 rgba(0,0,0,0.06); border:1px solid var(--color-primary); overflow:hidden;"
+>
+  <summary
+    style="padding:1.25rem 1.5rem; font-size:1.25rem; font-weight:600; cursor:pointer; outline:none; color:var(--color-primary); background:inherit; border:none;"
+  >
+    {title}
+  </summary>
+  <div
+    style="padding:1.25rem 1.5rem; border-top:1px solid var(--color-primary); background:inherit;"
+  >
+    {children}
+  </div>
+</details>
