@@ -7,6 +7,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "check": "astro check",
     "predeploy": "pnpm build",
     "deploy": "gh-pages -d dist",
     "lint:md": "markdownlint .",
@@ -20,7 +21,6 @@
     "lint:fix": "pnpm run lint:code:fix && pnpm run lint:styles:fix && pnpm run lint:format:fix && pnpm run lint:md:fix"
   },
   "dependencies": {
-    "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "^4.2.6",
     "@astrojs/react": "^4.2.7",
     "@astrojs/tailwind": "^6.0.2",
@@ -38,6 +38,7 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.4",
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.26.0",
     "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
@@ -73,7 +74,8 @@
     ],
     "*.{js,jsx,ts,tsx,astro,mdx}": [
       "pnpm run lint:format:fix",
-      "pnpm run lint:code:fix"
+      "pnpm run lint:code:fix",
+      "pnpm run astro check"
     ],
     "*.{css,astro}": [
       "pnpm run lint:styles:fix"

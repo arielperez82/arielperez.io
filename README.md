@@ -45,20 +45,24 @@ Any static assets, like images, can be placed in the `public/` directory.
 
 All commands are run from the root of the project, from a terminal:
 
-| Command                  | Action                                           |
-| :----------------------- | :----------------------------------------------- |
-| `pnpm dev`               | Starts local dev server at `localhost:4321`      |
-| `pnpm build`             | Build your production site to `./dist/`          |
-| `pnpm preview`           | Preview your build locally, before deploying     |
-| `pnpm astro ...`         | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help`   | Get help using the Astro CLI                     |
-| `pnpm lint:md`           | Lint all Markdown files                          |
-| `pnpm lint:md:fix`       | Lint and auto-fix Markdown files                 |
-| `pnpm lint:prettier`     | Check formatting with Prettier                   |
-| `pnpm lint:prettier:fix` | Auto-format with Prettier                        |
-| `pnpm lint:eslint`       | Lint all code with ESLint                        |
-| `pnpm lint:eslint:fix`   | Lint and auto-fix code with ESLint               |
-| `pnpm lint:fix`          | Run all fixers (md, prettier, eslint)            |
+| Command                | Action                                       |
+| :--------------------- | :------------------------------------------- |
+| `pnpm dev`             | Starts local dev server at `localhost:4321`  |
+| `pnpm build`           | Build your production site to `./dist/`      |
+| `pnpm preview`         | Preview your build locally, before deploying |
+| `pnpm astro`           | Run Astro CLI commands                       |
+| `pnpm check`           | Validate your Astro project                  |
+| `pnpm predeploy`       | Build the site before deployment             |
+| `pnpm deploy`          | Deploy the site to GitHub Pages              |
+| `pnpm lint:md`         | Lint all Markdown files                      |
+| `pnpm lint:md:fix`     | Lint and auto-fix Markdown files             |
+| `pnpm lint:format`     | Check formatting with Prettier               |
+| `pnpm lint:format:fix` | Auto-format with Prettier                    |
+| `pnpm lint:code`       | Lint all code with ESLint                    |
+| `pnpm lint:code:fix`   | Lint and auto-fix code with ESLint           |
+| `pnpm lint:styles`     | Lint styles with Stylelint                   |
+| `pnpm lint:styles:fix` | Lint and auto-fix styles with Stylelint      |
+| `pnpm lint:fix`        | Run all fixers (code, styles, format, md)    |
 
 ## 👀 Want to learn more?
 
