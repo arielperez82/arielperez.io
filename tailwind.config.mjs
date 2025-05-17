@@ -1,5 +1,5 @@
+import colors from '@tailwindcss/colors.js'
 import typography from '@tailwindcss/typography'
-import colors from 'tailwindcss/colors.js'
 
 /** @type {import('tailwindcss').Config} */
 export default {

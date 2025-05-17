@@ -1,7 +1,8 @@
 ---
 description: Rules for integrating Tailwind CSS with Astro using @astrojs/tailwind.
-globs: astro.config.mjs
+globs: astro.config.mjs,package.json
+alwaysApply: false
 ---
 Styling with Tailwind CSS
 
-- Integrate Tailwind CSS with Astro @astrojs/tailwind
+- Integrate Tailwind CSS with the Astro vite plugin @tailwindcss/vite
