@@ -23,11 +23,11 @@ permissions:
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: false
 
 env:
-  BUILD_PATH: "." # default value when not using subfolders  
+  BUILD_PATH: '.' # default value when not using subfolders
 
 jobs:
   build:
@@ -36,19 +36,19 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: "8"
+          version: '8'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: ${{ env.BUILD_PATH }}/pnpm-lock.yaml
-      
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
@@ -58,7 +58,7 @@ jobs:
 
       - name: Build
         run: pnpm build
-        working-directory: ${{ env.BUILD_PATH }}     
+        working-directory: ${{ env.BUILD_PATH }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets'
+
 const { title = '', subtitle, image, imageBlurb } = Astro.props
 ---
 
@@ -178,8 +180,8 @@ const { title = '', subtitle, image, imageBlurb } = Astro.props
     }
 
     .hero-image {
-      width: 112px;
-      height: 112px;
+      width: 125px;
+      height: 125px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
@@ -251,7 +253,9 @@ const { title = '', subtitle, image, imageBlurb } = Astro.props
           (image || imageBlurb) && (
             <div class="hero-image-blurb-row">
               <div class="hero-image-blurb-col-img">
-                {image && <img src={image} alt="Profile" class="hero-image" />}
+                {image && (
+                  <Image src={image} alt="Headshot" class="hero-image" />
+                )}
               </div>
               <div class="hero-image-blurb-col-blurb">
                 {imageBlurb && (
