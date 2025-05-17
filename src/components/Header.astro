@@ -9,7 +9,7 @@ const links = [
 ]
 function isActive(href: string) {
   if (href === '/') return url.pathname === '/'
-  console.log(url.hash)
+
   return url.hash === href
 }
 ---
@@ -24,7 +24,7 @@ function isActive(href: string) {
             class={`rounded text-xl ${
               isActive(link.href)
                 ? 'text-primary font-bold'
-                : 'text-secondary hover:text-primary'
+                : 'text-secondary hover:text-accent'
             }`}
           >
             {link.label}
