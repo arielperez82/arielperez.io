@@ -57,7 +57,7 @@ const { title = '', subtitle, image, imageBlurb } = Astro.props
       width: 100%;
       opacity: 0;
       transition: opacity 0.5s;
-      animation: hero-title-fade 6s infinite;
+      animation: hero-title-fade 10s infinite;
     }
 
     .hero-title-slide span:nth-child(1) {
@@ -72,25 +72,26 @@ const { title = '', subtitle, image, imageBlurb } = Astro.props
       animation-delay: 4s;
     }
 
+    .hero-title-slide span:nth-child(4) {
+      animation-delay: 6s;
+    }
+
+    .hero-title-slide span:nth-child(5) {
+      animation-delay: 8s;
+    }
+
     @keyframes hero-title-fade {
       0% {
         opacity: 1;
       }
-
-      27% {
+      15% {
         opacity: 1;
       }
-
-      33% {
+      21% {
         opacity: 0;
       }
-
-      94% {
-        opacity: 0;
-      }
-
       100% {
-        opacity: 1;
+        opacity: 0;
       }
     }
 
@@ -244,7 +245,7 @@ const { title = '', subtitle, image, imageBlurb } = Astro.props
         <p class="hero-subtitle">{subtitle}</p>
         <h1 class="hero-title">
           <span class="hero-title-slide">
-            {title.slice(0, 3).map((t: string) => <span>{t}</span>)}
+            {title.slice(0, 5).map((t: string) => <span>{t}</span>)}
           </span>
         </h1>
       </div>
