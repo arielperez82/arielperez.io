@@ -68,6 +68,7 @@
     "prettier-plugin-tailwindcss": "^0.6.11",
     "stylelint-config-astro": "^1.0.4",
     "stylelint-config-standard": "^38.0.0",
+    "stylelint-config-tailwindcss": "^1.0.0",
     "tailwindcss": "^4.1.7",
     "tsx": "^4.19.4",
     "typescript-eslint": "^8.32.1"
