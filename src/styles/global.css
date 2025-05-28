@@ -2,30 +2,48 @@
 
 html {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --color-bg: #18181b;
+  --color-bg: #e6e6e8;
   --color-bg-dark: #18181b;
-  --color-primary: #f5f3f3;
+  --color-primary: #0a0909;
   --color-primary-dark: #f5f3f3;
-  --color-secondary: #d1cfcf;
+  --color-secondary: #383838;
+  --color-secondary-dark: #c5c3c3;
   --color-accent: #9d6ddb;
-  --color-text: #d8d8d8;
+  --color-accent-dark: #340b79;
+  --color-text: #262626;
   --color-text-dark: #d8d8d8;
-  --color-card: #23232a;
+  --color-card: #d8d8db;
   --color-card-dark: #23232a;
 
   font-family: var(--font-sans);
-  background: var(--color-bg);
-  color: var(--color-text);
   scroll-behavior: smooth;
 }
 
-html.dark {
-  background: var(--color-bg-dark);
-  color: var(--color-text-dark);
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-primary:hover {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+body.dark .text-primary {
+  color: var(--color-primary-dark);
+}
+
+body.dark .text-secondary {
+  color: var(--color-secondary-dark);
+}
+
+body.dark .text-primary:hover {
+  color: var(--color-primary-dark);
 }
 
 body {
-  font-family: var(--font-sans);
   background: var(--color-bg);
   color: var(--color-text);
   transition:
@@ -35,7 +53,7 @@ body {
   box-sizing: border-box;
 }
 
-html.dark body {
+body.dark {
   background: var(--color-bg-dark);
   color: var(--color-text-dark);
 }
@@ -49,6 +67,19 @@ h1,
   margin-top: 0;
   margin-bottom: 1.5rem;
   line-height: 1.1;
+}
+
+body.dark h1,
+body.dark .hero-title {
+  color: var(--color-primary-dark);
+}
+
+.hero-subtitle {
+  color: var(--color-secondary);
+}
+
+body.dark .hero-subtitle {
+  color: var(--color-secondary-dark);
 }
 
 @media (width >= 768px) {
@@ -68,6 +99,11 @@ h2,
   padding-right: 0.5rem;
 }
 
+body.dark h2,
+body.dark .headline-2 {
+  color: var(--color-primary-dark);
+}
+
 h3,
 .headline-3 {
   font-size: 1.5rem;
@@ -76,6 +112,11 @@ h3,
   margin-top: 2rem;
   margin-bottom: 1rem;
   padding-right: 0.5rem;
+}
+
+body.dark h3,
+body.dark .headline-3 {
+  color: var(--color-secondary-dark);
 }
 
 hr {
@@ -159,9 +200,13 @@ ol {
 li {
   margin-bottom: 0.5rem;
   padding-left: 0.25rem;
-  color: var(--color-primary);
+  color: var(--color-text);
   font-size: 1.05rem;
   line-height: 1.25;
+}
+
+body.dark li {
+  color: var(--color-text-dark);
 }
 
 ul > li::marker {
@@ -170,14 +215,30 @@ ul > li::marker {
 }
 
 ol > li::marker {
-  color: var(--color-text);
+  color: var(--color-primary);
   font-size: 1em;
 }
 
-html.dark ul > li::marker {
+body.dark ul > li::marker {
   color: var(--color-primary-dark);
 }
 
-html.dark ol > li::marker {
-  color: var(--color-text-dark);
+body.dark ol > li::marker {
+  color: var(--color-primary-dark);
+}
+
+.drawer {
+  background: var(--color-card);
+
+  summary {
+    color: var(--color-primary);
+  }
+}
+
+body.dark .drawer {
+  background: var(--color-card-dark);
+
+  summary {
+    color: var(--color-primary-dark);
+  }
 }

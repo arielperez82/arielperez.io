@@ -14,26 +14,51 @@ function isActive(href: string) {
 }
 ---
 
-<nav class="nav-container">
-  <ul class="nav-list">
-    {
-      links.map((link) => (
-        <li>
-          <a
-            href={link.href}
-            class={`rounded text-xl ${
-              isActive(link.href)
-                ? 'text-primary font-bold'
-                : 'text-secondary hover:text-primary'
-            }`}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))
-    }
-  </ul>
-</nav>
+<header class="nav-container flex items-center justify-between">
+  <nav class="flex-1">
+    <button
+      id="menu-toggle"
+      class="focus:ring-primary rounded p-2 focus:ring-2 focus:outline-none md:hidden"
+      aria-label="Open main menu"
+      aria-controls="main-menu"
+      aria-expanded="false"
+      type="button"
+    >
+      <span class="bg-primary mb-1 block h-0.5 w-6"></span>
+      <span class="bg-primary mb-1 block h-0.5 w-6"></span>
+      <span class="bg-primary block h-0.5 w-6"></span>
+    </button>
+    <ul
+      id="main-menu"
+      class="nav-list bg-card absolute top-12 right-0 z-10 hidden w-48 flex-col rounded p-4 shadow-lg transition-all duration-200 md:static md:flex md:w-auto md:flex-row md:rounded-none md:bg-transparent md:p-0 md:shadow-none"
+    >
+      {
+        links.map((link) => (
+          <li>
+            <a
+              href={link.href}
+              class={`rounded text-xl font-extrabold ${
+                isActive(link.href)
+                  ? 'text-primary'
+                  : 'text-secondary hover:text-primary'
+              }`}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+  <button
+    id="theme-toggle"
+    class="rounded-lgborder bg-card focus:ring-primary ml-4 flex h-10 w-10 cursor-pointer items-center justify-center border-gray-700 transition-colors hover:bg-gray-700 focus:ring-2 focus:outline-none"
+    aria-label="Toggle dark mode"
+    type="button"
+  >
+    <!-- <span id="theme-icon"></span> -->
+  </button>
+</header>
 
 <script>
   function setActiveLink() {
@@ -42,14 +67,78 @@ function isActive(href: string) {
     links.forEach((link) => {
       const href = link.getAttribute('href')
       if (href === hash) {
-        link.classList.add('text-primary', 'font-bold')
+        link.classList.add('text-primary')
         link.classList.remove('text-secondary')
       } else {
-        link.classList.remove('text-primary', 'font-bold')
+        link.classList.remove('text-primary')
         link.classList.add('text-secondary')
       }
     })
   }
   window.addEventListener('hashchange', setActiveLink)
   window.addEventListener('DOMContentLoaded', setActiveLink)
+
+  // Hamburger menu toggle
+  window.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.getElementById('menu-toggle')
+    const menu = document.getElementById('main-menu')
+    if (!toggle || !menu) return
+    toggle.addEventListener('click', function () {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true'
+      toggle.setAttribute('aria-expanded', String(!expanded))
+      menu.classList.toggle('hidden')
+    })
+    // Close menu on resize to desktop
+    window.addEventListener('resize', function () {
+      if (window.innerWidth >= 768) {
+        menu.classList.add('flex')
+        menu.classList.remove('hidden')
+        toggle.setAttribute('aria-expanded', 'false')
+      } else {
+        menu.classList.remove('flex')
+        menu.classList.add('hidden')
+        toggle.setAttribute('aria-expanded', 'false')
+      }
+    })
+  })
+
+  // Theme toggle logic
+  function setThemeIcon(isDark: boolean) {
+    const icon = document.getElementById('theme-icon')
+    if (!icon) return
+    icon.innerHTML = isDark
+      ? `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>`
+      : `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2m11-11h-2M3 12H1m16.95 7.07-1.41-1.41M6.34 6.34 4.93 4.93m12.02 0-1.41 1.41M6.34 17.66l-1.41 1.41"/></svg>`
+  }
+  function setDarkMode(isDark: boolean) {
+    const body = document.body
+    if (isDark) {
+      body.classList.add('dark')
+      localStorage.setItem('theme', 'dark')
+    } else {
+      body.classList.remove('dark')
+      localStorage.setItem('theme', 'light')
+    }
+    setThemeIcon(isDark)
+  }
+  function getSystemPrefersDark() {
+    return (
+      window.matchMedia &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    )
+  }
+  window.addEventListener('DOMContentLoaded', function () {
+    // Init theme
+    let theme = localStorage.getItem('theme')
+    if (!theme) theme = getSystemPrefersDark() ? 'dark' : 'light'
+    setDarkMode(theme === 'dark')
+    // Toggle handler
+    const toggle = document.getElementById('theme-toggle')
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        const isDark = document.body.classList.contains('dark')
+        setDarkMode(!isDark)
+      })
+    }
+  })
 </script>

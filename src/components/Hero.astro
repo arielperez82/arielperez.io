@@ -23,7 +23,6 @@ const { title = '', subtitle, image, imageBlurb } = Astro.props
     }
 
     .hero-title {
-      color: var(--color-primary);
       font-size: 3.5rem;
       font-weight: 600;
       line-height: 1.05;
@@ -84,12 +83,15 @@ const { title = '', subtitle, image, imageBlurb } = Astro.props
       0% {
         opacity: 1;
       }
+
       15% {
         opacity: 1;
       }
+
       21% {
         opacity: 0;
       }
+
       100% {
         opacity: 0;
       }
@@ -214,13 +216,11 @@ const { title = '', subtitle, image, imageBlurb } = Astro.props
 
     .hero-subtitle {
       font-size: 1.15rem;
-      color: var(--color-secondary);
       font-weight: 600;
       margin-bottom: 0.5rem;
     }
 
     .hero-desc {
-      color: var(--color-secondary);
       font-size: 1rem;
       margin: 0;
       max-width: 40rem;
