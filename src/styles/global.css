@@ -12,8 +12,10 @@ html {
   --color-accent-dark: #340b79;
   --color-text: #262626;
   --color-text-dark: #d8d8d8;
-  --color-card: #d8d8db;
-  --color-card-dark: #23232a;
+  --color-card: #cbcbcf;
+  --color-card-dark: #323236;
+  --color-card-content: #dbdbde;
+  --color-card-content-dark: #5f5f64;
 
   font-family: var(--font-sans);
   scroll-behavior: smooth;
@@ -163,8 +165,8 @@ p:not(:first-child) {
 
 .nav-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
   gap: 2rem;
   list-style: none;
   padding: 0;
@@ -229,16 +231,29 @@ body.dark ol > li::marker {
 
 .drawer {
   background: var(--color-card);
+  border-color: var(--color-primary);
 
   summary {
     color: var(--color-primary);
+  }
+
+  .drawer-content {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid var(--color-primary);
+    background: var(--color-card-content);
   }
 }
 
 body.dark .drawer {
   background: var(--color-card-dark);
+  border-color: var(--color-primary-dark);
 
   summary {
     color: var(--color-primary-dark);
+  }
+
+  .drawer-content {
+    border-top: 1px solid var(--color-primary-dark);
+    background: var(--color-card-content-dark);
   }
 }

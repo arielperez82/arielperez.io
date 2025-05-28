@@ -31,8 +31,7 @@ const config = {
         semi: false,
         singleQuote: true,
         trailingComma: 'all',
-        importOrder: [],
-        importOrderSortSpecifiers: false
+        importOrder: []
       }
     }
   ],
