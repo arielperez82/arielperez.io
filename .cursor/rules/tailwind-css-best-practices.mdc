@@ -1,6 +1,7 @@
 ---
 description: Best practices for using Tailwind CSS within Astro components.
 globs: src/**/*.*
+alwaysApply: false
 ---
 Tailwind CSS Best Practices
 
@@ -8,4 +9,3 @@ Tailwind CSS Best Practices
 - Leverage Tailwind's responsive design utilities (sm:, md:, lg:, etc.).
 - Utilize Tailwind's color palette and spacing scale for consistency.
 - Implement custom theme extensions in tailwind.config.cjs when necessary.
-- Never use the @apply directive
