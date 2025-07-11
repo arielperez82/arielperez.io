@@ -16,11 +16,11 @@ I build high-performing, adaptive organizations that deliver outsized business r
 
 Led the product and technology organization in building enterprise-grade data infrastructure that enables real-time analytics at scale while simplifying the developer experience.
 
-- Transformed engineering culture by ensuring teams consistently had clear strategy, vision, context, and themes, enabling autonomous decision-making and increased ownership of outcomes and initiatives.
-- Accelerated innovation by implementing a complex-adaptive organizational model with a flexible cross-functional squad where domain experts rotated in as needed, to design and ship Tinybird Forward—a major evolution of the developer experience—in under one quarter.
-- Improved platform stability by eliminating P0 incidents and reducing P1 incidents through the creation of a cross-product operations squad with rotating membership that drove architectural improvements, enhanced observability and monitoring, and CI/CD optimization.
-- Increased business profitability by improving margins 25% within one quarter through infrastructure optimization and operational efficiency, with an additional 20% improvement underway.
-- Implemented the organization's first AI-powered Product & Engineering support system, reducing ticket closure times by 80% and decreasing interruptions and distractions to engineering teams by 70%.
+- Transformed engineering culture through clear strategy and context, enabling autonomous teams to ship game-changing innovations including the industry's first hosted MCP server for LLM-ready real-time data and the Explorations natural language analytics UI.
+- Accelerated innovation with adaptive cross-functional squads, shipping Tinybird Forward in under one quarter, then rapidly delivering Windows CLI support, automated CI/CD workflows, and a redesigned Quickstart that expanded developer reach.
+  Improved platform stability by eliminating P0 incidents and reducing P1 incidents through the creation of a cross-product operations squad with rotating membership that drove architectural improvements, enhanced observability and monitoring, and CI/CD optimization.
+- Drove architectural innovations that improved platform economics by 90% through compute-compute separation, reduced costs 40% with Karpenter autoscaling, and achieved 5x ingestion performance with RowBinary optimizations.
+- Pioneered AI-first product strategy with Tinybird MCP Server and Birdwatcher autonomous analytics agents, while implementing internal AI support that reduced ticket closure times by 80% and engineering interruptions by 70%
 
 #### Field CTO (Jul ‘24 \- Present, Madrid, ES)
 
