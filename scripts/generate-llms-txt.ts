@@ -37,7 +37,6 @@ function getGitTimestamp(filePath: string): string {
       .replace(/\/index$/, '')
 
     // Map to source files
-    console.log('sourcePath', sourcePath)
     let sourceFile = ''
     if (sourcePath === 'about') {
       sourceFile = 'src/pages/about.md'
