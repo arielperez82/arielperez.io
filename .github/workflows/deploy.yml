@@ -33,6 +33,16 @@ jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+    env:
+      SITE_URL: ${{ vars.SITE_URL }}
+      PUBLIC_TINYBIRD_TRACKER_TOKEN: ${{ vars.TINYBIRD_TRACKER_TOKEN }}
+      PUBLIC_TINYBIRD_HOST: ${{ vars.TINYBIRD_HOST }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -40,14 +50,14 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: '10.8.0'
+          version: '10.15.1'
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version-file: '.nvmrc'
           cache: 'pnpm'
-          cache-dependency-path: ${{ env.BUILD_PATH }}/pnpm-lock.yaml
+          cache-dependency-path: 'pnpm-lock.yaml'
 
       - name: Setup Pages
         id: pages
@@ -58,12 +68,11 @@ jobs:
 
       - name: Build
         run: pnpm build
-        working-directory: ${{ env.BUILD_PATH }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ env.BUILD_PATH }}/dist
+          path: dist
 
   deploy:
     environment:
@@ -72,7 +81,26 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     name: Deploy
+    permissions:
+      contents: write
+      id-token: write
+      pages: write
     steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Git
+        run: |
+          git config user.name "Github Actions"
+          git config user.email "github-actions@github.com"
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Tag repo with site deployment tag
+        if: success()
+        run: |
+          site_deployment_tag="deployment-$(date +%Y%m%d%H%M%S)"
+          git tag "$site_deployment_tag"
+          git push origin "$site_deployment_tag"
+
