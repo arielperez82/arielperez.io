@@ -7,6 +7,7 @@ interface BlogPost {
   publishingDate: string
   readingTime: string
   heroImageUrl: string
+  url: string
 }
 
 interface LatestBlogProps {
@@ -14,7 +15,7 @@ interface LatestBlogProps {
   subtitle: string
   posts: BlogPost[]
   blogUrl: string
-  apiUrl?: string
+  apiUrl: string
 }
 
 const LatestBlog: React.FC<LatestBlogProps> = ({
@@ -113,7 +114,7 @@ const LatestBlog: React.FC<LatestBlogProps> = ({
 
                 <div className="mt-auto flex justify-end">
                   <a
-                    href={`${blogUrl}?utm_source=arielperez-io&utm_medium=referral`}
+                    href={`${post.url}?utm_source=arielperez-io&utm_medium=referral`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary-600 hover:text-primary-700 font-medium transition-colors"

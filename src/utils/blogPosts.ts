@@ -5,6 +5,7 @@ export interface BlogPost {
   publishingDate: string
   readingTime: string
   heroImageUrl: string
+  url: string
 }
 
 export async function fetchLatestBlogPosts(): Promise<BlogPost[]> {
