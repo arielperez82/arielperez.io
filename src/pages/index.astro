@@ -1,25 +1,478 @@
 ---
-import '@/styles/global.css'
+// src/pages/index.astro - Personal-focused version
+import { getCollection } from 'astro:content'
 
-import CardItem from '@/components/CardItem.astro'
-import CardList from '@/components/CardList.astro'
-import CollapsibleCard from '@/components/CollapsibleCard.astro'
-import H2 from '@/components/H2.astro'
-import Header from '@/components/Header.astro'
-import { Content } from '@/content/home.mdx'
-import Layout from '@/layouts/default.astro'
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
+import CTA from '@/components/sections/CTA'
+import Expertise from '@/components/sections/Expertise'
+import Hero from '@/components/sections/Hero'
+import Journey, { type ExperienceItem } from '@/components/sections/Journey'
+import LatestBlog from '@/components/sections/LatestBlog'
+import Media from '@/components/sections/Media'
+import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import { fetchLatestBlogPosts } from '@/utils/blogPosts'
 
-const components = {
-  h2: H2,
-  ul: CardList,
-  li: CardItem,
-  details: CollapsibleCard
-}
+// Fetch publication collection data
+const mediaCollection = await getCollection('media')
+const sortedMedia = mediaCollection.sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+)
+
+// Fetch latest blog posts
+const latestPosts = await fetchLatestBlogPosts()
+
+// Get featured items first
+const featuredItems = sortedMedia.filter((item) => item.data.featured === true)
+const nonFeaturedItems = sortedMedia.filter(
+  (item) => item.data.featured !== true
+)
+
+// Combine featured items with most recent non-featured items to get 6 total
+const selectedItems = [
+  ...featuredItems,
+  ...nonFeaturedItems.slice(0, Math.max(0, 6 - featuredItems.length))
+].slice(0, 6)
+
+const media = selectedItems.map((item) => ({
+  title: item.data.title,
+  description: item.data.description,
+  type: item.data.type,
+  url: item.data.url,
+  date: item.data.date,
+  publication: item.data.publication,
+  image: item.data.image,
+  additionalLinks: item.data.additionalLinks
+}))
+
+// Your expertise areas - merged from current site
+const expertise = [
+  {
+    title: 'Adaptive Leadership',
+    description:
+      'Transforming organizations from hierarchical control to fluid, collaborative networks that adapt faster than market changes.',
+    expandedDescription:
+      'I help you transform rigid hierarchies into fluid, collaborative networks that adapt faster than market changes. Organizations I work with see 40% faster decision-making, 60% improved cross-team collaboration, and teams that thrive in uncertainty rather than fear it.',
+    technicalSkills: [
+      'Organizational Design',
+      'Change Management',
+      'Leadership Coaching',
+      'Team Dynamics'
+    ],
+    services: [
+      'Executive Leadership Coaching',
+      'Organizational Transformation',
+      'Team Effectiveness Consulting'
+    ],
+    industries: [
+      'Technology',
+      'Financial Services',
+      'E-commerce',
+      'Developer Tools'
+    ]
+  },
+  {
+    title: 'Cross-functional Velocity',
+    description:
+      'Breaking down silos and designing systems that enable teams to move with unprecedented speed and coordination.',
+    expandedDescription:
+      'I break down silos and design systems that enable your teams to move with unprecedented speed and coordination. Clients typically see 6x increase in release frequency, 80% reduction in lead times, and teams that ship features in weeks instead of months.',
+    technicalSkills: [
+      'Process Design',
+      'Collaboration Frameworks',
+      'Agile Methodologies',
+      'Communication Systems'
+    ],
+    services: [
+      'Cross-functional Team Design',
+      'Collaboration Effectiveness',
+      'Process Optimization'
+    ],
+    industries: ['Startups', 'Scale-ups', 'Enterprise', 'Product Teams']
+  },
+  {
+    title: 'Strategic Product & Technology Leadership',
+    description:
+      'Unifying vision and execution across both disciplines to drive business growth and technical excellence.',
+    expandedDescription:
+      'I unify vision and execution across product and technology to drive your business growth and technical excellence. Organizations achieve 3x faster time-to-market, better product-market fit, and technology that becomes a competitive advantage rather than a bottleneck.',
+    technicalSkills: [
+      'Product Strategy',
+      'Technology Roadmapping',
+      'Executive Communication',
+      'Strategic Planning'
+    ],
+    services: [
+      'Fractional CPTO/CTO',
+      'Strategic Advisory',
+      'Product-Technology Alignment'
+    ],
+    industries: ['FinTech', 'Developer Tools', 'E-commerce', 'MarTech']
+  },
+  {
+    title: 'AI & Data Systems',
+    description:
+      'Leading AI-first product development and data infrastructure that powers intelligent decision-making.',
+    expandedDescription:
+      'I lead AI-first product development and data infrastructure that powers intelligent decision-making. Teams I work with build AI features 10x faster, achieve 95% accuracy in predictions, and create data systems that scale to billions of events while staying cost-effective.',
+    technicalSkills: [
+      'LLM Integration',
+      'AI-powered Automation',
+      'Data Analytics',
+      'Real-time Systems',
+      'Vector Databases',
+      'RAG Systems'
+    ],
+    services: [
+      'AI Strategy Implementation',
+      'Data Infrastructure Leadership',
+      'Technical Due Diligence'
+    ],
+    industries: [
+      'AI/ML Platforms',
+      'Analytics',
+      'Financial Services',
+      'Customer Data'
+    ]
+  },
+  {
+    title: 'Engineering Excellence',
+    description:
+      'Building high-performing engineering organizations with scalable architecture and operational effectiveness.',
+    expandedDescription:
+      'I build high-performing engineering organizations with scalable architecture and operational effectiveness. Organizations see 10x deployment frequency, 90% reduction in production incidents, and engineering teams that ship with confidence and velocity.',
+    technicalSkills: [
+      'Full-stack Development',
+      'Cloud Architecture',
+      'Microservices',
+      'DevOps',
+      'Security & Compliance'
+    ],
+    services: [
+      'Engineering Organization Leadership',
+      'Technical Architecture Review',
+      'Engineering Excellence Consulting'
+    ],
+    industries: [
+      'Developer Tools',
+      'Infrastructure',
+      'SaaS',
+      'Enterprise Software'
+    ]
+  },
+  {
+    title: 'Startup & Scale-up Leadership',
+    description:
+      'From zero-to-one through growth and exit, bringing founder-level drive and execution to early-stage ventures.',
+    expandedDescription:
+      'From zero-to-one through growth and exit, I bring founder-level drive and execution to early-stage ventures. Startups I work with achieve product-market fit 50% faster, scale engineering teams without losing velocity, and build systems that support 100x growth without re-architecture.',
+    technicalSkills: [
+      'Go-to-Market Strategy',
+      'Fundraising Support',
+      'Customer Development',
+      'Scaling Architecture'
+    ],
+    services: [
+      'Startup Advisory',
+      'Scale-up Leadership',
+      'Technical Go-to-Market Strategy'
+    ],
+    industries: [
+      'Early-stage Startups',
+      'Venture-backed Companies',
+      'Growth-stage Companies'
+    ]
+  }
+]
+
+// Experience journey - in reverse chronological order
+const experience: ExperienceItem[] = [
+  {
+    type: 'single',
+    role: 'Head of Product & Technology',
+    company: 'Tinybird',
+    period: 'Nov 2024 - Present',
+    description:
+      'Leading product and technology organization building enterprise-grade data infrastructure for real-time analytics at scale. Transformed engineering culture through adaptive cross-functional squads, achieving 6x product releases and 10x deployment frequency.',
+    logo: '/logos/tinybird-logo.jpg',
+    logoAlt: 'Tinybird logo'
+  },
+  {
+    type: 'single',
+    role: 'Field CTO',
+    company: 'Tinybird',
+    period: 'Jul 2024 - Present',
+    description:
+      'Serving as technical bridge between company and market, working with global customers and prospects. Led DevRel and Sales Engineering teams, tripling technical content production while significantly increasing win rates and shortening sales cycles by 30%.',
+    logo: '/logos/tinybird-logo.jpg',
+    logoAlt: 'Tinybird logo'
+  },
+  {
+    type: 'single',
+    role: 'VP of Engineering - Measurement & Learning',
+    company: 'Split Software (acquired by Harness)',
+    period: 'Jun 2022 - Jun 2024',
+    description:
+      'Led high-performing engineering team building real-time data pipelines consuming 100+ GB daily. Cut lead time for data-intensive features from 3 months to 2 weeks, 6x product releases, and saved $1.2M annually through infrastructure re-platforming.',
+    logo: '/logos/split-logo.jpg',
+    logoAlt: 'Split Software logo'
+  },
+  {
+    type: 'single',
+    role: 'Head of Digital and Communications Platforms',
+    company: 'JP Morgan Chase - Chase International Consumer Bank (Chase UK)',
+    period: 'Jan 2022 - Jun 2022',
+    description:
+      "Led strategy and development of native mobile/web platforms and cross-channel communications for Chase UK. Architected platform enabling bi-weekly releases, resulting in 2022's top 'breakout' financial app and 6th most downloaded UK financial app.",
+    logo: '/logos/chase-uk-logo.png',
+    logoAlt: 'Chase UK logo - white background blue octagon'
+  },
+  {
+    type: 'single',
+    role: 'Head of Marketing Technology',
+    company: 'JP Morgan Chase - Chase International Consumer Bank (Chase UK)',
+    period: 'May 2019 - Dec 2021',
+    description:
+      "Delivered customer waitlist system enabling rapid onboarding of tens of thousands of users (188% above target). Migrated chase.co.uk to Jamstack architecture, built feature flagging framework, and launched JPMC's first Customer Data Platform.",
+    logo: '/logos/chase-uk-logo.png',
+    logoAlt: 'Chase UK logo - white background blue octagon'
+  },
+  {
+    type: 'single',
+    role: 'Head of Product & Engineering - Dark Canary',
+    company: 'JP Morgan Chase - Chase Digital (Chase Online/Chase Mobile)',
+    period: 'Sep 2017 - May 2019',
+    description:
+      "Conceived, built, and launched JPMC's first full-stack feature-flagging platform for Chase's 65MM+ active digital users. Enabled concurrent progressive release of over 1,200 features across Chase Online and Mobile apps.",
+    logo: '/logos/chase-logo.jpg',
+    logoAlt: 'Chase logo - blue background white octagon'
+  },
+  {
+    type: 'single',
+    role: 'Head of Core Web Engineering and Solution Architecture',
+    company: 'JP Morgan Chase - Chase Digital (Chase Online/Chase Mobile)',
+    period: 'Apr 2017 - Dec 2018',
+    description:
+      'Led expert teams for shared components and solution architecture for Chase Online. Improved average page load time by 4.25 seconds, introduced new interaction patterns, and cut computational complexity in half despite 30% codebase growth.',
+    logo: '/logos/chase-logo.jpg',
+    logoAlt: 'Chase logo - blue background white octagon'
+  },
+  {
+    type: 'multi',
+    role: 'Prior Roles',
+    company: 'Various Companies',
+    period: '2003 - 2017',
+    description:
+      'Entrepreneurial and technical leadership roles including MSCLVR (Co-Founder/CTO), Try the World (CTO), Birchbox (Senior Engineer), JP Morgan Wealth Management (Engineering Lead), and Diving Tank Studios (Web Dveloper). Built and scaled core services, modernized trading platforms, and delivered client solutions.',
+    logos: [
+      {
+        logo: '/logos/msclvr-logo.jpg',
+        logoAlt: 'MSCLVR logo',
+        company: 'MSCLVR'
+      },
+      {
+        logo: '/logos/try-the-world-logo.png',
+        logoAlt: 'Try the World logo',
+        company: 'Try the World'
+      },
+
+      {
+        logo: '/logos/birchbox-logo.jpg',
+        logoAlt: 'Birchbox logo',
+        company: 'Birchbox'
+      },
+      {
+        logo: '/logos/jpmorgan-logo.jpg',
+        logoAlt: 'JP Morgan logo',
+        company: 'JP Morgan Chase'
+      },
+      {
+        logo: '...',
+        logoAlt: '...',
+        company: '...'
+      }
+    ]
+  }
+]
+
+// CV download links
+const cvDownloads = [
+  {
+    format: 'PDF',
+    url: '/cv/Ariel_Perez_Resume.pdf',
+    label: 'Download CV (PDF)'
+  },
+  {
+    format: 'DOCX',
+    url: '/cv/Ariel_Perez_Resume.docx',
+    label: 'Download CV (DOCX)'
+  },
+  {
+    format: 'Markdown',
+    url: '/cv/Ariel_Perez_Resume.md',
+    label: 'Download CV (MD)'
+  }
+]
 ---
 
-<Layout>
-  <Header />
-  <main class="main-content">
-    <Content components={components} />
-  </main>
-</Layout>
+<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <Header client:load />
+
+  <Hero
+    name="Ariel Pérez"
+    title="Product & Engineering Leader | Systems Thinker"
+    description="I build high-performing, adaptive, deeply collaborative product & engineering organizations that deliver exceptional value at high velocity. With 20+ years across startups, scale-ups, and Fortune 50s, I bridge product and technology to drive growth—accelerating release cadence, cutting lead times, creating products that matter, and saving millions in operational costs. I lead through systems thinking, cross-functional collaboration, and AI-enabled innovation, building adaptive teams that scale and thrive together."
+    primaryCTA={{
+      text: 'Read my writing',
+      href: 'https://www.adaptivealchemist.com'
+    }}
+    secondaryCTA={{
+      text: 'Download resume',
+      href: '/cv/Ariel_Perez_Resume.pdf'
+    }}
+    profileImage="/profile.jpg"
+    client:load
+  />
+
+  <Expertise
+    title="What I excel at"
+    summary="I transform organizations by building adaptive systems that scale faster than market changes. Whether you're struggling with slow decision-making, siloed teams, or technology that's become a bottleneck, I help you create high-performing, collaborative environments that deliver exceptional value at unprecedented velocity."
+    expertise={expertise}
+    client:load
+  />
+
+  <Journey
+    title="Experience"
+    subtitle="Two decades of discovering that the biggest bottlenecks in technology organizations aren't technical but rather organizational"
+    experience={experience}
+    cvDownloads={cvDownloads}
+    client:load
+  />
+
+  <Media
+    title="Media and publications"
+    subtitle="Sharing insights on adaptive leadership, organizational transformation, and product & engineering across various platforms"
+    media={media}
+    viewAllUrl="/media"
+    client:load
+  />
+
+  <LatestBlog
+    title="Latest from my blog"
+    subtitle="Exploring adaptive leadership and organizational design at The Adaptive Alchemist"
+    posts={latestPosts}
+    blogUrl="https://www.adaptivealchemist.com/"
+    apiUrl="https://www.adaptivealchemist.com/blog.json"
+    client:load
+  />
+
+  <!-- Working with me section -->
+  <section class="bg-gray-50 py-16 lg:py-24">
+    <div class="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <div class="mb-12 text-center">
+        <h2 class="mb-6 text-3xl font-bold text-gray-900 lg:text-4xl">
+          Working with me
+        </h2>
+        <p class="mb-8 text-xl text-gray-600">
+          I love collaborating with organizations and individuals who are
+          passionate about building adaptive, high-performing teams and systems.
+          Whether through fractional CTO/CPTO engagements, speaking, or writing
+          collaborations, I'm always excited to share insights and work together
+          on challenging problems.
+        </p>
+      </div>
+
+      <div class="mb-12 grid gap-8 md:grid-cols-2">
+        <div
+          class="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-8 shadow-sm"
+        >
+          <div class="flex-1">
+            <h3 class="mb-4 text-xl font-semibold text-gray-900">
+              Consulting Services
+            </h3>
+            <p class="mb-4 text-gray-600">
+              Transform your organization through adaptive leadership,
+              cross-functional velocity, and strategic product & technology
+              alignment. I work with companies to build systems that adapt
+              faster than market changes.
+            </p>
+            <p class="mb-4 text-gray-600">
+              <strong>Important Note:</strong> I deliver my services exclusively
+              through Adaptive Alchemy, LLC, a US-based consultancy.
+            </p>
+            <ul class="mb-6 space-y-2 text-gray-600">
+              <li>
+                • Contact Adaptive Alchemy, LLC for service inquiries and
+                consultations
+              </li>
+              <li>
+                • Adaptive Alchemy coordinates all consulting engagements,
+                contracting, and logistics
+              </li>
+              <li>
+                • I focus on delivering exceptional value while Adaptive Alchemy
+                handles business operations
+              </li>
+            </ul>
+          </div>
+          <div class="mt-auto text-center">
+            <a
+              href="mailto:inquiries@adaptivealchemy.io"
+              class="bg-primary-600 hover:bg-primary-700 inline-block rounded-md px-6 py-3 font-medium text-white transition-colors"
+            >
+              Contact Adaptive Alchemy
+            </a>
+          </div>
+        </div>
+
+        <div
+          class="flex h-full flex-col rounded-lg border border-gray-200 bg-white p-8 shadow-sm"
+        >
+          <div class="flex-1">
+            <h3 class="mb-4 text-xl font-semibold text-gray-900">
+              Speaking & Collaboration
+            </h3>
+            <p class="mb-4 text-gray-600">
+              I'm passionate about sharing insights on adaptive leadership,
+              organizational transformation, and the intersection of technology
+              and human systems. Let's explore opportunities to collaborate,
+              share knowledge, and push the boundaries of what's possible.
+            </p>
+            <ul class="mb-6 space-y-2 text-gray-600">
+              <li>• Speaking engagements and media appearances</li>
+              <li>• Writing collaborations and guest posts</li>
+              <li>• Direct professional networking</li>
+              <li>• Full-time role opportunities (for compelling fits)</li>
+            </ul>
+          </div>
+          <div class="mt-auto text-center">
+            <a
+              href="mailto:ariel@arielperez.io"
+              class="border-primary-600 text-primary-600 hover:bg-primary-50 inline-block rounded-md border px-6 py-3 font-medium transition-colors"
+            >
+              Contact me directly
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    title="Let's connect"
+    description="I deliver consulting services exclusively through Adaptive Alchemy, LLC. For speaking, writing collaborations, or direct contact, reach out to me personally."
+    primaryButton={{
+      text: 'Consulting Services',
+      href: 'mailto:inquiries@adaptivealchemy.io'
+    }}
+    secondaryButton={{
+      text: 'Speaking & Collaboration',
+      href: 'mailto:ariel@arielperez.io'
+    }}
+    background="primary"
+    client:load
+  />
+
+  <Footer client:load />
+</BaseLayout>

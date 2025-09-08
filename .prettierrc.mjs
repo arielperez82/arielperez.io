@@ -8,18 +8,10 @@ const config = {
       files: '*.astro',
       options: {
         parser: 'astro',
-        importOrder: [
-          '<BUILTIN_MODULES>',
-          '<THIRD_PARTY_MODULES>',
-          '^@data/(.*)$',
-          '^@layouts/(.*)$',
-          '^@pages/(.*)$',
-          '^@components/(.*)$',
-          '^@scripts/(.*)$',
-          '^@styles/(.*)$',
-          '^@/(.*)$',
-          '^.[./].*'
-        ]
+        // Allow HTML comments in template sections
+        htmlWhitespaceSensitivity: 'ignore',
+        // Don't format comments aggressively
+        proseWrap: 'preserve'
       }
     },
     {
@@ -30,18 +22,13 @@ const config = {
         useTabs: false,
         semi: false,
         singleQuote: true,
-        trailingComma: 'all',
-        importOrder: []
+        trailingComma: 'all'
       }
     }
   ],
-  plugins: [
-    'prettier-plugin-astro',
-    '@ianvs/prettier-plugin-sort-imports',
-    'prettier-plugin-tailwindcss'
-  ],
+  plugins: ['prettier-plugin-astro', 'prettier-plugin-tailwindcss'],
   astroAllowShorthand: false,
-  importOrder: []
+  tailwindConfig: './tailwind.config.mjs'
 }
 
 export default config

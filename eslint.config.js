@@ -17,7 +17,7 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
-    // Simple import sorting
+    // Simple import/export sorting
     plugins: { 'simple-import-sort': simpleImportSort },
     rules: {
       'simple-import-sort/imports': 'error',
@@ -46,8 +46,7 @@ export default [
       parser: astroParser,
       parserOptions: {
         parser: tsParser,
-        extraFileExtensions: ['.astro'],
-        project: './tsconfig.json'
+        extraFileExtensions: ['.astro']
       }
     }
   },
@@ -56,9 +55,24 @@ export default [
   {
     files: ['**/*.{jsx,tsx}'],
     plugins: { react, 'jsx-a11y': jsxA11y },
+    settings: {
+      react: {
+        version: 'detect'
+      }
+    },
+    languageOptions: {
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true
+        }
+      }
+    },
     rules: {
       ...react.configs.recommended.rules,
-      ...jsxA11y.configs.recommended.rules
+      ...jsxA11y.configs.recommended.rules,
+      // Disable React import requirement for new JSX transform
+      'react/react-in-jsx-scope': 'off',
+      'react/jsx-uses-react': 'off'
       // Add or override React/JSX-a11y rules here
     }
   },

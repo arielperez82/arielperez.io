@@ -1,0 +1,54 @@
+---
+// src/pages/publication.astro
+import { getCollection } from 'astro:content'
+
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
+import MediaSection from '@/components/sections/Media'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+
+// Fetch all publication collection data
+const mediaCollection = await getCollection('media')
+const media = mediaCollection
+  .sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  )
+  .map((item) => ({
+    title: item.data.title,
+    description: item.data.description,
+    type: item.data.type,
+    url: item.data.url,
+    date: item.data.date,
+    publication: item.data.publication,
+    image: item.data.image,
+    additionalLinks: item.data.additionalLinks
+  }))
+---
+
+<BaseLayout
+  title="Media & publications - Ariel Pérez"
+  description="Speaking engagements and published content by or about Ariel Pérez on adaptive leadership, organizational transformation, and engineering excellence"
+>
+  <Header client:load />
+
+  <div class="container mx-auto px-4 py-16">
+    <div class="mb-16 text-center">
+      <h1 class="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+        Media and publications
+      </h1>
+      <p class="mx-auto max-w-3xl text-xl text-gray-600">
+        Sharing insights on adaptive leadership, organizational transformation,
+        product, and tehcnology across various platforms and formats.
+      </p>
+    </div>
+
+    <MediaSection
+      title="All media and publications"
+      subtitle="A comprehensive collection of interviews, articles, podcasts, and speaking engagements"
+      media={media}
+      client:load
+    />
+  </div>
+
+  <Footer client:load />
+</BaseLayout>

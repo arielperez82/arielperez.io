@@ -1,0 +1,126 @@
+---
+import '@/styles/global.css'
+
+import { SEO } from 'astro-seo'
+
+import { SITE_TITLE } from '@/consts'
+
+export interface Props {
+  title: string
+  description: string
+  image?: string
+}
+
+const { title, description, image } = Astro.props
+
+const tinybirdHost = import.meta.env.PUBLIC_TINYBIRD_HOST
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <SEO
+      title={title}
+      description={description}
+      openGraph={{
+        basic: {
+          title,
+          type: 'website',
+          image: image || '/favicon/favicon-32x32.png'
+        },
+        optional: {
+          description,
+          siteName: SITE_TITLE
+        }
+      }}
+      twitter={{
+        creator: '@arielxperez',
+        card: 'summary_large_image'
+      }}
+      extend={{
+        link: [
+          { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+          {
+            rel: 'preconnect',
+            href: 'https://fonts.gstatic.com',
+            crossorigin: ''
+          },
+          {
+            rel: 'preconnect',
+            href: 'https://www.adaptivealchemist.com',
+            crossorigin: ''
+          },
+          {
+            rel: 'preconnect',
+            href: tinybirdHost,
+            crossorigin: ''
+          },
+          {
+            rel: 'stylesheet',
+            href: 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
+          },
+          // Apple Touch Icon
+          { rel: 'apple-touch-icon', href: '/favicon/icon-180x180.png' },
+          // Standard favicons
+          {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '16x16',
+            href: '/favicon/favicon-16x16.png'
+          },
+          {
+            rel: 'icon',
+            type: 'image/png',
+            sizes: '32x32',
+            href: '/favicon/favicon-32x32.png'
+          },
+          {
+            rel: 'icon',
+            type: 'image/svg+xml',
+            href: '/favicon/favicon.svg'
+          },
+          // Microsoft Tile
+          {
+            rel: 'msapplication-TileImage',
+            href: '/favicon/icon-512x512.png'
+          },
+          // Web App Manifest
+          { rel: 'manifest', href: '/site.webmanifest' }
+        ],
+        meta: [
+          { name: 'mobile-web-app-capable', content: 'yes' },
+          // Apple specific
+          { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
+          { name: 'apple-mobile-web-app-title', content: title },
+          // Microsoft specific
+          { name: 'msapplication-TileColor', content: '#18181b' },
+          { name: 'msapplication-config', content: '/browserconfig.xml' },
+          // Theme color for mobile browsers
+          { name: 'theme-color', content: '#18181b' },
+          {
+            name: 'theme-color',
+            content: '#ffffff',
+            media: '(prefers-color-scheme: light)'
+          },
+          {
+            name: 'theme-color',
+            content: '#18181b',
+            media: '(prefers-color-scheme: dark)'
+          }
+        ]
+      }}
+    />
+    <script src="/src/scripts/analytics/"></script>
+  </head>
+  <body class="bg-white font-sans text-gray-900">
+    <slot />
+  </body><script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Track initial page view
+      window.analytics.page()
+    })
+  </script>
+</html>
