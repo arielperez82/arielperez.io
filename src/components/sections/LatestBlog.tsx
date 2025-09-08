@@ -119,7 +119,7 @@ const LatestBlog: React.FC<LatestBlogProps> = ({
                     rel="noopener noreferrer"
                     className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
                   >
-                    Read more →
+                    Read more ↗
                   </a>
                 </div>
               </div>
