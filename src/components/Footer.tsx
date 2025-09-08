@@ -7,9 +7,9 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2">
             <h3 className="mb-4 text-xl font-bold">Ariel Pérez</h3>
             <p className="mb-4 text-gray-300">
-              Cross-functional systems specialist helping Series B-D CTOs
-              transform engineering velocity from constraint to competitive
-              advantage.
+              Cross-functional systems specialist helping Series A+ startups
+              transform product & engineering velocity from constraint to
+              competitive advantage.
             </p>
             <div className="space-y-2">
               <p className="text-sm text-gray-400">
