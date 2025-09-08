@@ -5,6 +5,6 @@ type: 'video'
 url: 'https://www.youtube.com/watch?v=AiaAXbDNPXE&t=2s'
 date: '2023-10-25'
 publication: 'LeadDev'
-image: 'media/fostering-culture-experimentation-your-engineering-teams-hero.jpg'
+image: '/media/fostering-culture-experimentation-your-engineering-teams-hero.jpg'
 feature: true
 ---

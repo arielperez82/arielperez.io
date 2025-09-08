@@ -5,5 +5,5 @@ type: 'article'
 url: 'https://www.tinybird.co/blog-posts/outgrowing-postgres-when-to-move-olap-workloads-off-postgres'
 date: '2025-02-07'
 publication: 'Tinybird Blog'
-image: 'media/tinybird-blog.png'
+image: '/media/tinybird-blog.png'
 ---

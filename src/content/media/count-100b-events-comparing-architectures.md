@@ -5,5 +5,5 @@ type: 'article'
 url: 'https://www.tinybird.co/blog-posts/how-to-count-100b-events-comparing-architectures'
 date: '2025-04-21'
 publication: 'Tinybird Blog'
-image: 'media/tinybird-blog.png'
+image: '/media/tinybird-blog.png'
 ---

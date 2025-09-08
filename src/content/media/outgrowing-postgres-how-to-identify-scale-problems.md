@@ -5,5 +5,5 @@ type: 'article'
 url: 'https://www.tinybird.co/blog-posts/outgrowing-postgres-how-to-identify-scale-problems'
 date: '2025-01-10'
 publication: 'Tinybird Blog'
-image: 'media/tinybird-blog.png'
+image: '/media/tinybird-blog.png'
 ---

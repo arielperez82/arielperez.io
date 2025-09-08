@@ -5,6 +5,6 @@ type: 'article'
 url: 'https://leaddev.com/career-development/stop-working-islands-engineers'
 date: '2023-11-22'
 publication: 'LeadDev'
-image: 'media/lead-dev-hero.png'
+image: '/media/lead-dev-hero.png'
 featured: true
 ---

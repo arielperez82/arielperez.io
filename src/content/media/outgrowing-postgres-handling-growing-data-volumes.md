@@ -5,5 +5,5 @@ type: 'article'
 url: 'https://www.tinybird.co/blog-posts/outgrowinghandling-growing-data-volumes'
 date: '2025-01-17'
 publication: 'Tinybird Blog'
-image: 'media/tinybird-blog.png'
+image: '/media/tinybird-blog.png'
 ---

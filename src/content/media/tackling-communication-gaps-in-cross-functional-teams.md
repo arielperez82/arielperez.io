@@ -5,7 +5,7 @@ type: 'video'
 url: 'https://youtu.be/jSlehW6WTSI'
 date: '2024-05-01'
 publication: 'groCTO Originals'
-image: 'media/tackling-communication-gaps-in-cross-functional-teams-hero.jpg'
+image: '/media/tackling-communication-gaps-in-cross-functional-teams-hero.jpg'
 featured: true
 additionalLinks:
   - platform: 'Substack'

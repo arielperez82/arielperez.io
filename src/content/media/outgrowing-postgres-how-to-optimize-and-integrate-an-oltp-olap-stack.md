@@ -5,5 +5,5 @@ type: 'article'
 url: 'https://www.tinybird.co/blog-posts/outgrowing-postgres-how-to-optimize-and-integrate-an-oltp-olap-stack'
 date: '2025-02-27'
 publication: 'Tinybird Blog'
-image: 'media/tinybird-blog.png'
+image: '/media/tinybird-blog.png'
 ---
