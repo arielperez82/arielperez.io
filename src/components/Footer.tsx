@@ -39,15 +39,10 @@ const Footer = () => {
             <ul className="space-y-2 text-sm text-gray-300">
               <li>
                 <a
-                  href="https://adaptivealchemist.com?utm_source=arielperez-io&utm_medium=referral"
+                  href="https://www.adaptivealchemist.com/?utm_source=arielperez-io&utm_medium=referral"
                   className="hover:text-white"
                 >
                   Blog
-                </a>
-              </li>
-              <li>
-                <a href="/contact" className="hover:text-white">
-                  Contact
                 </a>
               </li>
             </ul>
@@ -78,7 +73,7 @@ const Footer = () => {
               Github
             </a>
             <a
-              href="https://adaptivealchemist.com?utm_source=arielperez-io&utm_medium=referral"
+              href="https://www.adaptivealchemist.com/?utm_source=arielperez-io&utm_medium=referral"
               className="text-gray-400 hover:text-white"
             >
               Blog
