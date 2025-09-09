@@ -42,6 +42,7 @@ const CTA: React.FC<CTAProps> = ({
       <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
         <h2
           className={`text-3xl font-bold lg:text-4xl ${textClasses[background]} mb-6`}
+          id="cta"
         >
           {title}
         </h2>

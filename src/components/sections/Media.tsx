@@ -71,7 +71,10 @@ const Media: React.FC<MediaProps> = ({
     <section className="bg-white py-16 lg:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mb-16 text-center">
-          <h2 className="mb-6 text-3xl font-bold text-gray-900 lg:text-4xl">
+          <h2
+            className="mb-6 text-3xl font-bold text-gray-900 lg:text-4xl"
+            id="media"
+          >
             {title}
           </h2>
           <p className="mx-auto max-w-3xl text-xl text-gray-600">{subtitle}</p>
