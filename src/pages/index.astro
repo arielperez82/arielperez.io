@@ -46,7 +46,7 @@ const media = selectedItems.map((item) => ({
   additionalLinks: item.data.additionalLinks
 }))
 
-// Your expertise areas - merged from current site
+// Your expertise areas
 const expertise = [
   {
     title: 'Adaptive Organizations',
@@ -56,11 +56,11 @@ const expertise = [
       'I design organizations that bend without breaking. Most companies create silos that slow everything down. I build fluid systems where teams form around problems, not departments, and where coordination happens through shared understanding rather than endless meetings.'
   },
   {
-    title: 'Engineering Excellence',
+    title: 'Product & Engineering Excellence',
     description:
-      'Engineering speed problems are usually clarity problems. When teams know exactly what success looks like, they stop debating and start building.',
+      'Product & engineering speed problems are usually clarity problems. When teams know exactly what success looks like, they stop debating and start building.',
     expandedDescription:
-      "I build engineering teams that ship fast because they think fast. This isn't about better developers or shinier tools. It's about systems that make the right decisions obvious and the wrong ones impossible."
+      "I build teams that ship fast because they think fast. This isn't about better developers, product managers, or shinier tools. It's about systems that make the right decisions obvious and the wrong ones impossible."
   },
   {
     title: 'Strategic Product & Engineering Leadership',
@@ -82,21 +82,11 @@ const expertise = [
 const experience: ExperienceItem[] = [
   {
     type: 'single',
-    role: 'Head of Product & Technology',
+    role: 'Head of Product & Technology, Field CTO',
     company: 'Tinybird',
-    period: 'Nov 2024 - Present',
+    period: '2024 - Present',
     description:
-      'Leading product and technology organization building enterprise-grade data infrastructure for real-time analytics at scale. Transformed engineering culture through adaptive cross-functional squads, achieving 6x product releases and 10x deployment frequency.',
-    logo: '/logos/tinybird-logo.jpg',
-    logoAlt: 'Tinybird logo'
-  },
-  {
-    type: 'single',
-    role: 'Field CTO',
-    company: 'Tinybird',
-    period: 'Jul 2024 - Present',
-    description:
-      'Serving as technical bridge between company and market, working with global customers and prospects. Led DevRel and Sales Engineering teams, tripling technical content production while significantly increasing win rates and shortening sales cycles by 30%.',
+      ' AI-first development requires fundamentally different team structures and approaches — stability comes from cross-team operations, sustainable growth requires intelligent cost management and optimization',
     logo: '/logos/tinybird-logo.jpg',
     logoAlt: 'Tinybird logo'
   },
@@ -104,49 +94,29 @@ const experience: ExperienceItem[] = [
     type: 'single',
     role: 'VP of Engineering - Measurement & Learning',
     company: 'Split Software (acquired by Harness)',
-    period: 'Jun 2022 - Jun 2024',
+    period: '2022 - 2024',
     description:
-      'Led high-performing engineering team building real-time data pipelines consuming 100+ GB daily. Cut lead time for data-intensive features from 3 months to 2 weeks, 6x product releases, and saved $1.2M annually through infrastructure re-platforming.',
+      'Transformed product & engineering culture achieving 6x product releases and 10x deployment frequency while saving $1.2M annually',
     logo: '/logos/split-logo.jpg',
     logoAlt: 'Split Software logo'
   },
   {
     type: 'single',
-    role: 'Head of Digital and Communications Platforms',
+    role: 'Head of Digital and Communications Platforms, Head of Marketing Technology',
     company: 'JP Morgan Chase - Chase International Consumer Bank (Chase UK)',
-    period: 'Jan 2022 - Jun 2022',
+    period: '2019 - 2022',
     description:
-      "Led strategy and development of native mobile/web platforms and cross-channel communications for Chase UK. Architected platform enabling bi-weekly releases, resulting in 2022's top 'breakout' financial app and 6th most downloaded UK financial app.",
+      'Built mobile-first, cloud-native digital banking from scratch while learning regulation drives innovation',
     logo: '/logos/chase-uk-logo.png',
     logoAlt: 'Chase UK logo - white background blue octagon'
   },
   {
     type: 'single',
-    role: 'Head of Marketing Technology',
-    company: 'JP Morgan Chase - Chase International Consumer Bank (Chase UK)',
-    period: 'May 2019 - Dec 2021',
-    description:
-      "Delivered customer waitlist system enabling rapid onboarding of tens of thousands of users (188% above target). Migrated chase.co.uk to Jamstack architecture, built feature flagging framework, and launched JPMC's first Customer Data Platform.",
-    logo: '/logos/chase-uk-logo.png',
-    logoAlt: 'Chase UK logo - white background blue octagon'
-  },
-  {
-    type: 'single',
-    role: 'Head of Product & Engineering - Dark Canary',
+    role: 'Head of Product & Engineering - Dark Canary, Head of Core Web Engineering and Solution Architecture',
     company: 'JP Morgan Chase - Chase Digital (Chase Online/Chase Mobile)',
-    period: 'Sep 2017 - May 2019',
+    period: '2017 - 2019',
     description:
-      "Conceived, built, and launched JPMC's first full-stack feature-flagging platform for Chase's 65MM+ active digital users. Enabled concurrent progressive release of over 1,200 features across Chase Online and Mobile apps.",
-    logo: '/logos/chase-logo.jpg',
-    logoAlt: 'Chase logo - blue background white octagon'
-  },
-  {
-    type: 'single',
-    role: 'Head of Core Web Engineering and Solution Architecture',
-    company: 'JP Morgan Chase - Chase Digital (Chase Online/Chase Mobile)',
-    period: 'Apr 2017 - Dec 2018',
-    description:
-      'Led expert teams for shared components and solution architecture for Chase Online. Improved average page load time by 4.25 seconds, introduced new interaction patterns, and cut computational complexity in half despite 30% codebase growth.',
+      "Built JPMC's first feature-flagging platform enabling 1,200+ concurrent releases to 65M+ users while optimizing core systems for 4.25-second performance gains.",
     logo: '/logos/chase-logo.jpg',
     logoAlt: 'Chase logo - blue background white octagon'
   },
@@ -156,7 +126,7 @@ const experience: ExperienceItem[] = [
     company: 'Various Companies',
     period: '2003 - 2017',
     description:
-      'Entrepreneurial and technical leadership roles including MSCLVR (Co-Founder/CTO), Try the World (CTO), Birchbox (Senior Engineer), JP Morgan Wealth Management (Engineering Lead), and Diving Tank Studios (Web Developer). Built and scaled core services, modernized trading platforms, and delivered client solutions.',
+      'MSCLVR (CTO/Co-founder), Try the World (CTO), Birchbox (Senior Engineer), JP Morgan Wealth Management (Engineering Lead) - Customer obsession beats technical perfection',
     logos: [
       {
         logo: '/logos/msclvr-logo.jpg',
@@ -188,22 +158,29 @@ const experience: ExperienceItem[] = [
   }
 ]
 
-// CV download links
-const cvDownloads = [
+// Industry domains
+const domains = [
+  'Financial Services',
+  'Developer Tools',
+  'E-commerce',
+  'AI/ML Platforms',
+  'FinTech',
+  'Analytics',
+  'Startups through Enterprise'
+]
+
+// Experience CTAs
+const experienceCTAs = [
+  /*{
+    variant: 'primary' as const,
+    url: '/experience',
+    label: 'Read my full story →'
+  },*/
   {
-    format: 'PDF',
-    url: '/cv/Ariel_Perez_Resume.pdf',
-    label: 'Download CV (PDF)'
-  },
-  {
-    format: 'DOCX',
-    url: '/cv/Ariel_Perez_Resume.docx',
-    label: 'Download CV (DOCX)'
-  },
-  {
-    format: 'Markdown',
-    url: '/cv/Ariel_Perez_Resume.md',
-    label: 'Download CV (MD)'
+    variant: 'primary' as const, //'secondary' as const,
+    url: '/cv/Ariel_Perez_Resume_2025.pdf',
+    newTab: true,
+    label: 'Download CV'
   }
 ]
 ---
@@ -236,9 +213,10 @@ const cvDownloads = [
 
   <Journey
     title="Experience"
-    subtitle="Two decades of discovering that the biggest bottlenecks in technology organizations aren't technical but rather organizational"
+    subtitle="20+ years learning that slow product and engineering teams aren't slow because of bad developers or old technology. They're slow because their systems make collaboration hard and individual heroics necessary. When you redesign the human systems around how people connect, communicate, and make decisions together, the technical problems solve themselves."
     experience={experience}
-    cvDownloads={cvDownloads}
+    domains={domains}
+    ctas={experienceCTAs}
     client:load
   />
 
