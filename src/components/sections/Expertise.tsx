@@ -5,9 +5,6 @@ interface ExpertiseDetail {
   title: string
   description: string
   expandedDescription?: string
-  technicalSkills?: string[]
-  services?: string[]
-  industries?: string[]
 }
 
 interface ExpertiseProps {
@@ -48,7 +45,7 @@ const Expertise: React.FC<ExpertiseProps> = ({
           )}
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-2">
           {expertise.map((item, index) => (
             <div
               key={index}
@@ -106,65 +103,11 @@ const Expertise: React.FC<ExpertiseProps> = ({
                     {item.expandedDescription && (
                       <div>
                         <h4 className="text-primary-600 mb-2 text-sm font-semibold tracking-wide uppercase">
-                          Client Impact
+                          How I do it
                         </h4>
                         <p className="leading-relaxed text-gray-700">
                           {item.expandedDescription}
                         </p>
-                      </div>
-                    )}
-                    {item.technicalSkills && (
-                      <div>
-                        <h4 className="text-primary-600 mb-2 text-sm font-semibold tracking-wide uppercase">
-                          Technical Foundation
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {item.technicalSkills.map((skill, skillIndex) => (
-                            <span
-                              key={skillIndex}
-                              className="bg-primary-100 text-primary-700 rounded-full px-2 py-1 text-xs"
-                            >
-                              {skill}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-
-                    {item.services && (
-                      <div>
-                        <h4 className="text-primary-600 mb-2 text-sm font-semibold tracking-wide uppercase">
-                          Service Offerings
-                        </h4>
-                        <ul className="space-y-1">
-                          {item.services.map((service, serviceIndex) => (
-                            <li
-                              key={serviceIndex}
-                              className="flex items-start gap-2 text-sm text-gray-600"
-                            >
-                              <span className="text-primary-600 mt-1">•</span>
-                              {service}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-
-                    {item.industries && (
-                      <div>
-                        <h4 className="text-primary-600 mb-2 text-sm font-semibold tracking-wide uppercase">
-                          Industry Applications
-                        </h4>
-                        <div className="flex flex-wrap gap-2">
-                          {item.industries.map((industry, industryIndex) => (
-                            <span
-                              key={industryIndex}
-                              className="rounded-full bg-gray-200 px-2 py-1 text-xs text-gray-700"
-                            >
-                              {industry}
-                            </span>
-                          ))}
-                        </div>
                       </div>
                     )}
                   </div>
