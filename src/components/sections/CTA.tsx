@@ -23,7 +23,7 @@ const CTA: React.FC<CTAProps> = ({
   background = 'gray'
 }) => {
   const bgClasses = {
-    gray: 'bg-gray-50',
+    gray: 'bg-gray-100',
     primary: 'bg-primary-600'
   }
 
@@ -54,7 +54,7 @@ const CTA: React.FC<CTAProps> = ({
             className={`rounded-md px-8 py-3 text-lg font-medium transition-colors ${
               background === 'gray'
                 ? 'bg-primary-600 hover:bg-primary-700 text-white'
-                : 'text-primary-600 bg-white hover:bg-gray-50'
+                : 'text-primary-600 bg-gray-100 hover:bg-white'
             }`}
           >
             {primaryButton.text}

@@ -180,7 +180,7 @@ const experienceCTAs = [
     variant: 'primary' as const, //'secondary' as const,
     url: '/cv/Ariel_Perez_Resume_2025.pdf',
     newTab: true,
-    label: 'Download CV'
+    label: 'Download Resume'
   }
 ]
 ---
@@ -193,12 +193,14 @@ const experienceCTAs = [
     title="Product & Engineering Leader | Systems Thinker"
     description="I build high-performing, adaptive, deeply collaborative product & engineering organizations that deliver exceptional value at high velocity. With 20+ years across startups, scale-ups, and Fortune 50s, I bridge product and technology to drive growth—accelerating release cadence, cutting lead times, creating products that matter, and saving millions in operational costs. I lead through systems thinking, cross-functional collaboration, and AI-enabled innovation, building adaptive teams that scale and thrive together."
     primaryCTA={{
-      text: 'Read my writing ↗',
-      href: 'https://www.adaptivealchemist.com/?utm_source=arielperez-io&utm_medium=referral'
+      text: 'Read my writing',
+      href: 'https://www.adaptivealchemist.com/?utm_source=arielperez-io&utm_medium=referral',
+      newWindow: true
     }}
     secondaryCTA={{
       text: 'Download resume',
-      href: '/cv/Ariel_Perez_Resume.pdf'
+      href: '/cv/Ariel_Perez_Resume_2025.pdf',
+      newWindow: true
     }}
     profileImage="/profile.jpg"
     client:load
@@ -247,9 +249,9 @@ const experienceCTAs = [
         <p class="mb-8 text-xl text-gray-600">
           I love collaborating with organizations and individuals who are
           passionate about building adaptive, high-performing teams and systems.
-          Whether through fractional CTO/CPTO engagements, speaking, or writing
-          collaborations, I'm always excited to share insights and work together
-          on challenging problems.
+          Whether through fractional/interim CTO/CPTO engagements, speaking, or
+          writing collaborations, I'm always excited to share insights and work
+          together on challenging problems.
         </p>
       </div>
 
@@ -259,40 +261,24 @@ const experienceCTAs = [
         >
           <div class="flex-1">
             <h3 class="mb-4 text-xl font-semibold text-gray-900">
-              Consulting services
+              Advisory & fractional leadership
             </h3>
             <p class="mb-4 text-gray-600">
-              Transform your organization through adaptive leadership,
-              cross-functional velocity, and strategic product & technology
-              alignment. I work with companies to build systems that adapt
-              faster than market changes.
+              I work with companies to build systems that adapt faster than
+              market changes by transforming your organization through adaptive
+              leadership, cross-functional velocity, and strategic product &
+              technology alignment.
+            </p>
+            <p class="mb-4 text-gray-600">
+              I don't just diagnose problems. I get hands-on to fix them,
+              whether reviewing code, redesigning team structures, or sitting in
+              strategy and planning meetings.
             </p>
             <p class="mb-4 text-gray-600">
               <strong>Important Note:</strong> I deliver my services exclusively
-              through Adaptive Alchemy, LLC, a US-based consultancy.
+              through Adaptive Alchemy, LLC, a US-based consultancy. I focus on delivering
+              exceptional value while Adaptive Alchemy handles business operations.
             </p>
-            <ul class="mb-6 space-y-2 text-gray-600">
-              <li>
-                • Contact Adaptive Alchemy, LLC for service inquiries and
-                consultations
-              </li>
-              <li>
-                • Adaptive Alchemy coordinates all consulting engagements,
-                contracting, and logistics
-              </li>
-              <li>
-                • I focus on delivering exceptional value while Adaptive Alchemy
-                handles business operations
-              </li>
-            </ul>
-          </div>
-          <div class="mt-auto text-center">
-            <a
-              href="mailto:inquiries@adaptivealchemy.io"
-              class="bg-primary-600 hover:bg-primary-700 inline-block rounded-md px-6 py-3 font-medium text-white transition-colors"
-            >
-              Contact Adaptive Alchemy
-            </a>
           </div>
         </div>
 
@@ -309,20 +295,13 @@ const experienceCTAs = [
               and human systems. Let's explore opportunities to collaborate,
               share knowledge, and push the boundaries of what's possible.
             </p>
-            <ul class="mb-6 space-y-2 text-gray-600">
+            <p class="mb-4 font-bold text-gray-600">Please reach out for:</p>
+            <ul class="mb-6 list-inside list-disc space-y-2 text-gray-600">
               <li>Speaking engagements and media appearances</li>
               <li>Writing collaborations and guest posts</li>
               <li>Direct professional networking</li>
               <li>Full-time role opportunities (for compelling fits)</li>
             </ul>
-          </div>
-          <div class="mt-auto text-center">
-            <a
-              href="mailto:ariel@arielperez.io"
-              class="border-primary-600 text-primary-600 hover:bg-primary-50 inline-block rounded-md border px-6 py-3 font-medium transition-colors"
-            >
-              Contact me directly
-            </a>
           </div>
         </div>
       </div>
@@ -330,15 +309,16 @@ const experienceCTAs = [
   </section>
 
   <CTA
-    title="Let's connect"
-    description="I deliver consulting services exclusively through Adaptive Alchemy, LLC. For speaking, writing collaborations, or direct contact, reach out to me personally."
+    title="Ready to explore what's possible?"
+    description=`The best conversations start with curiosity about what could be different. 
+      Whether your team is stuck in coordination overhead, your product and engineering groups aren't aligned, or you're wondering if there's a better way to organize for growth, I'd love to explore what might be possible.`
     primaryButton={{
-      text: 'Consulting Services',
-      href: 'mailto:inquiries@adaptivealchemy.io'
+      text: "Let's start a conversation",
+      href: 'mailto:ariel@arielperez.io'
     }}
     secondaryButton={{
-      text: 'Speaking & Collaboration',
-      href: 'mailto:ariel@arielperez.io'
+      text: 'Learn about my approach',
+      href: '/about'
     }}
     background="primary"
     client:load

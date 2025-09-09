@@ -42,4 +42,11 @@
     -webkit-line-clamp: 3;
     overflow: hidden;
   }
+
+  /* External link indicator for new tab links */
+  a[target='_blank']::after {
+    content: ' ↗';
+    font-size: 0.875em;
+    opacity: 0.7;
+  }
 }

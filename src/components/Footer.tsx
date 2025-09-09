@@ -13,7 +13,7 @@ const Footer = () => {
             </p>
             <div className="space-y-2">
               <p className="text-sm text-gray-400">
-                Services:{' '}
+                Advisory & fractional leadership:{' '}
                 <a
                   href="mailto:inquiries@adaptivealchemy.io"
                   className="hover:text-white"
@@ -22,7 +22,7 @@ const Footer = () => {
                 </a>
               </p>
               <p className="text-sm text-gray-400">
-                Speaking:{' '}
+                Speaking & collaboration:{' '}
                 <a
                   href="mailto:ariel@arielperez.io"
                   className="hover:text-white"
@@ -41,8 +41,10 @@ const Footer = () => {
                 <a
                   href="https://www.adaptivealchemist.com/?utm_source=arielperez-io&utm_medium=referral"
                   className="hover:text-white"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
-                  Blog
+                  The Adaptive Alchemist
                 </a>
               </li>
             </ul>
@@ -57,24 +59,32 @@ const Footer = () => {
             <a
               href="https://linkedin.com/in/arielxperez"
               className="text-gray-400 hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               LinkedIn
             </a>
             <a
               href="https://x.com/arielxperez"
               className="text-gray-400 hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Twitter
             </a>
             <a
               href="https://github.com/arielperez82"
               className="text-gray-400 hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Github
             </a>
             <a
               href="https://www.adaptivealchemist.com/?utm_source=arielperez-io&utm_medium=referral"
               className="text-gray-400 hover:text-white"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Blog
             </a>

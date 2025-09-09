@@ -119,7 +119,7 @@ const LatestBlog: React.FC<LatestBlogProps> = ({
                     rel="noopener noreferrer"
                     className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
                   >
-                    Read more ↗
+                    Read more
                   </a>
                 </div>
               </div>
@@ -134,7 +134,7 @@ const LatestBlog: React.FC<LatestBlogProps> = ({
             rel="noopener noreferrer"
             className="bg-primary-600 hover:bg-primary-700 inline-flex items-center gap-2 rounded-md px-8 py-3 text-lg font-medium text-white transition-colors"
           >
-            Read All Posts ↗
+            Read all posts
           </a>
         </div>
       </div>

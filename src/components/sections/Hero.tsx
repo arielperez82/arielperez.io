@@ -8,10 +8,12 @@ interface HeroProps {
   primaryCTA: {
     text: string
     href: string
+    newWindow?: boolean
   }
   secondaryCTA?: {
     text: string
     href: string
+    newWindow?: boolean
   }
   profileImage: string
 }
@@ -43,6 +45,8 @@ const Hero: React.FC<HeroProps> = ({
               <a
                 href={primaryCTA.href}
                 className="bg-primary-600 hover:bg-primary-700 rounded-md px-8 py-3 text-lg font-medium text-white transition-colors"
+                target={primaryCTA.newWindow ? '_blank' : '_self'}
+                rel={primaryCTA.newWindow ? 'noopener noreferrer' : undefined}
               >
                 {primaryCTA.text}
               </a>
@@ -50,6 +54,10 @@ const Hero: React.FC<HeroProps> = ({
                 <a
                   href={secondaryCTA.href}
                   className="rounded-md border border-gray-300 px-8 py-3 text-lg font-medium text-gray-700 transition-colors hover:bg-gray-50"
+                  target={secondaryCTA.newWindow ? '_blank' : '_self'}
+                  rel={
+                    secondaryCTA.newWindow ? 'noopener noreferrer' : undefined
+                  }
                 >
                   {secondaryCTA.text}
                 </a>
