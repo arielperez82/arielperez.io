@@ -87,7 +87,7 @@ const Media: React.FC<MediaProps> = ({
               className="flex h-full flex-col overflow-hidden rounded-lg bg-gray-50 transition-shadow hover:shadow-lg"
             >
               {/* Mini-hero image */}
-              <div className="relative h-64 bg-gradient-to-br from-gray-100 to-gray-200">
+              <div className="relative aspect-[4/3] h-64 bg-gradient-to-br from-gray-100 to-gray-200">
                 {item.image ? (
                   <OptimizedImage
                     src={item.image}
