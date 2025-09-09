@@ -1,12 +1,35 @@
-import { useState } from 'react'
+import { useEffect,useState } from 'react'
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [currentPath, setCurrentPath] = useState('/')
 
   const navigation = [
     { name: 'Media', href: '/media' },
     { name: 'About', href: '/about' }
   ]
+
+  useEffect(() => {
+    // Set initial path
+    setCurrentPath(window.location.pathname)
+
+    // Listen for navigation changes (for SPA-like behavior)
+    const handlePopState = () => {
+      setCurrentPath(window.location.pathname)
+    }
+
+    window.addEventListener('popstate', handlePopState)
+
+    return () => {
+      window.removeEventListener('popstate', handlePopState)
+    }
+  }, [])
+
+  const isActive = (href: string) => {
+    if (href === '/' && currentPath === '/') return true
+    if (href !== '/' && currentPath.startsWith(href)) return true
+    return false
+  }
 
   return (
     <header className="bg-white shadow-sm">
@@ -24,7 +47,11 @@ const Header = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="px-3 py-2 text-sm font-semibold text-gray-600 transition-colors hover:text-gray-900"
+                className={`px-3 py-2 text-sm font-semibold transition-colors ${
+                  isActive(item.href)
+                    ? 'text-gray-900'
+                    : 'text-gray-600 hover:text-gray-900'
+                }`}
               >
                 {item.name}
               </a>
@@ -64,7 +91,11 @@ const Header = () => {
                 <a
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-xl font-semibold text-gray-600 hover:text-gray-900"
+                  className={`block px-3 py-2 text-xl font-semibold transition-colors ${
+                    isActive(item.href)
+                      ? 'text-gray-900'
+                      : 'text-gray-600 hover:text-gray-900'
+                  }`}
                 >
                   {item.name}
                 </a>
