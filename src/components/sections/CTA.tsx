@@ -57,6 +57,8 @@ const CTA: React.FC<CTAProps> = ({
                 ? 'bg-primary-600 hover:bg-primary-700 text-white'
                 : 'text-primary-600 bg-gray-100 hover:bg-white'
             }`}
+            data-track
+            data-track-prop-placement="cta-primary-button"
           >
             {primaryButton.text}
           </a>
@@ -68,6 +70,8 @@ const CTA: React.FC<CTAProps> = ({
                   ? 'border border-gray-300 text-gray-700 hover:bg-gray-100'
                   : 'hover:bg-primary-700 border border-white text-white'
               }`}
+              data-track
+              data-track-prop-placement="cta-secondary-button"
             >
               {secondaryButton.text}
             </a>

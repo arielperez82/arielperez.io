@@ -28,3 +28,7 @@ const analytics = Analytics({
 window.analytics = analytics
 
 export default analytics
+
+// Export tracking modules
+export { clickTracker } from './click-tracker'
+export { eventPropertyFactory } from './event-property-factory'

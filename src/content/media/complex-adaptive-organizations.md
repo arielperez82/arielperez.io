@@ -5,7 +5,7 @@ type: 'video'
 url: 'https://www.youtube.com/watch?v=ghzOSV4waIo'
 date: '2024-12-17'
 publication: 'The Mob Mentality Show'
-image: '/media/complex-adaptive-organizations-hero.jpg'
+image: '/assets/media/complex-adaptive-organizations-hero.jpg'
 featured: true
 additionalLinks:
   - platform: 'Apple Podcasts'

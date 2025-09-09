@@ -5,5 +5,5 @@ type: 'article'
 url: 'https://www.tinybird.co/blog-posts/building-real-time-live-sports-viewer-analytics-with-tinybird-and-aws'
 date: '2024-12-03'
 publication: 'Tinybird Blog'
-image: '/media/tinybird-blog.png'
+image: '/assets/media/tinybird-blog.png'
 ---

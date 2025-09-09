@@ -121,6 +121,8 @@ const LatestBlog: React.FC<LatestBlogProps> = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                    data-track
+                    data-track-prop-placement="latest-blog"
                   >
                     Read more
                   </a>
@@ -136,6 +138,8 @@ const LatestBlog: React.FC<LatestBlogProps> = ({
             target="_blank"
             rel="noopener noreferrer"
             className="bg-primary-600 hover:bg-primary-700 inline-flex items-center gap-2 rounded-md px-8 py-3 text-lg font-medium text-white transition-colors"
+            data-track
+            data-track-prop-placement="latest-blog"
           >
             Read all posts
           </a>

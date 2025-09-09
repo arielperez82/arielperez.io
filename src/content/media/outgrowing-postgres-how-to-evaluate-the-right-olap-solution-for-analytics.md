@@ -5,5 +5,5 @@ type: 'article'
 url: 'https://www.tinybird.co/blog-posts/outgrowing-postgres-how-to-evaluate-the-right-olap-solution-for-analytics'
 date: '2025-02-17'
 publication: 'Tinybird Blog'
-image: '/media/tinybird-blog.png'
+image: '/assets/media/tinybird-blog.png'
 ---

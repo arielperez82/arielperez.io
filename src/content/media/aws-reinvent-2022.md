@@ -5,6 +5,6 @@ type: 'video'
 url: 'https://www.youtube.com/watch?v=O6_LwhHTHzY&t=2s&pp=ygUPYXJpZWwgcGVyZXogQVdT'
 date: '2022-12-01'
 publication: 'AWS re:Invent'
-image: '/media/aws-reinvent-2022-drive-positive-impact-with-feature-flags-and-data-hero.png'
+image: '/assets/media/aws-reinvent-2022-drive-positive-impact-with-feature-flags-and-data-hero.png'
 featured: true
 ---

@@ -1,6 +1,8 @@
 // src/components/sections/Hero.tsx
 import React from 'react'
 
+import OptimizedImage from '@/components/OptimizedImage'
+
 interface HeroProps {
   name: string
   title: string
@@ -47,6 +49,8 @@ const Hero: React.FC<HeroProps> = ({
                 className="bg-primary-600 hover:bg-primary-700 rounded-md px-8 py-3 text-lg font-medium text-white transition-colors"
                 target={primaryCTA.newWindow ? '_blank' : '_self'}
                 rel={primaryCTA.newWindow ? 'noopener noreferrer' : undefined}
+                data-track
+                data-track-prop-placement="hero-primary-cta"
               >
                 {primaryCTA.text}
               </a>
@@ -58,6 +62,8 @@ const Hero: React.FC<HeroProps> = ({
                   rel={
                     secondaryCTA.newWindow ? 'noopener noreferrer' : undefined
                   }
+                  data-track
+                  data-track-prop-placement="hero-secondary-cta"
                 >
                   {secondaryCTA.text}
                 </a>
@@ -68,7 +74,7 @@ const Hero: React.FC<HeroProps> = ({
           {/* Profile Image */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
-              <img
+              <OptimizedImage
                 src={profileImage}
                 alt={`${name} - ${title}`}
                 className="h-80 w-80 rounded-full border-4 border-white object-cover shadow-2xl lg:h-96 lg:w-96"

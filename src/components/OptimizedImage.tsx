@@ -1,9 +1,9 @@
 import type { ImageMetadata } from 'astro'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Get all optimized images
 const ALL_IMAGES = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/assets/*.{jpeg,jpg,png,gif}'
+  '/src/{media,assets}/**/*.{jpeg,jpg,png,gif}'
 )
 
 interface OptimizedImageProps
@@ -28,12 +28,8 @@ const resolveImage = async (
       }
       const image = await ALL_IMAGES[resolvedImagePath]()
       return image.default
-    } else if (imagePath.startsWith('/')) {
-      // For absolute paths, construct the full URL
-      const baseUrl = import.meta.env.DEV
-        ? 'http://localhost:4321'
-        : import.meta.env.SITE
-      return new URL(imagePath, baseUrl).toString()
+    } else if (imagePath.startsWith('/') && import.meta.env.SITE) {
+      return new URL(imagePath, import.meta.env.SITE).toString()
     }
   } catch (error) {
     console.error(`Error processing imagePath: ${imagePath}`, error)
@@ -41,45 +37,72 @@ const resolveImage = async (
   return imagePath
 }
 
-const OptimizedImage = async ({
+export default function OptimizedImage({
   src,
   alt,
   width,
   height,
   ...rest
-}: OptimizedImageProps): Promise<React.JSX.Element> => {
-  const resolvedImage = typeof src === 'string' ? await resolveImage(src) : src
+}: OptimizedImageProps) {
+  const [resolvedImage, setResolvedImage] = useState<ImageMetadata | string>(
+    src
+  )
+  const [isLoading, setIsLoading] = useState(true)
 
-  const commonProps = {
-    ...rest
+  useEffect(() => {
+    const loadImage = async () => {
+      if (typeof src === 'string') {
+        setIsLoading(true)
+        try {
+          const resolved = await resolveImage(src)
+          setResolvedImage(resolved)
+        } catch (error) {
+          console.error('Failed to resolve image:', error)
+          setResolvedImage(src)
+        } finally {
+          setIsLoading(false)
+        }
+      } else {
+        setResolvedImage(src)
+        setIsLoading(false)
+      }
+    }
+
+    loadImage()
+  }, [src])
+
+  if (isLoading) {
+    return (
+      <div
+        className="animate-pulse bg-gray-200"
+        style={{
+          width: width || 800,
+          height: height || 600
+        }}
+        {...rest}
+      />
+    )
   }
 
   if (typeof resolvedImage === 'string') {
     return (
       <img
-        src={resolvedImage}
+        src={src as string}
+        alt={alt}
         width={width || 800}
         height={height || 600}
-        alt={alt}
-        {...commonProps}
+        {...rest}
       />
     )
   }
 
-  // For ImageMetadata objects, we need to handle them differently
-  // This would typically involve using a library like next/image or similar
-  // For now, we'll fall back to a regular img tag
   return (
     <img
-      src={
-        typeof resolvedImage === 'string' ? resolvedImage : resolvedImage.src
-      }
+      src={resolvedImage.src}
       alt={alt}
-      width={width || resolvedImage.width}
-      height={height || resolvedImage.height}
-      {...commonProps}
+      width={resolvedImage.width || width}
+      height={resolvedImage.height || height}
+      {...rest}
     />
   )
 }
-
-export default OptimizedImage

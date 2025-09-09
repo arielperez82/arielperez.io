@@ -17,6 +17,8 @@ const Footer = () => {
                 <a
                   href="mailto:inquiries@adaptivealchemy.io"
                   className="hover:text-white"
+                  data-track
+                  data-track-prop-placement="footer"
                 >
                   inquiries@adaptivealchemy.io
                 </a>
@@ -26,6 +28,8 @@ const Footer = () => {
                 <a
                   href="mailto:ariel@arielperez.io"
                   className="hover:text-white"
+                  data-track
+                  data-track-prop-placement="footer"
                 >
                   ariel@arielperez.io
                 </a>
@@ -43,6 +47,8 @@ const Footer = () => {
                   className="hover:text-white"
                   target="_blank"
                   rel="noopener noreferrer"
+                  data-track
+                  data-trackprop-placement="footer-resources"
                 >
                   The Adaptive Alchemist
                 </a>
@@ -61,14 +67,16 @@ const Footer = () => {
               className="text-gray-400 hover:text-white"
               target="_blank"
               rel="noopener noreferrer"
+              data-track
             >
               LinkedIn
             </a>
             <a
-              href="https://x.com/arielxperez"
+              href="https://twitter.com/arielxperez"
               className="text-gray-400 hover:text-white"
               target="_blank"
               rel="noopener noreferrer"
+              data-track
             >
               Twitter
             </a>
@@ -77,6 +85,7 @@ const Footer = () => {
               className="text-gray-400 hover:text-white"
               target="_blank"
               rel="noopener noreferrer"
+              data-track
             >
               Github
             </a>
@@ -85,6 +94,7 @@ const Footer = () => {
               className="text-gray-400 hover:text-white"
               target="_blank"
               rel="noopener noreferrer"
+              data-track
             >
               Blog
             </a>

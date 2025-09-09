@@ -5,6 +5,6 @@ type: 'article'
 url: 'https://www.tinybird.co/blog-posts/outgrowing-postgres-how-to-run-olap-workloads-on-postgres'
 date: '2025-01-31'
 publication: 'Tinybird Blog'
-image: '/media/tinybird-blog.png'
+image: '/assets/media/tinybird-blog.png'
 featured: true
 ---

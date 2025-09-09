@@ -5,7 +5,7 @@ type: 'video'
 url: 'https://www.youtube.com/watch?v=gl1lBcO7EEU'
 date: '2025-01-23'
 publication: 'Beyond the Code'
-image: '/media/unlocking-engineering-productivity-hero.jpg'
+image: '/assets/media/unlocking-engineering-productivity-hero.jpg'
 featured: true
 additionalLinks:
   - platform: 'Medium'

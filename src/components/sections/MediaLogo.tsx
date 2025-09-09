@@ -38,7 +38,7 @@ export default function MediaLogo({
 
   return (
     <OptimizedImage
-      src={`/logos/${logoName}`}
+      src={`/assets/logos/${logoName}`}
       alt={`${platform} logo`}
       className={twMerge('h-6 w-auto object-contain', className)}
     />

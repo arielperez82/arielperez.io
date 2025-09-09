@@ -137,6 +137,7 @@ const Media: React.FC<MediaProps> = ({
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                      data-track
                     >
                       {getActionText(item.type)}
                     </a>
@@ -154,6 +155,7 @@ const Media: React.FC<MediaProps> = ({
                             href={`${link.url}?utm_source=arielperez-io&utm_medium=referral`}
                             target="_blank"
                             rel="noopener noreferrer"
+                            data-track
                             className="text-primary-600 hover:text-primary-700 hover:border-primary-300 inline-flex items-center gap-2 rounded border border-gray-200 bg-white px-2 py-1 text-xs transition-colors"
                           >
                             <MediaLogo platform={link.platform} />

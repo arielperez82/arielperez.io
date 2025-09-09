@@ -5,5 +5,5 @@ type: 'article'
 url: 'https://www.tinybird.co/blog-posts/the-simplest-way-to-count-100b-unique-ids-part-2'
 date: '2025-04-11'
 publication: 'Tinybird Blog'
-image: '/media/tinybird-blog.png'
+image: '/assets/media/tinybird-blog.png'
 ---

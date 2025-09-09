@@ -145,6 +145,8 @@ const Journey: React.FC<JourneyProps> = ({
                 }`}
                 target={cta.newTab ? '_blank' : '_self'}
                 rel={cta.newTab ? 'noopener noreferrer' : undefined}
+                data-track
+                data-track-prop-placement={`journey-${cta.variant}-cta`}
               >
                 {cta.icon && <span>{cta.icon}</span>}
                 {cta.label}
