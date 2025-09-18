@@ -1,6 +1,6 @@
 # **Ariel Pérez**
 
-[ariel@arielperez.io](mailto:ariel@arielperez.io) / [\+1 973 910 0669](tel:+19739100669) / [\+34 683 16 05 58](tel:+34683160558) / [in/arielxperez](https://www.linkedin.com/in/arielxperez/) / [arielperez82](https://github.com/arielperez82)
+[ariel@arielperez.io](mailto:ariel@arielperez.io) / [\+1 973 910 0669](tel:+19739100669) / [\+34 683 16 05 58](tel:+34683160558) / [in/arielxperez](https://www.linkedin.com/in/arielxperez/) / [github.com/arielperez82](https://github.com/arielperez82) / [arielperez.io](https://www.arielperez.io)
 
 ## **SUMMARY**
 
@@ -16,7 +16,7 @@ I build high-performing, adaptive organizations that deliver outsized business r
 
 Led the product and technology organization in building enterprise-grade data infrastructure that enables real-time analytics at scale while simplifying the developer experience.
 
-- Transformed engineering culture through clear strategy and context, enabling autonomous teams to ship game-changing innovations including the industry's first hosted MCP server for LLM-ready real-time data and the Explorations natural language analytics UI.
+- Transformed engineering culture through clear strategy and context, enabling autonomous teams to ship innovative solutions, including the industry's first hosted MCP server for LLM-ready real-time data and the Explorations natural language analytics UI..
 - Accelerated innovation with adaptive cross-functional squads, shipping Tinybird Forward in under one quarter, then rapidly delivering Windows CLI support, automated CI/CD workflows, and a redesigned Quickstart that expanded developer reach.
 - Improved platform stability by eliminating P0 incidents and reducing P1 incidents through the creation of a cross-product operations squad with rotating membership that drove architectural improvements, enhanced observability and monitoring, and CI/CD optimization.
 - Drove architectural innovations that improved platform economics by 90% through compute-compute separation, reduced costs 40% through improved autoscaling, and achieved 5x ingestion performance improvement through performance optimizations.
@@ -26,10 +26,10 @@ Led the product and technology organization in building enterprise-grade data in
 
 As Tinybird's first Field CTO, served as the technical bridge between the company and the market, working with global customers, prospects, partners, and internal teams to communicate complex real-time analytics solutions as tangible business value.
 
-- Led DevRel and Sales Engineering teams, tripling high-quality technical content production while significantly increasing win rates.
+- Led DevRel and Sales Engineering teams, tripling technical content production while significantly increasing deal win rates.
 - Implemented systematic deal win/loss reviews to accelerate learning across sales, shortening sales cycles by 30%.
 - Drove prioritization of capabilities and features that directly led to closing of enterprise deals worth hundreds of thousands in ARR.
-- Provided executive-level technical leadership in prospect engagements, enabling the CEO and CTO to focus on strategic initiatives rather than sales meetings.
+- Provided executive-level technical leadership in prospect engagements, freeing the CEO and CTO to focus on strategic initiatives.
 
 ### [**Split Software**](https://www.split.io/)
 
@@ -37,7 +37,7 @@ As Tinybird's first Field CTO, served as the technical bridge between the compan
 
 Led a high-performing engineering team in building real-time data pipelines, consuming over 100 GB of data per day from hundreds of customers.
 
-- Cut down the average lead time for data-intensive features from 3 months to two weeks, 6Xd product releases, 10Xd deployment frequency, and reduced incidents from dozens to single-digits per quarter.
+- Reduced lead time for data-intensive features from 3 months to two weeks, increased product releases sixfold, enhanced deployment frequency tenfold, and decreased incidents to single-digits per quarter
 - Re-platformed the big-data analytics infrastructure, migrating 100s of TBs of data to a real-time streaming data platform in under a year, saving over $1.2M annually in licensing and operational costs, while accelerating innovation and delivery.
 - Recognized and promoted team members to Director-level roles, fostered a culture of autonomy and self-organization, and closely collaborated with Product leadership to create a compelling long-term Product strategy, mission, and vision.
 
@@ -48,7 +48,7 @@ Led a high-performing engineering team in building real-time data pipelines, con
 Led the strategy and development of the native mobile and web platforms, graphql backend-for-frontends, and cross-channel communications platform, enabling product, marketing, and engineering teams to efficiently and effectively deliver Chase UK, the most engaging, reliable, secure, and performant digital banking experience in the market.
 
 - Architected platform to facilitate bi-weekly releases of the mobile app on both Android and iOS platforms, enhancing product responsiveness and feature delivery speed.
-- 2022 Top 'breakout' financial app.
+- Recognized as 2022's Top 'breakout' financial app, highlighting the platform's innovative features and user engagement.
 - Became the 6th most downloaded UK financial app within its first year.
 
 #### **Head of Marketing Technology, Chase International Consumer Bank** (May ‘19 \- December ‘21, London, EN, UK)
@@ -63,7 +63,7 @@ Led the strategy and development of the native mobile and web platforms, graphql
 #### **Head of Product & Engineering \- Dark Canary Feature Flagging Platform, Chase Digital** (Sep ‘17 \- May ‘19, New York, NY, US)
 
 - Conceived, built, and launched JPMC's first full-stack feature-flagging platform for progressively delivering features to Chase’s 65MM+ active digital users.
-- Built an autonomous, cross-functional team to take a scalable, cross-platform, user-friendly feature-flagging platform from concept to implementation in under 9 months.
+- Built an autonomous, cross-functional team to take a scalable, cross-platform, user-friendly feature-flagging platform from concept to implementation in under 9 months.  
 - Trained hundreds of engineers and product owners across several geographies and domains in how to progressively deliver features with feature flags, enabling the Chase Online teams to move to trunk-based development.
 - Enabled the concurrent progressive release of over 1,200 features on Chase Online and the Chase Mobile apps.
 
@@ -74,7 +74,7 @@ Led expert teams responsible for shared components, platform-level non-functiona
 - Improved average page load time by 4.25 seconds by reducing JS bundle sizes through systematic identification and removal of redundant and obsolete code, and increasing cache hit rates.
 - Introduced flyouts/slide-in panels as a new shared component for Chase Online, which quickly became the standard interaction pattern across the application.
 - Improved the load times for embedded web views in the Chase Mobile app by an average of 1 second through removal of duplicate API calls, preloading required static assets, and parallelizing dependency loading on route changes.
-- Cut computational complexity in half across Chase Online despite the code base growing 30%.
+- Reduced computational complexity by 50% across Chase Online, improving development velocity, even as the code base grew by 30%.
 
 ### **MSCLVR**
 
@@ -83,7 +83,7 @@ Led expert teams responsible for shared components, platform-level non-functiona
 Empowered music content creators and marketers with a suite of tools that optimize the way that music content is promoted, shared, and monetized.
 
 - Designed and developed an application that grew to tens of thousands of users with no marketing and only a 2-person team.
-- Closed a partnership deal with TuneCore, the premier digital music distribution company with one of the largest music catalogs in the world.
+- Closed a partnership deal with TuneCore, the premier digital music distribution company with one of the largest music catalogs in the world, expanding our user base and increasing revenue opportunities.
 
 ### [**Try the World**](https://trytheworld.com/)
 
@@ -92,7 +92,7 @@ Empowered music content creators and marketers with a suite of tools that optimi
 Led junior engineering team in building a robust, performant, service-oriented architecture on top of Shopify with Ember, NodeJS APIs, and Postgres on Heroku.
 
 - Re-engineered subscription product management process reducing lead time for new product listings from days to minutes.
-- Co-developed optimization algorithm for allocating custom-tailored boxes of gourmet products to subscribers.
+- Co-developed an optimization algorithm for allocating custom-tailored boxes of gourmet products to subscribers, improving customer satisfaction and operational efficiency.
 
 ### **Prior Roles**
 
