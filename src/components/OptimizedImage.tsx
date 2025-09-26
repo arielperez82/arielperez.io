@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 
 // Get all optimized images
 const ALL_IMAGES = import.meta.glob<{ default: ImageMetadata }>(
-  '/src/{media,assets}/**/*.{jpeg,jpg,png,gif}'
+  '/src/assets/**/*.{jpeg,jpg,png,gif}'
 )
 
 interface OptimizedImageProps
