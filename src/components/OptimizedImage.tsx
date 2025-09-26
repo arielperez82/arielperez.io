@@ -21,6 +21,7 @@ const resolveImage = async (
     if (imagePath.startsWith('/assets/')) {
       // Import the image directly for local assets
       const resolvedImagePath = `/src${imagePath}`
+
       if (!ALL_IMAGES[resolvedImagePath]) {
         throw new Error(
           `"${resolvedImagePath}" does not exist in glob: "src/assets/*.{jpeg,jpg,png,gif}"`

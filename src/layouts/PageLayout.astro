@@ -40,6 +40,7 @@ image = frontmatter?.image || image
               {image && (
                 <div class="flex-shrink-0">
                   <OptimizedImage
+                    client:load
                     src={image}
                     alt={title}
                     className="w-48 h-48 rounded-full object-cover shadow-lg"
