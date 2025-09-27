@@ -13,11 +13,8 @@ const analytics = initTinybirdAnalytics({
   globalAttributes: {
     site: 'ariel-perez-io'
   },
-  devMode: import.meta.env.DEV
+  devMode: import.meta.env.DEV,
+  enableClickTracking: true
 })
 
 export default analytics
-
-// Export tracking modules
-export { clickTracker } from './click-tracker'
-export { eventPropertyFactory } from './event-property-factory'

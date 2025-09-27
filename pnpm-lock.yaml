@@ -58,7 +58,7 @@ importers:
         version: 3.3.1
       tinybird-analytics:
         specifier: github:arielperez82/web-analytics#path:/client
-        version: https://codeload.github.com/arielperez82/web-analytics/tar.gz/def3c680cb9a2d89e90c28bbe72c584e9ed377e3#path:/client(@types/dlv@1.1.5)
+        version: https://codeload.github.com/arielperez82/web-analytics/tar.gz/7cc86934415b94c4ac9fe3b131e4a502abf78740#path:/client(@types/dlv@1.1.5)
       turndown:
         specifier: ^7.2.1
         version: 7.2.1
@@ -4198,9 +4198,9 @@ packages:
   tiny-inflate@1.0.3:
     resolution: {integrity: sha512-pkY1fj1cKHb2seWDy0B16HeWyczlJA9/WW3u3c4z/NiWDsO3DOU5D7nhTLE9CF0yXv/QZFY7sEJmj24dK+Rrqw==}
 
-  tinybird-analytics@https://codeload.github.com/arielperez82/web-analytics/tar.gz/def3c680cb9a2d89e90c28bbe72c584e9ed377e3#path:/client:
-    resolution: {path: /client, tarball: https://codeload.github.com/arielperez82/web-analytics/tar.gz/def3c680cb9a2d89e90c28bbe72c584e9ed377e3}
-    version: 1.0.0
+  tinybird-analytics@https://codeload.github.com/arielperez82/web-analytics/tar.gz/7cc86934415b94c4ac9fe3b131e4a502abf78740#path:/client:
+    resolution: {path: /client, tarball: https://codeload.github.com/arielperez82/web-analytics/tar.gz/7cc86934415b94c4ac9fe3b131e4a502abf78740}
+    version: 1.1.0
 
   tinyexec@0.3.2:
     resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
@@ -9706,7 +9706,7 @@ snapshots:
 
   tiny-inflate@1.0.3: {}
 
-  tinybird-analytics@https://codeload.github.com/arielperez82/web-analytics/tar.gz/def3c680cb9a2d89e90c28bbe72c584e9ed377e3#path:/client(@types/dlv@1.1.5):
+  tinybird-analytics@https://codeload.github.com/arielperez82/web-analytics/tar.gz/7cc86934415b94c4ac9fe3b131e4a502abf78740#path:/client(@types/dlv@1.1.5):
     dependencies:
       analytics: 0.8.19(@types/dlv@1.1.5)
       analytics-plugin-do-not-track: 0.1.5

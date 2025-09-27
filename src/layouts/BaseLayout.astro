@@ -116,14 +116,11 @@ const tinybirdHost = import.meta.env.PUBLIC_TINYBIRD_HOST
   <body class="bg-white font-sans text-gray-900">
     <slot />
   </body><script>
-    import analytics, { clickTracker } from '../scripts/analytics'
+    import analytics from '../scripts/analytics'
 
     document.addEventListener('DOMContentLoaded', () => {
       // Track initial page view
       analytics.page()
-
-      // Initialize click tracking
-      clickTracker.initialize()
     })
   </script>
 </html>
