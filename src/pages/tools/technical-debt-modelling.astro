@@ -1,0 +1,13 @@
+---
+import TechnicalDebtModel from '@/components/TechnicalDebtModel.tsx'
+import BaseLayout from '@/layouts/BaseLayout.astro'
+---
+
+<BaseLayout
+  title="Technical Debt Modelling Tool | Ariel Perez"
+  description="Interactive tool for modeling technical debt accumulation and its impact on software development velocity over time."
+>
+  <main>
+    <TechnicalDebtModel client:load />
+  </main>
+</BaseLayout>
