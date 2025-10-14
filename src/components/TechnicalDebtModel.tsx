@@ -18,7 +18,11 @@ interface TechnicalDebtConfig {
   weeks: number
   friction: number
   effortPerWeek: number
-  refactorSchedule: 'none' | 'monthly' | 'weekly' | 'custom'
+  refactorSchedule:
+    | 'none'
+    | 'monthly-refactoring'
+    | 'weekly-refactoring'
+    | 'custom'
   refactorRatio: number // For weekly: how much of each week to spend refactoring
   monthlyRefactorRatio: number // For monthly: how much of refactor week to spend refactoring
 }
@@ -32,7 +36,8 @@ const TechnicalDebtModel = () => {
     refactorRatio: 0.2,
     monthlyRefactorRatio: 1.0
   })
-  const [selectedPreset, setSelectedPreset] = useState<string>('baseline')
+  const [selectedPreset, setSelectedPreset] = useState<string>('')
+  const [isPresetsExpanded, setIsPresetsExpanded] = useState<boolean>(false)
 
   const calculateModel = (cfg: TechnicalDebtConfig) => {
     const { weeks, friction, effortPerWeek } = cfg
@@ -63,11 +68,11 @@ const TechnicalDebtModel = () => {
       let eFeature = 1.0
       let eRefactor = 0.0
 
-      if (cfg.refactorSchedule === 'monthly' && week % 4 === 0) {
+      if (cfg.refactorSchedule === 'monthly-refactoring' && week % 4 === 0) {
         // Configurable refactoring every 4 weeks
         eFeature = 1.0 - cfg.monthlyRefactorRatio
         eRefactor = cfg.monthlyRefactorRatio
-      } else if (cfg.refactorSchedule === 'weekly') {
+      } else if (cfg.refactorSchedule === 'weekly-refactoring') {
         // Split effort every week between features and refactoring
         eFeature = 1.0 - cfg.refactorRatio
         eRefactor = cfg.refactorRatio
@@ -170,10 +175,13 @@ const TechnicalDebtModel = () => {
 
   const presets: Record<string, Partial<TechnicalDebtConfig>> = {
     baseline: { friction: DEFAULT_FRICTION, refactorSchedule: 'none' },
-    monthly: { friction: DEFAULT_FRICTION, refactorSchedule: 'monthly' },
+    monthly: {
+      friction: DEFAULT_FRICTION,
+      refactorSchedule: 'monthly-refactoring'
+    },
     continuous: {
       friction: DEFAULT_FRICTION,
-      refactorSchedule: 'weekly',
+      refactorSchedule: 'weekly-refactoring',
       refactorRatio: 0.2
     }
   }
@@ -192,34 +200,61 @@ const TechnicalDebtModel = () => {
             </h2>
 
             <div className="space-y-4">
-              <fieldset className="border-t pt-4">
-                <legend className="mb-2 block text-sm font-medium">
-                  Presets
-                </legend>
-                <div
-                  className="grid grid-cols-2 gap-2"
-                  role="radiogroup"
-                  aria-label="Preset selection"
+              <fieldset className="pt-4">
+                <button
+                  type="button"
+                  className="mb-2 flex w-full cursor-pointer items-center justify-between text-sm font-medium"
+                  onClick={() => setIsPresetsExpanded(!isPresetsExpanded)}
+                  aria-expanded={isPresetsExpanded}
                 >
-                  {Object.keys(presets).map((key) => (
-                    <button
-                      key={key}
-                      onClick={() => {
-                        setConfig((prev) => ({ ...prev, ...presets[key] }))
-                        setSelectedPreset(key)
-                      }}
-                      className={`cursor-pointer rounded px-3 py-2 text-sm ${
-                        selectedPreset === key
-                          ? 'bg-primary-600 text-white'
-                          : 'bg-primary-600 hover:bg-primary-700 text-white'
-                      }`}
-                      role="radio"
-                      aria-checked={selectedPreset === key}
+                  <span>Presets</span>
+                  <div
+                    className={`transform transition-transform duration-200 ${
+                      isPresetsExpanded ? 'rotate-180' : ''
+                    }`}
+                    aria-hidden="true"
+                  >
+                    <svg
+                      className="h-4 w-4 text-gray-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      {key.charAt(0).toUpperCase() + key.slice(1)}
-                    </button>
-                  ))}
-                </div>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 9l-7 7-7-7"
+                      />
+                    </svg>
+                  </div>
+                </button>
+                {isPresetsExpanded && (
+                  <div
+                    className="grid grid-cols-2 gap-2"
+                    role="radiogroup"
+                    aria-label="Preset selection"
+                  >
+                    {Object.keys(presets).map((key) => (
+                      <button
+                        key={key}
+                        onClick={() => {
+                          setConfig((prev) => ({ ...prev, ...presets[key] }))
+                          setSelectedPreset(key)
+                        }}
+                        className={`cursor-pointer rounded px-3 py-2 text-sm ${
+                          selectedPreset === key
+                            ? 'bg-primary-600 text-white'
+                            : 'bg-primary-600 hover:bg-primary-700 text-white'
+                        }`}
+                        role="radio"
+                        aria-checked={selectedPreset === key}
+                      >
+                        {key.charAt(0).toUpperCase() + key.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </fieldset>
 
               <div>
@@ -293,10 +328,10 @@ const TechnicalDebtModel = () => {
                   className="w-full rounded border border-gray-300 px-3 py-2"
                 >
                   <option value="none">No refactoring</option>
-                  <option value="monthly">
+                  <option value="monthly-refactoring">
                     Monthly (full week every 4 weeks)
                   </option>
-                  <option value="weekly">
+                  <option value="weekly-refactoring">
                     Continuous (split effort weekly)
                   </option>
                   <option value="custom">
@@ -305,7 +340,7 @@ const TechnicalDebtModel = () => {
                 </select>
               </div>
 
-              {config.refactorSchedule === 'weekly' && (
+              {config.refactorSchedule === 'weekly-refactoring' && (
                 <div>
                   <label className="mb-1 block text-sm font-medium">
                     Weekly refactor ratio:{' '}
@@ -328,7 +363,7 @@ const TechnicalDebtModel = () => {
                 </div>
               )}
 
-              {config.refactorSchedule === 'monthly' && (
+              {config.refactorSchedule === 'monthly-refactoring' && (
                 <div>
                   <label
                     htmlFor="monthlyRefactorRatio"
