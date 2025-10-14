@@ -170,7 +170,6 @@ const TechnicalDebtModel = () => {
 
   const presets: Record<string, Partial<TechnicalDebtConfig>> = {
     baseline: { friction: DEFAULT_FRICTION, refactorSchedule: 'none' },
-    improved: { friction: DEFAULT_FRICTION - 0.02, refactorSchedule: 'none' },
     monthly: { friction: DEFAULT_FRICTION, refactorSchedule: 'monthly' },
     continuous: {
       friction: DEFAULT_FRICTION,
