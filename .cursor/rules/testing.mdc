@@ -1,9 +1,153 @@
 ---
-description: Rules for testing Astro projects, including unit tests and end-to-end testing.
-globs: tests/**/*.*
+description: Rules for testing including unit tests and end-to-end testing.
+globs: **/__tests__/**/*.*,**/*.test.*
+alwaysApply: false
 ---
-Testing
+# Testing
 
 - Implement unit tests for utility functions and helpers.
 - Use end-to-end testing tools like Cypress for testing the built site.
 - Implement visual regression testing if applicable.
+
+Based on our test implementation work, here's a comprehensive summary of the test-writing philosophy and conventions we've established:
+
+## Test-Writing Philosophy & Conventions
+
+### Core Philosophy: RSpec-Style Arrange/Act/Assert Pattern
+
+**"Arrange once, assert many"** - Use `before<All|Each>` to perform the "act" (function call) once per context, then execute multiple assertions on that single result.
+
+Use `beforeAll` instead of `beforeEach` when:
+
+- The function is pure (same input = same output)
+- No side effects or state changes
+- Multiple assertions need the same result
+
+### Key Principles
+
+1. **Context-Driven Structure**: Build up context using nested `describe` blocks with semantic keywords:
+   - `when` - for conditions
+   - `with` - for configurations  
+   - `and` - to add context
+   - `but` - for exceptions/negations
+
+2. **Single Responsibility**: Each `it` block should test one specific behavior or assertion
+
+### Naming Conventions
+
+**Test Structure:**
+
+```typescript
+describe('functionName', () => {
+  describe('when condition is true', () => {
+    describe('and another condition', () => {
+      describe('with specific configuration', () => {
+        let result: ProperType
+        let derivedData: ProperType
+        
+        beforeAll(() => {
+          result = functionCall(config)
+          derivedData = result.someProperty
+        })
+        
+        it('does specific thing', () => {
+          expect(result.property).toBe(expected)
+        })
+        
+        it('does another specific thing', () => {
+          expect(derivedData.otherProperty).toBe(expected)
+        })
+      })
+    })
+  })
+})
+```
+
+**Test Titles:**
+
+- Use descriptive, behavior-focused language
+- Separate multiple conditions with "and" into separate `it` blocks
+- Be specific about what's being tested
+- Use present tense ("returns", "calculates", "shows")
+
+### Type Safety Requirements
+
+1. **Import proper types**: Always import `ModelResult`, `ModelSummary`, etc. from the source module
+2. **Avoid `any`**: Use specific types for all variables
+3. **Type variables at describe block scope**: Declare typed variables for shared data
+
+### Performance Guidelines
+
+**Use `beforeAll` when:**
+
+- Multiple `it` blocks use the same function call
+- Function is pure (no side effects)
+- Same configuration produces same result
+- Performance matters (avoid redundant expensive operations)
+
+**Use `beforeEach` when:**
+
+- Tests modify shared state
+- Each test needs fresh data
+- Tests have side effects
+
+### File Organization
+
+1. **Group by function**: Each major function gets its own top-level `describe`
+2. **Nest by context**: Use nested `describe` blocks to build up test context
+3. **Logical grouping**: Group related test scenarios together
+4. **Edge cases last**: Put boundary conditions and edge cases at the end
+
+### Assertion Patterns
+
+1. **One assertion per `it`**: Each test should verify one specific behavior
+2. **Descriptive expectations**: Use meaningful assertion messages
+3. **Test behavior, not implementation**: Focus on what the function should do, not how it does it
+4. **Edge case handling**: Explicitly test boundary conditions and error states
+
+### Example Structure
+
+```typescript
+describe('calculateModel', () => {
+  describe('with friction of 0.2', () => {
+    describe('and refactorSchedule none', () => {
+      describe('and effortPerWeek of 10', () => {
+        describe('and weeks of 10', () => {
+          let result: { data: ModelResult[]; summary: ModelSummary }
+          let nonZeroWeeks: ModelResult[]
+          
+          beforeAll(() => {
+            result = calculateModel({
+              weeks: 10,
+              friction: 0.2,
+              effortPerWeek: 10,
+              refactorSchedule: 'none',
+              refactorRatio: 0,
+              monthlyRefactorRatio: 0
+            })
+            nonZeroWeeks = result.data.slice(1)
+          })
+
+          it('shows declining value delivery rate over time', () => {
+            for (let i = 1; i < nonZeroWeeks.length; i++) {
+              expect(nonZeroWeeks[i].valueDeliveryRate).toBeLessThanOrEqual(
+                nonZeroWeeks[i - 1].valueDeliveryRate
+              )
+            }
+          })
+
+          it('shows continuously accumulating debt', () => {
+            for (let i = 1; i < nonZeroWeeks.length; i++) {
+              expect(nonZeroWeeks[i].totalDebt).toBeGreaterThanOrEqual(
+                nonZeroWeeks[i - 1].totalDebt
+              )
+            }
+          })
+        })
+      })
+    })
+  })
+})
+```
+
+This philosophy emphasizes **readability**, **performance**, **type safety**, and **maintainability** while following RSpec-style conventions for clear, hierarchical test organization.
