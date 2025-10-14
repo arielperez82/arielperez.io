@@ -3,7 +3,7 @@ description: Guidelines for how to develop with TDD the right way
 globs: 
 alwaysApply: false
 ---
-#### Canon TDD
+# Canon TDD
 
 What follows is NOT how *you* should *do* TDD. Take responsibility for the quality your work however you choose, as long as you actually take responsibility.
 
@@ -15,7 +15,7 @@ What follows is my response to "TDD suckz dude because <something that isn't TDD
 - 4. Optionally refactor to improve the implementation design
 - 5. Until the list is empty, go back to #2
 
-#### Intro
+## Intro
 
  summarized this post graphically: Vic Wu
 
@@ -27,7 +27,7 @@ If you plan on critiquing TDD & you're not critiquing the following workflow, th
 
 I try to be positive & constructive as a habit. By necessity this post is going to be concise & negative. "People get this wrong. Here's the actual thing." I don't mean to critique someone's workflow, but sharpen their understanding of Canon TDD.
 
-### Overview
+## Overview
 
 Test-driven development is a programming workflow. A programmer needs to chan the behavior of a system (which may be empty just now). TDD is intended to help th programmer create a new state of the system where:
 
@@ -45,13 +45,13 @@ The first misunderstanding is that folks seem to lump all design together. There
 
 (When I was in school we called these logical & physical design & were told never to mix the two but nobody ever explained how. I had to figure that out later.)
 
-# The Steps
+## The Steps
 
 People are lousy computers. What follows looks like a computer program but it's no It's written this way in an attempt to communicate effectively with people who are
 
 used to working with programs. I say "attempt" because, as noted above, folks seem prone to saying, "TDD suckz, dude! I did <something else entirely> & it failed."
 
-#### 1. Test List
+### 1. Test List
 
 The initial step in TDD, given a system & a desired change in behavior, is to list all t expected variants in the new behavior. "There's the basic case & then what if this service times out & what if the key isn't in the database yet &…"
 
@@ -61,7 +61,7 @@ Mistake: mixing in implementation design decisions. Chill. There will be plenty 
 
 Folks seem to have missed this step in the book. "TDD just launches into coding You'll never know when you're done." Nope.
 
-#### 2. Write a Test
+### 2. Write a Test
 
 One test. A really truly automated test, with setup & invocation & assertions (protip trying working backwards from the assertions some time). It's in the writing of this test that you'll begin making design decisions, but they are primarily interface decisions. Some implementation decisions may leak through, but you'll get better a avoiding this over time.
 
@@ -73,7 +73,7 @@ reconsider a decision that affects all those speculative tests? Rework. What hap
 
 Picking the next test is an important skill, & one that only comes with experience. T order of the tests can significantly affect both the experience of programming & the final result. (Open question: is code sensitive to initial conditions?)
 
-#### 3. Make it Pass
+### 3. Make it Pass
 
 Now that you have a failing test, change the system so the test passes.
 
@@ -85,7 +85,7 @@ Mistake: mixing refactoring into making the test pass. Again with the "wearing t
 
 If in the process of going red to green you discover the need for a new test, add it to the Test List. If that test invalidates the work you've done already ("Oh, no, there's n way to handle the case of an empty folder."), you need to decide whether to push on start over (protip: start over but pick a different order to implement the tests). When the test passes, mark it off the list.
 
-#### 4. Optionally Refactor
+### 4. Optionally Refactor
 
 *Now* you get to make implementation design decisions.
 
@@ -93,6 +93,6 @@ Mistake: refactoring further than necessary for this session. It feels good to t
 
 Mistake: abstracting too soon. Duplication is a hint, not a command.
 
-#### 5. Until the Test List is Empty, Go To 2.
+### 5. Until the Test List is Empty, Go To 2.
 
 Keep testing & coding until your fear for the behavior of the code has been transmu into boredom.

@@ -14,7 +14,8 @@ import {
 
 import {
   calculateModel,
-  type TechnicalDebtConfig} from '@/lib/technical-debt-model'
+  type TechnicalDebtConfig
+} from '@/lib/technical-debt-model'
 
 const DEFAULT_FRICTION = 0.108
 
