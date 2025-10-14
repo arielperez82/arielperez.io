@@ -190,6 +190,36 @@ const TechnicalDebtModel = () => {
           <h2 className="mb-4 text-xl font-semibold">Parameters</h2>
 
           <div className="space-y-4">
+            <fieldset className="border-t pt-4">
+              <legend className="mb-2 block text-sm font-medium">
+                Presets
+              </legend>
+              <div
+                className="grid grid-cols-2 gap-2"
+                role="radiogroup"
+                aria-label="Preset selection"
+              >
+                {Object.keys(presets).map((key) => (
+                  <button
+                    key={key}
+                    onClick={() => {
+                      setConfig((prev) => ({ ...prev, ...presets[key] }))
+                      setSelectedPreset(key)
+                    }}
+                    className={`cursor-pointer rounded px-3 py-2 text-sm ${
+                      selectedPreset === key
+                        ? 'bg-blue-600 text-white'
+                        : 'bg-blue-500 text-white hover:bg-blue-600'
+                    }`}
+                    role="radio"
+                    aria-checked={selectedPreset === key}
+                  >
+                    {key.charAt(0).toUpperCase() + key.slice(1)}
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+
             <div>
               <label htmlFor="weeks" className="mb-1 block text-sm font-medium">
                 Weeks
@@ -315,36 +345,6 @@ const TechnicalDebtModel = () => {
                 </p>
               </div>
             )}
-
-            <fieldset className="border-t pt-4">
-              <legend className="mb-2 block text-sm font-medium">
-                Presets
-              </legend>
-              <div
-                className="grid grid-cols-2 gap-2"
-                role="radiogroup"
-                aria-label="Preset selection"
-              >
-                {Object.keys(presets).map((key) => (
-                  <button
-                    key={key}
-                    onClick={() => {
-                      setConfig((prev) => ({ ...prev, ...presets[key] }))
-                      setSelectedPreset(key)
-                    }}
-                    className={`cursor-pointer rounded px-3 py-2 text-sm ${
-                      selectedPreset === key
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-blue-500 text-white hover:bg-blue-600'
-                    }`}
-                    role="radio"
-                    aria-checked={selectedPreset === key}
-                  >
-                    {key.charAt(0).toUpperCase() + key.slice(1)}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
           </div>
         </div>
 
