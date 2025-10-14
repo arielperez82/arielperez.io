@@ -26,7 +26,7 @@ export default [
   },
   // Type-aware rules only for TS/TSX
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['{src,scripts}/**/*.{ts,tsx}'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {
