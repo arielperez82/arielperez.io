@@ -179,329 +179,351 @@ const TechnicalDebtModel = () => {
   }
 
   return (
-    <div className="mx-auto w-full max-w-7xl bg-gray-50 p-6">
-      <h1 className="mb-6 text-3xl font-bold text-gray-800">
-        Technical debt model
-      </h1>
+    <section className="bg-white py-16 lg:py-24">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <h1 className="mb-6 text-3xl font-bold text-gray-900 lg:text-4xl">
+          Technical debt model
+        </h1>
 
-      <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
-        <div className="rounded-lg bg-white p-6 shadow">
-          <h2 className="mb-4 text-xl font-semibold">Parameters</h2>
+        <div className="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <div className="rounded-lg bg-gray-50 p-6 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold text-gray-900">
+              Parameters
+            </h2>
 
-          <div className="space-y-4">
-            <fieldset className="border-t pt-4">
-              <legend className="mb-2 block text-sm font-medium">
-                Presets
-              </legend>
-              <div
-                className="grid grid-cols-2 gap-2"
-                role="radiogroup"
-                aria-label="Preset selection"
-              >
-                {Object.keys(presets).map((key) => (
-                  <button
-                    key={key}
-                    onClick={() => {
-                      setConfig((prev) => ({ ...prev, ...presets[key] }))
-                      setSelectedPreset(key)
-                    }}
-                    className={`cursor-pointer rounded px-3 py-2 text-sm ${
-                      selectedPreset === key
-                        ? 'bg-blue-600 text-white'
-                        : 'bg-blue-500 text-white hover:bg-blue-600'
-                    }`}
-                    role="radio"
-                    aria-checked={selectedPreset === key}
-                  >
-                    {key.charAt(0).toUpperCase() + key.slice(1)}
-                  </button>
-                ))}
-              </div>
-            </fieldset>
+            <div className="space-y-4">
+              <fieldset className="border-t pt-4">
+                <legend className="mb-2 block text-sm font-medium">
+                  Presets
+                </legend>
+                <div
+                  className="grid grid-cols-2 gap-2"
+                  role="radiogroup"
+                  aria-label="Preset selection"
+                >
+                  {Object.keys(presets).map((key) => (
+                    <button
+                      key={key}
+                      onClick={() => {
+                        setConfig((prev) => ({ ...prev, ...presets[key] }))
+                        setSelectedPreset(key)
+                      }}
+                      className={`cursor-pointer rounded px-3 py-2 text-sm ${
+                        selectedPreset === key
+                          ? 'bg-primary-600 text-white'
+                          : 'bg-primary-600 hover:bg-primary-700 text-white'
+                      }`}
+                      role="radio"
+                      aria-checked={selectedPreset === key}
+                    >
+                      {key.charAt(0).toUpperCase() + key.slice(1)}
+                    </button>
+                  ))}
+                </div>
+              </fieldset>
 
-            <div>
-              <label htmlFor="weeks" className="mb-1 block text-sm font-medium">
-                Weeks
-              </label>
-              <input
-                type="number"
-                id="weeks"
-                name="weeks"
-                value={config.weeks}
-                onChange={(e) =>
-                  updateConfig('weeks', parseInt(e.target.value))
-                }
-                className="w-full rounded border px-3 py-2"
-                min="1"
-                max="104"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="friction"
-                className="mb-1 block text-sm font-medium"
-              >
-                Friction (debt): {(config.friction * 100).toFixed(1)}%
-              </label>
-              <input
-                type="range"
-                id="friction"
-                name="friction"
-                value={config.friction}
-                onChange={(e) => {
-                  const friction = parseFloat(e.target.value)
-                  updateConfig('friction', friction)
-                }}
-                min="0.01"
-                max="0.5"
-                step="0.001"
-                className="w-full"
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="refactorSchedule"
-                className="mb-1 block text-sm font-medium"
-              >
-                Refactor schedule
-              </label>
-              <select
-                id="refactorSchedule"
-                name="refactorSchedule"
-                value={config.refactorSchedule}
-                onChange={(e) =>
-                  updateConfig(
-                    'refactorSchedule',
-                    e.target.value as TechnicalDebtConfig['refactorSchedule']
-                  )
-                }
-                className="w-full rounded border px-3 py-2"
-              >
-                <option value="none">No refactoring</option>
-                <option value="monthly">
-                  Monthly (full week every 4 weeks)
-                </option>
-                <option value="weekly">Continuous (split effort weekly)</option>
-                <option value="custom">
-                  Adaptive (responds to debt levels)
-                </option>
-              </select>
-            </div>
-
-            {config.refactorSchedule === 'weekly' && (
-              <div>
-                <label className="mb-1 block text-sm font-medium">
-                  Weekly refactor ratio:{' '}
-                  {(config.refactorRatio * 100).toFixed(0)}%
-                </label>
-                <input
-                  type="range"
-                  value={config.refactorRatio}
-                  onChange={(e) =>
-                    updateConfig('refactorRatio', parseFloat(e.target.value))
-                  }
-                  min="0.1"
-                  max="0.5"
-                  step="0.05"
-                  className="w-full"
-                />
-                <p className="mt-1 text-xs text-gray-500">
-                  How much of each week to spend on refactoring vs features
-                </p>
-              </div>
-            )}
-
-            {config.refactorSchedule === 'monthly' && (
               <div>
                 <label
-                  htmlFor="monthlyRefactorRatio"
+                  htmlFor="weeks"
                   className="mb-1 block text-sm font-medium"
                 >
-                  Monthly refactor ratio:{' '}
-                  {(config.monthlyRefactorRatio * 100).toFixed(0)}%
+                  Weeks
+                </label>
+                <input
+                  type="number"
+                  id="weeks"
+                  name="weeks"
+                  value={config.weeks}
+                  onChange={(e) =>
+                    updateConfig('weeks', parseInt(e.target.value))
+                  }
+                  className="w-full rounded border border-gray-300 px-3 py-2"
+                  min="1"
+                  max="104"
+                />
+              </div>
+
+              <div>
+                <label
+                  htmlFor="friction"
+                  className="mb-1 block text-sm font-medium"
+                >
+                  Friction (debt):{' '}
+                  <span className="text-red-600">
+                    {(config.friction * 100).toFixed(1)}%
+                  </span>{' '}
+                  / Value:{' '}
+                  <span className="text-green-600">
+                    {((1 - config.friction) * 100).toFixed(1)}%
+                  </span>
                 </label>
                 <input
                   type="range"
-                  id="monthlyRefactorRatio"
-                  name="monthlyRefactorRatio"
-                  value={config.monthlyRefactorRatio}
-                  onChange={(e) =>
-                    updateConfig(
-                      'monthlyRefactorRatio',
-                      parseFloat(e.target.value)
-                    )
-                  }
-                  min="0.2"
-                  max="1.0"
-                  step="0.1"
+                  id="friction"
+                  name="friction"
+                  value={config.friction}
+                  onChange={(e) => {
+                    const friction = parseFloat(e.target.value)
+                    updateConfig('friction', friction)
+                  }}
+                  min="0.01"
+                  max="0.5"
+                  step="0.001"
                   className="w-full"
                 />
-                <p className="mt-1 text-xs text-gray-500">
-                  How much of refactor week to spend refactoring (100% = full
-                  week)
-                </p>
               </div>
-            )}
+
+              <div>
+                <label
+                  htmlFor="refactorSchedule"
+                  className="mb-1 block text-sm font-medium"
+                >
+                  Refactor schedule
+                </label>
+                <select
+                  id="refactorSchedule"
+                  name="refactorSchedule"
+                  value={config.refactorSchedule}
+                  onChange={(e) =>
+                    updateConfig(
+                      'refactorSchedule',
+                      e.target.value as TechnicalDebtConfig['refactorSchedule']
+                    )
+                  }
+                  className="w-full rounded border border-gray-300 px-3 py-2"
+                >
+                  <option value="none">No refactoring</option>
+                  <option value="monthly">
+                    Monthly (full week every 4 weeks)
+                  </option>
+                  <option value="weekly">
+                    Continuous (split effort weekly)
+                  </option>
+                  <option value="custom">
+                    Adaptive (responds to debt levels)
+                  </option>
+                </select>
+              </div>
+
+              {config.refactorSchedule === 'weekly' && (
+                <div>
+                  <label className="mb-1 block text-sm font-medium">
+                    Weekly refactor ratio:{' '}
+                    {(config.refactorRatio * 100).toFixed(0)}%
+                  </label>
+                  <input
+                    type="range"
+                    value={config.refactorRatio}
+                    onChange={(e) =>
+                      updateConfig('refactorRatio', parseFloat(e.target.value))
+                    }
+                    min="0.1"
+                    max="0.5"
+                    step="0.05"
+                    className="w-full"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">
+                    How much of each week to spend on refactoring vs features
+                  </p>
+                </div>
+              )}
+
+              {config.refactorSchedule === 'monthly' && (
+                <div>
+                  <label
+                    htmlFor="monthlyRefactorRatio"
+                    className="mb-1 block text-sm font-medium"
+                  >
+                    Monthly refactor ratio:{' '}
+                    {(config.monthlyRefactorRatio * 100).toFixed(0)}%
+                  </label>
+                  <input
+                    type="range"
+                    id="monthlyRefactorRatio"
+                    name="monthlyRefactorRatio"
+                    value={config.monthlyRefactorRatio}
+                    onChange={(e) =>
+                      updateConfig(
+                        'monthlyRefactorRatio',
+                        parseFloat(e.target.value)
+                      )
+                    }
+                    min="0.2"
+                    max="1.0"
+                    step="0.1"
+                    className="w-full"
+                  />
+                  <p className="mt-1 text-xs text-gray-500">
+                    How much of refactor week to spend refactoring (100% = full
+                    week)
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div className="rounded-lg bg-gray-50 p-6 shadow-sm">
+            <h2 className="mb-4 text-xl font-semibold text-gray-900">
+              Summary
+            </h2>
+            <div className="space-y-3">
+              <div className="flex justify-between">
+                <span className="font-medium">Total value:</span>
+                <span>{modelResults.summary.totalValue} weeks</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Max debt:</span>
+                <span>{modelResults.summary.maxDebt} weeks</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Max gearing:</span>
+                <span>{modelResults.summary.maxGearing}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Final efficiency:</span>
+                <span>{modelResults.summary.finalEfficiency}%</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Min value delivery rate:</span>
+                <span>{modelResults.summary.minValueDeliveryRate}% of V₀</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Min effective rate:</span>
+                <span>
+                  {modelResults.summary.minEffectiveValueDeliveryRate}% of V₀
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">AER:</span>
+                <span className="font-bold text-red-600">
+                  {modelResults.summary.aer}%
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="font-medium">Total effort:</span>
+                <span>{modelResults.summary.totalEffort} weeks</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="rounded-lg bg-white p-6 shadow">
-          <h2 className="mb-4 text-xl font-semibold">Summary</h2>
-          <div className="space-y-3">
-            <div className="flex justify-between">
-              <span className="font-medium">Total value:</span>
-              <span>{modelResults.summary.totalValue} weeks</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">Max debt:</span>
-              <span>{modelResults.summary.maxDebt} weeks</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">Max gearing:</span>
-              <span>{modelResults.summary.maxGearing}%</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">Final efficiency:</span>
-              <span>{modelResults.summary.finalEfficiency}%</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">Min value delivery rate:</span>
-              <span>{modelResults.summary.minValueDeliveryRate}% of V₀</span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">Min effective rate:</span>
-              <span>
-                {modelResults.summary.minEffectiveValueDeliveryRate}% of V₀
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">AER:</span>
-              <span className="font-bold text-red-600">
-                {modelResults.summary.aer}%
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="font-medium">Total effort:</span>
-              <span>{modelResults.summary.totalEffort} weeks</span>
-            </div>
-          </div>
+        <div className="mb-6 rounded-lg bg-gray-50 p-6 shadow-sm">
+          <h2 className="mb-4 text-xl font-semibold text-gray-900">
+            Value and debt over time
+          </h2>
+          <ResponsiveContainer width="100%" height={400}>
+            <AreaChart data={modelResults.data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis
+                dataKey="week"
+                label={{ value: 'Week', position: 'insideBottom', offset: -5 }}
+              />
+              <YAxis
+                label={{ value: 'Weeks', angle: -90, position: 'insideLeft' }}
+              />
+              <Tooltip />
+              <Legend />
+              <Area
+                type="monotone"
+                dataKey="totalValue"
+                stackId="1"
+                stroke="#4f46e5"
+                fill="#4f46e5"
+                name="Value"
+              />
+              <Area
+                type="monotone"
+                dataKey="totalDebt"
+                stackId="1"
+                stroke="#ef4444"
+                fill="#ef4444"
+                name="Debt"
+              />
+            </AreaChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="mb-6 rounded-lg bg-gray-50 p-6 shadow-sm">
+          <h2 className="mb-4 text-xl font-semibold text-gray-900">
+            Value delivery rate over time
+          </h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={modelResults.data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="week" />
+              <YAxis
+                label={{ value: '% of V₀', angle: -90, position: 'insideLeft' }}
+              />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="valueDeliveryRate"
+                stroke="#f59e0b"
+                strokeWidth={2}
+                name="Value delivery rate"
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="avgValueDeliveryRate"
+                stroke="#06b6d4"
+                strokeWidth={2}
+                strokeDasharray="3 3"
+                name="6-week avg rate"
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey={() => 50}
+                stroke="#ef4444"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                name="50% threshold (death zone)"
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="rounded-lg bg-gray-50 p-6 shadow-sm">
+          <h2 className="mb-4 text-xl font-semibold text-gray-900">
+            Efficiency and gearing
+          </h2>
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={modelResults.data}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="week" />
+              <YAxis
+                label={{
+                  value: 'Percentage',
+                  angle: -90,
+                  position: 'insideLeft'
+                }}
+              />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="efficiency"
+                stroke="#10b981"
+                strokeWidth={2}
+                name="Efficiency %"
+                dot={false}
+              />
+              <Line
+                type="monotone"
+                dataKey="gearing"
+                stroke="#8b5cf6"
+                strokeWidth={2}
+                name="Gearing %"
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
         </div>
       </div>
-
-      <div className="mb-6 rounded-lg bg-white p-6 shadow">
-        <h2 className="mb-4 text-xl font-semibold">Value and debt over time</h2>
-        <ResponsiveContainer width="100%" height={400}>
-          <AreaChart data={modelResults.data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              dataKey="week"
-              label={{ value: 'Week', position: 'insideBottom', offset: -5 }}
-            />
-            <YAxis
-              label={{ value: 'Weeks', angle: -90, position: 'insideLeft' }}
-            />
-            <Tooltip />
-            <Legend />
-            <Area
-              type="monotone"
-              dataKey="totalValue"
-              stackId="1"
-              stroke="#3b82f6"
-              fill="#3b82f6"
-              name="Value"
-            />
-            <Area
-              type="monotone"
-              dataKey="totalDebt"
-              stackId="1"
-              stroke="#ef4444"
-              fill="#ef4444"
-              name="Debt"
-            />
-          </AreaChart>
-        </ResponsiveContainer>
-      </div>
-
-      <div className="mb-6 rounded-lg bg-white p-6 shadow">
-        <h2 className="mb-4 text-xl font-semibold">
-          Value delivery rate over time
-        </h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={modelResults.data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="week" />
-            <YAxis
-              label={{ value: '% of V₀', angle: -90, position: 'insideLeft' }}
-            />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="valueDeliveryRate"
-              stroke="#f59e0b"
-              strokeWidth={2}
-              name="Value delivery rate"
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              dataKey="avgValueDeliveryRate"
-              stroke="#06b6d4"
-              strokeWidth={2}
-              strokeDasharray="3 3"
-              name="6-week avg rate"
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              dataKey={() => 50}
-              stroke="#ef4444"
-              strokeWidth={2}
-              strokeDasharray="5 5"
-              name="50% threshold (death zone)"
-              dot={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-
-      <div className="rounded-lg bg-white p-6 shadow">
-        <h2 className="mb-4 text-xl font-semibold">Efficiency and gearing</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={modelResults.data}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="week" />
-            <YAxis
-              label={{
-                value: 'Percentage',
-                angle: -90,
-                position: 'insideLeft'
-              }}
-            />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="efficiency"
-              stroke="#10b981"
-              strokeWidth={2}
-              name="Efficiency %"
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              dataKey="gearing"
-              stroke="#8b5cf6"
-              strokeWidth={2}
-              name="Gearing %"
-              dot={false}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-    </div>
+    </section>
   )
 }
 
