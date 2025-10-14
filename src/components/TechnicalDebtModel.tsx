@@ -39,6 +39,41 @@ const TechnicalDebtModel = () => {
   const [selectedPreset, setSelectedPreset] = useState<string>('')
   const [isPresetsExpanded, setIsPresetsExpanded] = useState<boolean>(false)
 
+  const calculateEffortAllocation = (
+    week: number,
+    refactorSchedule: TechnicalDebtConfig['refactorSchedule'],
+    refactorRatio: number,
+    monthlyRefactorRatio: number,
+    totalValue: number,
+    totalDebt: number
+  ) => {
+    let eFeature = 1.0
+    let eRefactor = 0.0
+
+    if (refactorSchedule === 'monthly-refactoring' && week % 4 === 0) {
+      // Configurable refactoring every 4 weeks
+      eFeature = 1.0 - monthlyRefactorRatio
+      eRefactor = monthlyRefactorRatio
+    } else if (refactorSchedule === 'weekly-refactoring') {
+      // Split effort every week between features and refactoring
+      eFeature = 1.0 - refactorRatio
+      eRefactor = refactorRatio
+    } else if (refactorSchedule === 'custom') {
+      // Allow custom ratio based on debt levels
+      const debtRatio = totalDebt / (totalValue + totalDebt || 1)
+      if (debtRatio > 0.15) {
+        // If debt > 15% of total
+        eFeature = 0.7
+        eRefactor = 0.3
+      } else if (debtRatio > 0.05) {
+        eFeature = 0.85
+        eRefactor = 0.15
+      }
+    }
+
+    return { eFeature, eRefactor }
+  }
+
   const calculateModel = (cfg: TechnicalDebtConfig) => {
     const { weeks, friction, effortPerWeek } = cfg
     const results = []
@@ -65,29 +100,14 @@ const TechnicalDebtModel = () => {
       }
 
       // Determine if this is a refactoring week and how much effort goes to refactoring
-      let eFeature = 1.0
-      let eRefactor = 0.0
-
-      if (cfg.refactorSchedule === 'monthly-refactoring' && week % 4 === 0) {
-        // Configurable refactoring every 4 weeks
-        eFeature = 1.0 - cfg.monthlyRefactorRatio
-        eRefactor = cfg.monthlyRefactorRatio
-      } else if (cfg.refactorSchedule === 'weekly-refactoring') {
-        // Split effort every week between features and refactoring
-        eFeature = 1.0 - cfg.refactorRatio
-        eRefactor = cfg.refactorRatio
-      } else if (cfg.refactorSchedule === 'custom') {
-        // Allow custom ratio based on debt levels
-        const debtRatio = totalDebt / (totalValue + totalDebt || 1)
-        if (debtRatio > 0.15) {
-          // If debt > 15% of total
-          eFeature = 0.7
-          eRefactor = 0.3
-        } else if (debtRatio > 0.05) {
-          eFeature = 0.85
-          eRefactor = 0.15
-        }
-      }
+      const { eFeature, eRefactor } = calculateEffortAllocation(
+        week,
+        cfg.refactorSchedule,
+        cfg.refactorRatio,
+        cfg.monthlyRefactorRatio,
+        totalValue,
+        totalDebt
+      )
 
       // Calculate proportion of effort going to servicing debt vs actual work
       const pDebt = totalDebt / (totalValue + totalDebt || 1)
@@ -242,10 +262,8 @@ const TechnicalDebtModel = () => {
                           setConfig((prev) => ({ ...prev, ...presets[key] }))
                           setSelectedPreset(key)
                         }}
-                        className={`cursor-pointer rounded px-3 py-2 text-sm ${
-                          selectedPreset === key
-                            ? 'bg-primary-600 text-white'
-                            : 'bg-primary-600 hover:bg-primary-700 text-white'
+                        className={`bg-primary-600 cursor-pointer rounded px-3 py-2 text-sm text-white ${
+                          selectedPreset === key ? '' : 'hover:bg-primary-700'
                         }`}
                         role="radio"
                         aria-checked={selectedPreset === key}
