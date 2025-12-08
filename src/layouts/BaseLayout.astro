@@ -2,6 +2,7 @@
 import '@/styles/global.css'
 
 import { SEO } from 'astro-seo'
+import { Schema } from 'astro-seo-schema'
 
 import { SITE_TITLE } from '@/consts'
 
@@ -9,11 +10,62 @@ export interface Props {
   title: string
   description: string
   image?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  schema?: any //Allow pages to pass custom schema (Schema.org types are complex)
 }
 
-const { title, description, image } = Astro.props
+const { title, description, image, schema } = Astro.props
 
 const tinybirdHost = import.meta.env.PUBLIC_TINYBIRD_HOST
+
+// Default Person schema for homepage, can be overridden per page
+const defaultPersonSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Ariel Pérez',
+  alternateName: 'Ariel Perez',
+  jobTitle:
+    'Strategic Product & Technology Leader | Fractional CTO/CPTO | Product & Technology Strategy Advisor',
+  description:
+    '20+ years building and leading product and engineering teams. I write, speak, and consult on adaptive leadership, fluid organizations, and the intersection of technology and human systems.',
+  url: 'https://www.arielperez.io',
+  image: 'https://www.arielperez.io/assets/profile.jpg',
+  sameAs: [
+    'https://www.linkedin.com/in/arielxperez',
+    'https://twitter.com/arielxperez',
+    'https://github.com/arielperez82',
+    'https://www.adaptivealchemist.com'
+  ],
+  knowsAbout: [
+    'Adaptive Organizations',
+    'Fluid Teams',
+    'Systems Thinking',
+    'Product Engineering',
+    'Organizational Transformation',
+    'AI & Real-time Data Systems'
+  ],
+  alumniOf: [
+    {
+      '@type': 'Organization',
+      name: 'Tinybird'
+    },
+    {
+      '@type': 'Organization',
+      name: 'Split Software'
+    },
+    {
+      '@type': 'Organization',
+      name: 'JP Morgan Chase'
+    }
+  ],
+  worksFor: {
+    '@type': 'Organization',
+    name: 'Tinybird',
+    jobTitle: 'Head of Product & Technology, Field CTO'
+  }
+}
+
+const pageSchema = schema || defaultPersonSchema
 ---
 
 <!doctype html>
@@ -28,7 +80,7 @@ const tinybirdHost = import.meta.env.PUBLIC_TINYBIRD_HOST
         basic: {
           title,
           type: 'website',
-          image: image || '/favicon/favicon-32x32.png'
+          image: image || 'https://www.arielperez.io/assets/profile.jpg'
         },
         optional: {
           description,
@@ -108,10 +160,16 @@ const tinybirdHost = import.meta.env.PUBLIC_TINYBIRD_HOST
             name: 'theme-color',
             content: '#18181b',
             media: '(prefers-color-scheme: dark)'
+          },
+          // Author meta for disambiguation
+          {
+            name: 'author',
+            content: 'Ariel Pérez - Engineering Leader & Systems Thinker'
           }
         ]
       }}
     />
+    <Schema item={pageSchema} />
   </head>
   <body class="bg-white font-sans text-gray-900">
     <slot />

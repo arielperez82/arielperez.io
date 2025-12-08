@@ -44,6 +44,7 @@
     "@types/react-dom": "^19.1.9",
     "astro-seo": "^0.8.4",
     "astro-seo-meta": "^5.2.0",
+    "astro-seo-schema": "^5.1.0",
     "autoprefixer": "^10.4.21",
     "dotenv-cli": "^10.0.0",
     "eslint-import-resolver-typescript": "^4.4.4",

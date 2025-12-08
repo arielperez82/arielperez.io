@@ -38,7 +38,7 @@ const Hero: React.FC<HeroProps> = ({
               {name}
             </h1>
             <p className="text-primary-600 mb-6 text-xl font-semibold">
-              {title}
+              Product & Engineering Leader | Systems Thinker
             </p>
             <p className="mb-10 text-lg leading-relaxed text-gray-600">
               {description}

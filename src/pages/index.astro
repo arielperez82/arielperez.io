@@ -14,6 +14,58 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '@/consts'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 import { fetchLatestBlogPosts } from '@/utils/blogPosts'
 
+const siteUrl = 'https://www.arielperez.io'
+
+// Combined schema for homepage
+const homepageSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Person',
+      '@id': `${siteUrl}/#person`,
+      name: 'Ariel Pérez',
+      alternateName: 'Ariel Perez',
+      jobTitle:
+        'Strategic Product & Technology Leader | Fractional CTO/CPTO | Product & Technology Strategy Advisor',
+      description: SITE_DESCRIPTION,
+      url: siteUrl,
+      image: `${siteUrl}/assets/profile.jpg`,
+      sameAs: [
+        'https://www.linkedin.com/in/arielxperez',
+        'https://twitter.com/arielxperez',
+        'https://github.com/arielperez82',
+        'https://www.adaptivealchemist.com'
+      ],
+      knowsAbout: [
+        'Adaptive Organizations',
+        'Fluid Teams',
+        'Systems Thinking',
+        'Product Engineering',
+        'Organizational Transformation',
+        'AI & Real-time Data Systems'
+      ]
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl}/#website`,
+      url: siteUrl,
+      name: SITE_TITLE,
+      description: SITE_DESCRIPTION,
+      publisher: {
+        '@id': `${siteUrl}/#person`
+      },
+      potentialAction: {
+        '@type': 'SearchAction',
+        target: {
+          '@type': 'EntryPoint',
+          urlTemplate: `${siteUrl}/?s={search_term_string}`
+        },
+        'query-input': 'required name=search_term_string'
+      }
+    }
+  ]
+}
+
 // Fetch publication collection data
 const mediaCollection = await getCollection('media')
 const sortedMedia = mediaCollection.sort(
@@ -190,12 +242,16 @@ const experienceCTAs = [
 ]
 ---
 
-<BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+<BaseLayout
+  title={SITE_TITLE}
+  description={SITE_DESCRIPTION}
+  schema={homepageSchema}
+>
   <Header client:load />
 
   <Hero
     name="Ariel Pérez"
-    title="Product & Engineering Leader | Systems Thinker"
+    title="Engineering Leader & Systems Thinker"
     description="I build high-performing, adaptive, deeply collaborative product & engineering organizations that deliver exceptional value at high velocity. With 20+ years across startups, scale-ups, and Fortune 50s, I bridge product and technology to drive growth—accelerating release cadence, cutting lead times, creating products that matter, and saving millions in operational costs. I lead through systems thinking, cross-functional collaboration, and AI-enabled innovation, building adaptive teams that scale and thrive together."
     primaryCTA={{
       text: "Let's start a conversation",

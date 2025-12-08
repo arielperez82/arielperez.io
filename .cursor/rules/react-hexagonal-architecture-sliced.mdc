@@ -9,7 +9,7 @@ A structured approach to building maintainable, scalable React applications usin
 
 ## Directory Structure
 
-```
+```text
 src/
 ├── features/               # Vertical slices (business capabilities)
 │   ├── product/            # Product feature

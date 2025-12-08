@@ -1,6 +1,6 @@
 ---
-title: 'About Ariel Pérez - Product & Engineering Leader and Systems Thinker'
-description: '20+ years building and leading product and engineering teams, developing frameworks that help organizations adapt faster than their markets change'
+title: 'About Ariel Pérez'
+description: 'Ariel Pérez is an Engineering Leader & Systems Thinker with 20+ years building and leading product and engineering teams, developing frameworks that help organizations adapt faster than their markets change'
 pageTitle: 'About Ariel Pérez'
 subtitle: 'Product & engineering leader, systems thinker, and organizational alchemist'
 image: '/assets/profile.jpg'
