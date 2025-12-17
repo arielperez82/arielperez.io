@@ -1,13 +1,17 @@
 ---
+import Footer from '@/components/Footer'
+import Header from '@/components/Header'
 import TechnicalDebtModel from '@/components/TechnicalDebtModel.tsx'
 import BaseLayout from '@/layouts/BaseLayout.astro'
 ---
 
 <BaseLayout
-  title="Technical Debt Modelling Tool | Ariel Perez"
-  description="Interactive tool for modeling technical debt accumulation and its impact on software development velocity over time."
+  title="The compounding cost of maintenance in growing software systems | Ariel Perez"
+  description="Interactive model showing how maintenance burden can grow as systems scale, reducing effective delivery capacity under different maintenance strategies."
 >
+  <Header client:load />
   <main>
     <TechnicalDebtModel client:load />
   </main>
+  <Footer client:load />
 </BaseLayout>
