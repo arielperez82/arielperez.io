@@ -183,7 +183,7 @@ const TechnicalDebtModel = () => {
     backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
     debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
   })
-  const [selectedPreset, setSelectedPreset] = useState<string>('')
+  const [selectedPreset, setSelectedPreset] = useState<string>('baseline')
 
   const modelResults = useMemo(() => calculateModel(config), [config])
 
@@ -414,9 +414,7 @@ const TechnicalDebtModel = () => {
                           id={`preset-${key}`}
                           name="preset"
                           value={key}
-                          checked={
-                            selectedPreset === key || presets[key].default
-                          }
+                          checked={selectedPreset === key}
                           onChange={() => {
                             setConfig((prev) =>
                               normalizeConfig({ ...prev, ...presets[key] })
@@ -428,7 +426,7 @@ const TechnicalDebtModel = () => {
                         <label
                           htmlFor={`preset-${key}`}
                           className={`block cursor-pointer rounded border px-3 py-2 text-center text-sm transition-colors ${
-                            selectedPreset === key || presets[key].default
+                            selectedPreset === key
                               ? 'border-primary-900 bg-primary-700 font-bold text-white'
                               : 'bg-primary-600 hover:border-primary-800 hover:bg-primary-700 border-transparent text-white/85 hover:font-bold hover:text-white'
                           }`}

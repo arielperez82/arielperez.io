@@ -1036,9 +1036,9 @@ describe('calculateModel', () => {
             backloadedSwitchWeek: 26,
             debtBudgetWeeks: 2
           })
-          const finalWeek = result.data[result.data.length - 1]
+          const finalWeek = result.data.at(-1)
           // With all effort going to refactoring, no value should be delivered.
-          expect(finalWeek.totalValue).toBe(0)
+          expect(finalWeek?.totalValue).toBe(0)
         })
       })
     })
