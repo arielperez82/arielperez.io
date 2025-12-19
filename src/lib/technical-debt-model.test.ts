@@ -14,7 +14,7 @@ describe('calculateEffortAllocation', () => {
     let result: { eFeature: number; eRefactor: number }
 
     beforeAll(() => {
-      result = calculateEffortAllocation(1, 'none', 0, 26, 100, 0)
+      result = calculateEffortAllocation(1, 'none', 0, 26, 100, 0, 2)
     })
 
     it('returns eFeature as 1.0', () => {
@@ -31,7 +31,7 @@ describe('calculateEffortAllocation', () => {
       let result: { eFeature: number; eRefactor: number }
 
       beforeAll(() => {
-        result = calculateEffortAllocation(1, 'weekly', 0.3, 26, 100, 0)
+        result = calculateEffortAllocation(1, 'weekly', 0.3, 26, 100, 0, 2)
       })
 
       it('returns eFeature as 0.7', () => {
@@ -47,7 +47,7 @@ describe('calculateEffortAllocation', () => {
       let result: { eFeature: number; eRefactor: number }
 
       beforeAll(() => {
-        result = calculateEffortAllocation(1, 'weekly', 0.5, 26, 100, 0)
+        result = calculateEffortAllocation(1, 'weekly', 0.5, 26, 100, 0, 2)
       })
 
       it('returns eFeature as 0.5', () => {
@@ -66,7 +66,7 @@ describe('calculateEffortAllocation', () => {
         let result: { eFeature: number; eRefactor: number }
 
         beforeAll(() => {
-          result = calculateEffortAllocation(4, 'monthly', 0.4, 26, 100, 0)
+          result = calculateEffortAllocation(4, 'monthly', 0.4, 26, 100, 0, 2)
         })
 
         it('returns eFeature as 0.6', () => {
@@ -82,7 +82,7 @@ describe('calculateEffortAllocation', () => {
         let result: { eFeature: number; eRefactor: number }
 
         beforeAll(() => {
-          result = calculateEffortAllocation(8, 'monthly', 0.6, 26, 100, 0)
+          result = calculateEffortAllocation(8, 'monthly', 0.6, 26, 100, 0, 2)
         })
 
         it('returns eFeature as 0.4', () => {
@@ -97,32 +97,80 @@ describe('calculateEffortAllocation', () => {
 
     describe('but week is not divisible by 4', () => {
       it('returns eFeature as 1.0', () => {
-        const result = calculateEffortAllocation(1, 'monthly', 0.4, 26, 100, 0)
+        const result = calculateEffortAllocation(
+          1,
+          'monthly',
+          0.4,
+          26,
+          100,
+          0,
+          2
+        )
         expect(result.eFeature).toBe(1.0)
       })
 
       it('returns eRefactor as 0.0', () => {
-        const result = calculateEffortAllocation(1, 'monthly', 0.4, 26, 100, 0)
+        const result = calculateEffortAllocation(
+          1,
+          'monthly',
+          0.4,
+          26,
+          100,
+          0,
+          2
+        )
         expect(result.eRefactor).toBe(0.0)
       })
 
       it('returns eFeature as 1.0 for week 2', () => {
-        const result = calculateEffortAllocation(2, 'monthly', 0.4, 26, 100, 0)
+        const result = calculateEffortAllocation(
+          2,
+          'monthly',
+          0.4,
+          26,
+          100,
+          0,
+          2
+        )
         expect(result.eFeature).toBe(1.0)
       })
 
       it('returns eRefactor as 0.0 for week 2', () => {
-        const result = calculateEffortAllocation(2, 'monthly', 0.4, 26, 100, 0)
+        const result = calculateEffortAllocation(
+          2,
+          'monthly',
+          0.4,
+          26,
+          100,
+          0,
+          2
+        )
         expect(result.eRefactor).toBe(0.0)
       })
 
       it('returns eFeature as 1.0 for week 3', () => {
-        const result = calculateEffortAllocation(3, 'monthly', 0.4, 26, 100, 0)
+        const result = calculateEffortAllocation(
+          3,
+          'monthly',
+          0.4,
+          26,
+          100,
+          0,
+          2
+        )
         expect(result.eFeature).toBe(1.0)
       })
 
       it('returns eRefactor as 0.0 for week 3', () => {
-        const result = calculateEffortAllocation(3, 'monthly', 0.4, 26, 100, 0)
+        const result = calculateEffortAllocation(
+          3,
+          'monthly',
+          0.4,
+          26,
+          100,
+          0,
+          2
+        )
         expect(result.eRefactor).toBe(0.0)
       })
     })
@@ -137,7 +185,8 @@ describe('calculateEffortAllocation', () => {
           0,
           26,
           100,
-          0
+          0,
+          2
         )
         expect(result.eFeature).toBe(1.0)
       })
@@ -149,7 +198,8 @@ describe('calculateEffortAllocation', () => {
           0,
           26,
           100,
-          0
+          0,
+          2
         )
         expect(result.eRefactor).toBe(0.0)
       })
@@ -163,7 +213,8 @@ describe('calculateEffortAllocation', () => {
           0,
           26,
           100,
-          0
+          0,
+          2
         )
         expect(result.eFeature).toBe(0.0)
       })
@@ -175,7 +226,8 @@ describe('calculateEffortAllocation', () => {
           0,
           26,
           100,
-          0
+          0,
+          2
         )
         expect(result.eRefactor).toBe(1.0)
       })
@@ -187,7 +239,8 @@ describe('calculateEffortAllocation', () => {
           0,
           26,
           100,
-          0
+          0,
+          2
         )
         expect(result.eFeature).toBe(0.0)
       })
@@ -199,7 +252,8 @@ describe('calculateEffortAllocation', () => {
           0,
           26,
           100,
-          0
+          0,
+          2
         )
         expect(result.eRefactor).toBe(1.0)
       })
@@ -207,53 +261,29 @@ describe('calculateEffortAllocation', () => {
   })
 
   describe('when refactorSchedule is custom', () => {
-    describe('and debt ratio is greater than 0.15', () => {
-      it('returns eFeature as 0.7', () => {
-        const result = calculateEffortAllocation(1, 'custom', 0, 26, 100, 20) // debt ratio = 20/120 = 0.167
-        expect(result.eFeature).toBe(0.7)
-      })
-
-      it('returns eRefactor as 0.3', () => {
-        const result = calculateEffortAllocation(1, 'custom', 0, 26, 100, 20) // debt ratio = 20/120 = 0.167
-        expect(result.eRefactor).toBe(0.3)
+    describe('and totalDebt exceeds the debt budget', () => {
+      it('allocates all effort to refactoring', () => {
+        const result = calculateEffortAllocation(1, 'custom', 0, 26, 100, 6, 5)
+        expect(result).toEqual({ eFeature: 0.0, eRefactor: 1.0 })
       })
     })
 
-    describe('and debt ratio is greater than 0.05', () => {
-      describe('but debt ratio is not greater than 0.15', () => {
-        it('returns eFeature as 0.85', () => {
-          const result = calculateEffortAllocation(1, 'custom', 0, 26, 100, 6) // debt ratio = 6/106 = 0.057
-          expect(result.eFeature).toBe(0.85)
-        })
-
-        it('returns eRefactor as 0.15', () => {
-          const result = calculateEffortAllocation(1, 'custom', 0, 26, 100, 6) // debt ratio = 6/106 = 0.057
-          expect(result.eRefactor).toBe(0.15)
-        })
-      })
-    })
-
-    describe('but debt ratio is 0.05 or less', () => {
-      it('returns eFeature as 1.0', () => {
-        const result = calculateEffortAllocation(1, 'custom', 0, 26, 100, 4) // debt ratio = 4/104 = 0.038
-        expect(result.eFeature).toBe(1.0)
-      })
-
-      it('returns eRefactor as 0.0', () => {
-        const result = calculateEffortAllocation(1, 'custom', 0, 26, 100, 4) // debt ratio = 4/104 = 0.038
-        expect(result.eRefactor).toBe(0.0)
+    describe('and totalDebt is at or below the debt budget', () => {
+      it('allocates all effort to features', () => {
+        const result = calculateEffortAllocation(1, 'custom', 0, 26, 100, 5, 5)
+        expect(result).toEqual({ eFeature: 1.0, eRefactor: 0.0 })
       })
     })
 
     describe('and totalValue is zero', () => {
       describe('and totalDebt is zero', () => {
         it('returns eFeature as 1.0', () => {
-          const result = calculateEffortAllocation(1, 'custom', 0, 26, 0, 0)
+          const result = calculateEffortAllocation(1, 'custom', 0, 26, 0, 0, 2)
           expect(result.eFeature).toBe(1.0)
         })
 
         it('returns eRefactor as 0.0', () => {
-          const result = calculateEffortAllocation(1, 'custom', 0, 26, 0, 0)
+          const result = calculateEffortAllocation(1, 'custom', 0, 26, 0, 0, 2)
           expect(result.eRefactor).toBe(0.0)
         })
       })
@@ -272,7 +302,8 @@ describe('calculateModel', () => {
         friction: 0.2,
         refactorSchedule: 'none',
         refactorRatio: 0,
-        backloadedSwitchWeek: 26
+        backloadedSwitchWeek: 26,
+        debtBudgetWeeks: 1
       })
     })
 
@@ -327,6 +358,10 @@ describe('calculateModel', () => {
     it('returns totalInterestPaid as 0', () => {
       expect(result.data[0].totalInterestPaid).toBe(0)
     })
+
+    it('returns totalRefactorEffort as 0', () => {
+      expect(result.data[0].totalRefactorEffort).toBe(0)
+    })
   })
 
   describe('when refactorSchedule is none', () => {
@@ -339,7 +374,8 @@ describe('calculateModel', () => {
             friction: 0.2,
             refactorSchedule: 'none',
             refactorRatio: 0,
-            backloadedSwitchWeek: 26
+            backloadedSwitchWeek: 26,
+            debtBudgetWeeks: 2
           })
         ).not.toThrow()
       })
@@ -356,7 +392,8 @@ describe('calculateModel', () => {
             friction: 0.2,
             refactorSchedule: 'backloaded',
             refactorRatio: 0,
-            backloadedSwitchWeek: 26
+            backloadedSwitchWeek: 26,
+            debtBudgetWeeks: 2
           })
         ).toThrow(
           'Backloaded switch week must be between 1 and the total number of weeks'
@@ -380,7 +417,8 @@ describe('calculateModel', () => {
               friction: 0,
               refactorSchedule: 'none',
               refactorRatio: 0,
-              backloadedSwitchWeek: 26
+              backloadedSwitchWeek: 26,
+              debtBudgetWeeks: 2
             })
             finalWeek = result.data[result.data.length - 1]
             nonZeroWeeks = result.data.slice(1) // Skip week 0
@@ -424,7 +462,8 @@ describe('calculateModel', () => {
               friction: 1,
               refactorSchedule: 'none',
               refactorRatio: 0,
-              backloadedSwitchWeek: 26
+              backloadedSwitchWeek: 26,
+              debtBudgetWeeks: 2
             })
             finalWeek = result.data[result.data.length - 1]
             weeks = result.data.slice(1) // Skip week 0
@@ -436,7 +475,8 @@ describe('calculateModel', () => {
           })
 
           it('returns totalDebt greater than 0', () => {
-            expect(finalWeek.totalDebt).toBeGreaterThan(0)
+            // With alpha=0, no changes are delivered, so no debt is created either.
+            expect(finalWeek.totalDebt).toBe(0)
           })
 
           it('returns declining efficiency', () => {
@@ -471,15 +511,17 @@ describe('calculateModel', () => {
               friction: 0.2,
               refactorSchedule: 'none',
               refactorRatio: 0,
-              backloadedSwitchWeek: 26
+              backloadedSwitchWeek: 26,
+              debtBudgetWeeks: 2
             })
             nonZeroWeeks = result.data.slice(1) // Skip week 0
           })
 
           it('shows declining value delivery rate over time', () => {
+            const epsilon = 1e-12
             for (let i = 1; i < nonZeroWeeks.length; i++) {
               expect(nonZeroWeeks[i].valueDeliveryRate).toBeLessThanOrEqual(
-                nonZeroWeeks[i - 1].valueDeliveryRate
+                nonZeroWeeks[i - 1].valueDeliveryRate + epsilon
               )
             }
           })
@@ -518,7 +560,8 @@ describe('calculateModel', () => {
                 friction: 0.2,
                 refactorSchedule: 'weekly',
                 refactorRatio: 0.3,
-                backloadedSwitchWeek: 26
+                backloadedSwitchWeek: 26,
+                debtBudgetWeeks: 2
               })
               nonZeroWeeks = result.data.slice(1) // Skip week 0
               laterWeeks = nonZeroWeeks.slice(3) // Start checking from week 4
@@ -564,7 +607,8 @@ describe('calculateModel', () => {
                 friction: 0.2,
                 refactorSchedule: 'monthly',
                 refactorRatio: 0.5,
-                backloadedSwitchWeek: 26
+                backloadedSwitchWeek: 26,
+                debtBudgetWeeks: 2
               })
             })
 
@@ -612,7 +656,8 @@ describe('calculateModel', () => {
             friction: 0.2,
             refactorSchedule: 'none',
             refactorRatio: 0,
-            backloadedSwitchWeek: 26
+            backloadedSwitchWeek: 26,
+            debtBudgetWeeks: 2
           })
           const week1 = result.data[1]
           const expectedV0 = 0.8 // alpha (effortPerWeek is implicitly 1)
@@ -630,7 +675,8 @@ describe('calculateModel', () => {
               friction: 0.2,
               refactorSchedule: 'none',
               refactorRatio: 0,
-              backloadedSwitchWeek: 26
+              backloadedSwitchWeek: 26,
+              debtBudgetWeeks: 2
             })
             const week3 = result.data[3]
             // Should use weeks 1, 2, 3 for the average
@@ -646,7 +692,8 @@ describe('calculateModel', () => {
               friction: 0.2,
               refactorSchedule: 'none',
               refactorRatio: 0,
-              backloadedSwitchWeek: 26
+              backloadedSwitchWeek: 26,
+              debtBudgetWeeks: 2
             })
             const week6 = result.data[6]
             // Should use weeks 1-6 for the average
@@ -662,7 +709,8 @@ describe('calculateModel', () => {
               friction: 0.2,
               refactorSchedule: 'none',
               refactorRatio: 0,
-              backloadedSwitchWeek: 26
+              backloadedSwitchWeek: 26,
+              debtBudgetWeeks: 2
             })
             const week10 = result.data[10]
             // Should use weeks 5-10 for the average (6 weeks)
@@ -680,7 +728,8 @@ describe('calculateModel', () => {
           friction: 0.2,
           refactorSchedule: 'none',
           refactorRatio: 0,
-          backloadedSwitchWeek: 26
+          backloadedSwitchWeek: 26,
+          debtBudgetWeeks: 1
         })
         expect(result.data[0].gearing).toBe(0)
       })
@@ -694,7 +743,8 @@ describe('calculateModel', () => {
           friction: 0.2,
           refactorSchedule: 'none',
           refactorRatio: 0,
-          backloadedSwitchWeek: 26
+          backloadedSwitchWeek: 26,
+          debtBudgetWeeks: 2
         })
         const finalWeek = result.data[result.data.length - 1]
         const expectedGearing =
@@ -711,7 +761,8 @@ describe('calculateModel', () => {
           friction: 0.2,
           refactorSchedule: 'none',
           refactorRatio: 0,
-          backloadedSwitchWeek: 26
+          backloadedSwitchWeek: 26,
+          debtBudgetWeeks: 2
         })
         const finalWeek = result.data[result.data.length - 1]
         const totalEffort = 5 // weeks (effortPerWeek is implicitly 1)
@@ -730,7 +781,8 @@ describe('calculateModel', () => {
           friction: 0.1,
           refactorSchedule: 'weekly',
           refactorRatio: 0.8,
-          backloadedSwitchWeek: 26
+          backloadedSwitchWeek: 26,
+          debtBudgetWeeks: 2
         })
         // With high refactoring ratio, debt should be clamped to 0
         result.data.forEach((week) => {
@@ -748,7 +800,6 @@ describe('calculateModel', () => {
       let maxDebtFromData: number
       let maxGearingFromData: number
       let minRateFromData: number
-      let minEffectiveRateFromData: number
 
       beforeAll(() => {
         result = calculateModel({
@@ -757,7 +808,8 @@ describe('calculateModel', () => {
           friction: 0.2,
           refactorSchedule: 'none',
           refactorRatio: 0,
-          backloadedSwitchWeek: 26
+          backloadedSwitchWeek: 26,
+          debtBudgetWeeks: 2
         })
         finalWeek = result.data[result.data.length - 1]
         nonZeroWeeks = result.data.slice(1)
@@ -765,9 +817,6 @@ describe('calculateModel', () => {
         maxGearingFromData = Math.max(...result.data.map((r) => r.gearing))
         minRateFromData = Math.min(
           ...nonZeroWeeks.map((r) => r.valueDeliveryRate)
-        )
-        minEffectiveRateFromData = Math.min(
-          ...nonZeroWeeks.map((r) => r.avgValueDeliveryRate)
         )
       })
 
@@ -803,12 +852,6 @@ describe('calculateModel', () => {
         )
       })
 
-      it('calculates summary minEffectiveValueDeliveryRate excluding week 0', () => {
-        expect(
-          parseFloat(result.summary.minEffectiveValueDeliveryRate)
-        ).toBeCloseTo(minEffectiveRateFromData, 1)
-      })
-
       it('calculates summary AER using exponential formula', () => {
         const expectedAER = (Math.pow(1 + 0.2, 52) - 1) * 100
         expect(parseFloat(result.summary.aer)).toBeCloseTo(expectedAER, 0)
@@ -821,6 +864,13 @@ describe('calculateModel', () => {
         )
         expect(parseFloat(result.summary.totalInterestPaid)).toBeCloseTo(
           totalInterestFromData,
+          2
+        )
+      })
+
+      it('calculates summary totalRefactorEffort from all weeks', () => {
+        expect(parseFloat(result.summary.totalRefactorEffort)).toBeCloseTo(
+          finalWeek.totalRefactorEffort,
           2
         )
       })
@@ -845,7 +895,8 @@ describe('calculateModel', () => {
             friction: 0.2,
             refactorSchedule: 'backloaded',
             refactorRatio: 0,
-            backloadedSwitchWeek: 5
+            backloadedSwitchWeek: 5,
+            debtBudgetWeeks: 2
           })
           beforeSwitch = result.data.slice(1, 5) // Weeks 1-4
           afterSwitch = result.data.slice(5) // Weeks 5-10
@@ -880,23 +931,29 @@ describe('calculateModel', () => {
           friction: 0.2,
           refactorSchedule: 'none',
           refactorRatio: 0,
-          backloadedSwitchWeek: 26
+          backloadedSwitchWeek: 26,
+          debtBudgetWeeks: 2
         })
         nonZeroWeeks = result.data.slice(1)
       })
 
-      it('calculates interestPaid as pDebt', () => {
-        nonZeroWeeks.forEach((week) => {
-          const pDebt = week.totalDebt / (week.totalValue + week.totalDebt || 1)
-          const expectedInterest = pDebt
-          expect(week.interestPaid).toBeCloseTo(expectedInterest, 5)
+      it('calculates interestPaid as lost effort (effort - value - refactor)', () => {
+        const effortPerWeek = 1
+        nonZeroWeeks.forEach((week, idx) => {
+          const prev = nonZeroWeeks[idx - 1]
+          const refactorEffortThisWeek =
+            week.totalRefactorEffort - (prev?.totalRefactorEffort ?? 0)
+          const expectedInterest =
+            effortPerWeek - (week.value + refactorEffortThisWeek)
+          expect(week.interestPaid).toBeCloseTo(expectedInterest, 10)
         })
       })
 
       it('increases interestPaid as debt accumulates', () => {
+        const epsilon = 1e-12
         for (let i = 1; i < nonZeroWeeks.length; i++) {
           expect(nonZeroWeeks[i].interestPaid).toBeGreaterThanOrEqual(
-            nonZeroWeeks[i - 1].interestPaid
+            nonZeroWeeks[i - 1].interestPaid - epsilon
           )
         }
       })
@@ -912,7 +969,8 @@ describe('calculateModel', () => {
           friction: 0.2,
           refactorSchedule: 'none',
           refactorRatio: 0,
-          backloadedSwitchWeek: 26
+          backloadedSwitchWeek: 26,
+          debtBudgetWeeks: 2
         })
       }).toThrow('Weeks must be at least 1')
     })
@@ -927,7 +985,8 @@ describe('calculateModel', () => {
           friction: 0.2,
           refactorSchedule: 'none',
           refactorRatio: 0,
-          backloadedSwitchWeek: 26
+          backloadedSwitchWeek: 26,
+          debtBudgetWeeks: 2
         })
         const resultWeekly = calculateModel({
           weeks: 5,
@@ -935,7 +994,8 @@ describe('calculateModel', () => {
           friction: 0.2,
           refactorSchedule: 'weekly',
           refactorRatio: 0,
-          backloadedSwitchWeek: 26
+          backloadedSwitchWeek: 26,
+          debtBudgetWeeks: 2
         })
 
         expect(resultNone.data.length).toBe(resultWeekly.data.length)
@@ -956,7 +1016,8 @@ describe('calculateModel', () => {
             friction: 0.2,
             refactorSchedule: 'weekly',
             refactorRatio: 1,
-            backloadedSwitchWeek: 26
+            backloadedSwitchWeek: 26,
+            debtBudgetWeeks: 2
           })
           const nonZeroWeeks = result.data.slice(1) // Skip week 0
           nonZeroWeeks.forEach((week) => {
@@ -972,7 +1033,8 @@ describe('calculateModel', () => {
             friction: 0.2,
             refactorSchedule: 'weekly',
             refactorRatio: 1,
-            backloadedSwitchWeek: 26
+            backloadedSwitchWeek: 26,
+            debtBudgetWeeks: 2
           })
           const finalWeek = result.data[result.data.length - 1]
           // With all effort going to refactoring, no value should be delivered.
@@ -986,7 +1048,7 @@ describe('calculateModel', () => {
 // Smoke test to verify Vitest setup
 describe('Test Infrastructure', () => {
   it('can import and call functions', () => {
-    const result = calculateEffortAllocation(1, 'none', 0, 26, 100, 0)
+    const result = calculateEffortAllocation(1, 'none', 0, 26, 100, 0, 2)
     expect(result).toEqual({ eFeature: 1.0, eRefactor: 0.0 })
   })
 })

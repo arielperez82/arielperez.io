@@ -7,6 +7,12 @@ export interface TechnicalDebtConfig {
   refactorSchedule: 'none' | 'backloaded' | 'monthly' | 'weekly' | 'custom'
   refactorRatio: number // For weekly/monthly: how much effort to spend refactoring
   backloadedSwitchWeek: number // For backloaded: week to switch from features to refactoring
+  /**
+   * For `custom` (Adaptive / debt budget):
+   * Debt budget expressed as "weeks of latent debt" (units are the same as `totalDebt`),
+   * above which the model flips to 100% refactoring until debt is brought back below budget.
+   */
+  debtBudgetWeeks: number
 }
 
 export interface ModelResult {
@@ -16,6 +22,7 @@ export interface ModelResult {
   totalValue: number
   totalDebt: number
   totalInterestPaid: number
+  totalRefactorEffort: number // NEW
   valueDeliveryRate: number
   avgValueDeliveryRate: number
   gearing: number
@@ -33,9 +40,10 @@ export interface ModelSummary {
   finalGearing: string
   finalEfficiency: string
   minValueDeliveryRate: string
-  minEffectiveValueDeliveryRate: string
+  avgValueDeliveryRate: string
   aer: string
   totalInterestPaid: string
+  totalRefactorEffort: string // NEW
   totalEffort: number
 }
 
@@ -50,7 +58,8 @@ export const calculateEffortAllocation = (
   refactorRatio: number,
   backloadedSwitchWeek: number,
   totalValue: number,
-  totalDebt: number
+  totalDebt: number,
+  debtBudgetWeeks: number
 ) => {
   let eFeature = 1
   let eRefactor = 0
@@ -65,15 +74,11 @@ export const calculateEffortAllocation = (
     eFeature = 1 - refactorRatio
     eRefactor = refactorRatio
   } else if (refactorSchedule === 'custom') {
-    // Allow custom ratio based on debt levels
-    const debtRatio = totalDebt / (totalValue + totalDebt || 1)
-    if (debtRatio > 0.15) {
-      // If debt > 15% of total
-      eFeature = 0.7
-      eRefactor = 0.3
-    } else if (debtRatio > 0.05) {
-      eFeature = 0.85
-      eRefactor = 0.15
+    // Adaptive: deliver features until a debt budget is exceeded, then flip to full refactoring
+    // until debt is brought back below budget.
+    if (totalDebt > debtBudgetWeeks) {
+      eFeature = 0
+      eRefactor = 1
     }
   }
 
@@ -102,6 +107,14 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
       'Backloaded switch week must be between 1 and the total number of weeks'
     )
   }
+  if (
+    cfg.debtBudgetWeeks != null &&
+    (cfg.debtBudgetWeeks < 0.5 || cfg.debtBudgetWeeks > cfg.weeks)
+  ) {
+    throw new Error(
+      'Debt budget must be between 0.5 and the total number of weeks'
+    )
+  }
 
   const {
     weeks,
@@ -109,18 +122,21 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
     friction,
     refactorSchedule,
     refactorRatio,
-    backloadedSwitchWeek
+    backloadedSwitchWeek,
+    debtBudgetWeeks: debtBudgetWeeksRaw
   } = cfg
   const results: ModelResult[] = []
 
   let totalValue = 0
   let totalDebt = 0
   let totalInterestPaid = 0
+  let totalRefactorEffort = 0 // NEW
   // Model assumes a fixed 1.0 unit of effort per week; totals are in "effort-weeks".
   // This keeps the ratio-based outputs (e.g., % of V₀) identical to the previous default
   // behavior where effortPerWeek was always set to 1.
   const effortPerWeek = 1
   const v0 = effortPerWeek * alpha
+  const debtBudgetWeeks = debtBudgetWeeksRaw ?? 2
 
   for (let week = 0; week <= weeks; week++) {
     if (week === 0) {
@@ -131,6 +147,7 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
         totalValue: 0,
         totalDebt: 0,
         totalInterestPaid: 0,
+        totalRefactorEffort: 0, // NEW
         valueDeliveryRate: 100,
         avgValueDeliveryRate: 100,
         gearing: 0,
@@ -149,28 +166,55 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
       refactorRatio,
       backloadedSwitchWeek,
       totalValue,
-      totalDebt
+      totalDebt,
+      debtBudgetWeeks
     )
 
-    const pDebt = totalDebt / (totalValue + totalDebt || 1)
+    // --- 1) Debt ratio
+    const P_DEBT_MAX = 0.99
+    const rawPDebt = totalDebt / (totalValue + totalDebt || 1)
+    const pDebt = Math.min(Math.max(rawPDebt, 0), P_DEBT_MAX)
     const pValue = 1 - pDebt
 
-    const dValue = eFeature * pValue * alpha * effortPerWeek
-    const mDebt = eRefactor * pValue * alpha * effortPerWeek
-    const workDone = dValue + mDebt
-    const dDebt = effortPerWeek - workDone
+    // --- 2) Effective effort
+    const effectiveEffort = alpha * pValue * effortPerWeek
 
+    // --- 3) Allocate effort
+    const dValue = eFeature * effectiveEffort
+    const mDebt = eRefactor * effectiveEffort
+
+    // --- 4) Lost effort
+    const dDebt = effortPerWeek - (dValue + mDebt)
+
+    // --- 5) Update delivered footprint
     totalValue += dValue
-    totalDebt = Math.max(0, totalDebt + dDebt - mDebt)
 
+    // --- 6) Debt creation THROUGH CHANGE (this is known as debt amplification)
+    const AMP_MAX = 50 // tune; 20–200 depending on how extreme you want
+    //const debtAmplifier = 1 + pDebt   // ← Percentage
+    // const debtAmplifier = 1 / (1 - pDebt) //Hyperbolic
+    //const debtAmplifier = 1 + Math.pow(pDebt / (1 - pDebt), 9) // Power Law
+    const debtAmplifier = 1 + Math.exp(3 * pDebt) //Exponential
+    const cappedDebtAmplifier = Math.min(debtAmplifier, AMP_MAX)
+
+    const debtCreated = friction * cappedDebtAmplifier * dValue
+
+    // --- 7) Update latent debt
+    totalDebt = Math.max(0, totalDebt + debtCreated - mDebt)
+
+    // --- 7) Track cumulative refactoring effort
+    totalRefactorEffort += mDebt
+
+    // --- 8) Metrics
     const valueDeliveryRate = (dValue / v0) * 100
     const gearing = totalValue > 0 ? (totalDebt / totalValue) * 100 : 0
     const efficiency = (totalValue / (week * effortPerWeek)) * 100
-    const pDebtAfter = totalDebt / (totalValue + totalDebt || 1)
-    const interestPaid = pDebtAfter * effortPerWeek
+
+    // Repurpose interestPaid to mean: lost effort this week (debt drag + baseline loss)
+    const interestPaid = dDebt
     totalInterestPaid += interestPaid
 
-    // Calculate 6-week rolling average value delivery rate
+    // --- 9) Rolling average delivery rate
     const windowSize = 6
     const windowStart = Math.max(0, week - windowSize)
     const windowValue = totalValue - (results[windowStart]?.totalValue || 0)
@@ -180,18 +224,19 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
 
     results.push({
       week,
-      value: dValue,
-      debt: dDebt - mDebt,
-      totalValue: totalValue,
-      totalDebt: totalDebt,
+      value: dValue, // delivered change this week
+      debt: debtCreated - mDebt, // latent debt delta this week (principal change)
+      totalValue: totalValue, // delivered change footprint
+      totalDebt: totalDebt, // latent debt principal
       totalInterestPaid: totalInterestPaid,
+      totalRefactorEffort: totalRefactorEffort,
       valueDeliveryRate: valueDeliveryRate,
       avgValueDeliveryRate: avgValueDeliveryRate,
       gearing: gearing,
       efficiency: efficiency,
       eFeature: eFeature,
       eRefactor: eRefactor,
-      interestPaid: interestPaid
+      interestPaid: interestPaid // lost effort this week
     })
   }
 
@@ -205,10 +250,6 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
     throw new Error('No final week found')
   }
 
-  // Calculate total interest paid - cumulative effort spent servicing debt
-  // Use the final week's running total to avoid re-summing the series.
-  const totalInterestPaidFromFinalWeek = finalWeek.totalInterestPaid
-
   return {
     data: results,
     summary: {
@@ -221,11 +262,14 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
       minValueDeliveryRate: Math.min(
         ...results.slice(1).map((r) => r.valueDeliveryRate)
       ).toFixed(1),
-      minEffectiveValueDeliveryRate: Math.min(
-        ...results.slice(1).map((r) => r.avgValueDeliveryRate)
-      ).toFixed(1),
+      avgValueDeliveryRate: (() => {
+        const values = results.slice(1).map((r) => r.avgValueDeliveryRate)
+        const sum = values.reduce((acc, val) => acc + val, 0)
+        return (sum / values.length).toFixed(1)
+      })(),
       aer: (aer * 100).toFixed(0),
-      totalInterestPaid: totalInterestPaidFromFinalWeek.toFixed(2),
+      totalInterestPaid: finalWeek.totalInterestPaid.toFixed(2),
+      totalRefactorEffort: finalWeek.totalRefactorEffort.toFixed(2),
       totalEffort: weeks * effortPerWeek
     }
   }
