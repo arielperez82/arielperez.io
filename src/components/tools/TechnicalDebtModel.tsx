@@ -465,9 +465,10 @@ const TechnicalDebtModel = () => {
                     id="weeks"
                     name="weeks"
                     value={config.weeks}
-                    onChange={(e) =>
-                      updateConfig('weeks', Number.parseInt(e.target.value, 10))
-                    }
+                    onChange={(e) => {
+                      const weeks = e.target.value // || '1'
+                      updateConfig('weeks', Number.parseInt(weeks, 10))
+                    }}
                     className="w-full rounded border border-gray-300 px-2 py-2 text-center"
                     min="1"
                     max={MAX_WEEKS}
@@ -764,7 +765,7 @@ const TechnicalDebtModel = () => {
               />
             </ComposedChart>
           </ResponsiveContainer>
-          <p className="mt-3 text-sm text-gray-600">
+          <p className="text-sm text-gray-600">
             As systems grow, technical debt and uncertainty absorb a larger
             share of effort unless actively reduced, limiting how much new
             functionality can be delivered per unit of effort.
@@ -877,15 +878,15 @@ const TechnicalDebtModel = () => {
               {/* Minimum change capacity */}
               <div className="flex justify-between">
                 <span className="inline-flex items-center font-medium text-gray-700">
-                  Minimum change delivery capacity
+                  Ending change delivery capacity
                   <InlineInfoTooltip
-                    ariaLabel="What minimum change delivery capacity means"
-                    text="Minimum ability across the entire time horizon to deliver new changes, reflecting periods where technical debt and/or its reduction most constrained change delivery."
+                    ariaLabel="What ending change delivery capacity means"
+                    text="Change delivery capacity at the end of the time horizon as a result of accumulated technical debt and refactoring effort."
                   />
                 </span>
                 <span className="text-emerald-500">
                   {formatUnknownNumber(
-                    modelResults.summary.minValueDeliveryRate
+                    modelResults.summary.finalValueDeliveryRate
                   )}
                   % of V₀
                 </span>

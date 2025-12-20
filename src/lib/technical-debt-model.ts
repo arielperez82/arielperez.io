@@ -41,6 +41,7 @@ export interface ModelSummary {
   finalEfficiency: string
   minValueDeliveryRate: string
   avgValueDeliveryRate: string
+  finalValueDeliveryRate: string
   aer: string
   totalInterestPaid: string
   totalRefactorEffort: string // NEW
@@ -108,7 +109,7 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
     )
   }
   if (
-    cfg.debtBudgetWeeks != null &&
+    cfg.refactorSchedule === 'custom' &&
     (cfg.debtBudgetWeeks < 0.5 || cfg.debtBudgetWeeks > cfg.weeks)
   ) {
     throw new Error(
@@ -194,7 +195,7 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
     //const debtAmplifier = 1 + pDebt   // ← Percentage
     // const debtAmplifier = 1 / (1 - pDebt) //Hyperbolic
     //const debtAmplifier = 1 + Math.pow(pDebt / (1 - pDebt), 9) // Power Law
-    const debtAmplifier = 1 + Math.exp(3 * pDebt) //Exponential
+    const debtAmplifier = 1 + Math.exp(4.75 * pDebt) //Exponential
     const cappedDebtAmplifier = Math.min(debtAmplifier, AMP_MAX)
 
     const debtCreated = friction * cappedDebtAmplifier * dValue
@@ -267,6 +268,7 @@ export const calculateModel = (cfg: TechnicalDebtConfig): ModelOutput => {
         const sum = values.reduce((acc, val) => acc + val, 0)
         return (sum / values.length).toFixed(1)
       })(),
+      finalValueDeliveryRate: finalWeek.valueDeliveryRate.toFixed(1),
       aer: (aer * 100).toFixed(0),
       totalInterestPaid: finalWeek.totalInterestPaid.toFixed(2),
       totalRefactorEffort: finalWeek.totalRefactorEffort.toFixed(2),
