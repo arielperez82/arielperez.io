@@ -24,9 +24,9 @@ import { InlineInfoTooltip } from './InlineInfoTooltip'
 
 const DEFAULT_FRICTION = 0.108
 const DEFAULT_ALPHA = 1 - DEFAULT_FRICTION
-const DEFAULT_BACKLOADED_SWITCH_WEEK = 41
+const DEFAULT_BACKLOADED_SWITCH_WEEK = 34
 const MAX_WEEKS = 312
-const DEFAULT_DEBT_BUDGET_WEEKS = 2
+const DEFAULT_DEBT_BUDGET_WEEKS = 1
 
 // Chart colors aligned to Tailwind `theme.extend.colors.primary` (indigo).
 const CHART_COLOR_VALUE_STROKE = '#3730a3' // indigo-800
@@ -232,7 +232,7 @@ const TechnicalDebtModel = () => {
       alpha: 0.892,
       friction: DEFAULT_FRICTION,
       refactorSchedule: 'monthly',
-      refactorRatio: 0.8,
+      refactorRatio: 0.85,
       backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
       debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
     },
@@ -242,7 +242,7 @@ const TechnicalDebtModel = () => {
       alpha: 0.892,
       friction: DEFAULT_FRICTION,
       refactorSchedule: 'weekly',
-      refactorRatio: 0.2,
+      refactorRatio: 0.18,
       backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
       debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
     },
