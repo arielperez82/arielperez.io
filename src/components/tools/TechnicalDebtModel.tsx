@@ -1018,7 +1018,24 @@ const TechnicalDebtModel = () => {
                 ranking of strategies.
               </p>
             </div>
-
+            <div>
+              <h3 className="mb-1 text-sm font-semibold text-gray-900">
+                Why &quot;change delivery capacity&quot; and not
+                &quot;value&quot; or &quot;features&quot;?
+              </h3>
+              <p className="text-sm text-gray-700">
+                Value depends on what you build and whether the market ultimately cares.
+                Features conflate scope with impact. This simulator focuses on something
+                more fundamental: how effectively the system can absorb and implement
+                change.
+              </p>
+              <p className="mt-2 text-sm text-gray-700">
+                Change delivery capacity reflects the system’s structural freedom to evolve.
+                Teams with high capacity can respond to feedback, pivot when assumptions
+                are wrong, and deliver what matters. Teams with low capacity are constrained
+                by their system, regardless of how good their ideas are.
+              </p>
+            </div>
             <div>
               <h3 className="mb-1 text-sm font-semibold text-gray-900">
                 How should you use this simulator?
