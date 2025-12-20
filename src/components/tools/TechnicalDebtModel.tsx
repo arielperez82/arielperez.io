@@ -31,7 +31,7 @@ const DEFAULT_DEBT_BUDGET_WEEKS = 1
 // Chart colors aligned to Tailwind `theme.extend.colors.primary` (indigo).
 const CHART_COLOR_VALUE_STROKE = '#3730a3' // indigo-800
 const CHART_COLOR_VALUE_FILL = '#4f46e5' // indigo-600
-const CHART_COLOR_DEBT = '#c2410c' // orange-700 (reddish-brown)
+const CHART_COLOR_DEBT = '#7c2d12' // orange-900 (dark brown)
 const CHART_COLOR_REFACTOR_STROKE = '#6366f1' // indigo-500
 const CHART_COLOR_REFACTOR_FILL = '#a5b4fc' // indigo-300
 const CHART_COLOR_INTEREST = '#dc2626' // red-600 (more saturated than red-500)
@@ -853,7 +853,7 @@ const TechnicalDebtModel = () => {
                     text="Accumulated technical debt, expressed as weeks of effort. This increases the cost and risk of future changes unless reduced through refactoring."
                   />
                 </span>
-                <span className="text-orange-700">
+                <span className="text-orange-900">
                   {formatUnknownNumber(modelResults.summary.finalDebt)} weeks
                 </span>
               </div>
