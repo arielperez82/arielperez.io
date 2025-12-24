@@ -6,5 +6,4 @@ url: 'https://www.tinybird.co/blog-posts/outgrowing-postgres-how-to-run-olap-wor
 date: '2025-01-31'
 publication: 'Tinybird Blog'
 image: '/assets/media/tinybird-blog.png'
-featured: true
 ---

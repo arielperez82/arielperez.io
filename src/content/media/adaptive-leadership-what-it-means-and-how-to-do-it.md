@@ -6,5 +6,4 @@ url: 'https://clearpurpose.media/adaptive-leadership-752601c11fe1'
 date: '2025-09-09'
 publication: 'ClearPurpose'
 image: '/assets/media/clear-purpose.png'
-featured: true
 ---

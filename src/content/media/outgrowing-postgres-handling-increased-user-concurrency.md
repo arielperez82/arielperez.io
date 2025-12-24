@@ -6,5 +6,4 @@ url: 'https://www.tinybird.co/blog-posts/outgrowing-postgres-handling-increased-
 date: '2025-01-24'
 publication: 'Tinybird Blog'
 image: '/assets/media/tinybird-blog.png'
-featured: true
 ---
