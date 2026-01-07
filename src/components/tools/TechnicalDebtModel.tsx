@@ -1,7 +1,7 @@
 // src/components/tools/TechnicalDebtModel.tsx
 
 import type { ChangeEvent, FormEvent } from 'react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   Area,
   CartesianGrid,
@@ -173,6 +173,59 @@ const normalizeConfig = (cfg: TechnicalDebtConfig): TechnicalDebtConfig => {
   }
 }
 
+const presets: Record<
+  string,
+  { title: string; default: boolean } & Partial<TechnicalDebtConfig>
+> = {
+  baseline: {
+    title: 'Baseline',
+    default: true,
+    alpha: 0.892,
+    friction: DEFAULT_FRICTION,
+    refactorSchedule: 'none',
+    backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
+    debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
+  },
+  backloaded: {
+    title: 'Backloaded refactoring',
+    default: false,
+    alpha: 0.892,
+    friction: DEFAULT_FRICTION,
+    refactorSchedule: 'backloaded',
+    backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
+    debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
+  },
+  monthly: {
+    title: 'Monthly refactoring',
+    default: false,
+    alpha: 0.892,
+    friction: DEFAULT_FRICTION,
+    refactorSchedule: 'monthly',
+    refactorRatio: 0.85,
+    backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
+    debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
+  },
+  continuous: {
+    title: 'Continuous refactoring',
+    default: false,
+    alpha: 0.892,
+    friction: DEFAULT_FRICTION,
+    refactorSchedule: 'weekly',
+    refactorRatio: 0.18,
+    backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
+    debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
+  },
+  adaptive: {
+    title: 'Adaptive refactoring',
+    default: false,
+    alpha: 0.892,
+    friction: DEFAULT_FRICTION,
+    refactorSchedule: 'custom',
+    backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
+    debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
+  }
+}
+
 const TechnicalDebtModel = () => {
   const [config, setConfig] = useState<TechnicalDebtConfig>({
     weeks: 52,
@@ -184,6 +237,135 @@ const TechnicalDebtModel = () => {
     debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
   })
   const [selectedPreset, setSelectedPreset] = useState<string>('baseline')
+  const [shareCopied, setShareCopied] = useState(false)
+
+  // Load config from URL params on mount
+  useEffect(() => {
+    if (globalThis.window === undefined) return
+
+    const params = new URLSearchParams(globalThis.window.location.search)
+    const preset = params.get('preset')
+    if (preset && presets[preset]) {
+      setConfig((prev) => normalizeConfig({ ...prev, ...presets[preset] }))
+      setSelectedPreset(preset)
+    } else {
+      // Try to load individual config params
+      const weeks = params.get('weeks')
+      const friction = params.get('friction')
+      const refactorSchedule = params.get('refactorSchedule')
+      const refactorRatio = params.get('refactorRatio')
+      const backloadedSwitchWeek = params.get('backloadedSwitchWeek')
+      const debtBudgetWeeks = params.get('debtBudgetWeeks')
+
+      if (
+        weeks ||
+        friction ||
+        refactorSchedule ||
+        refactorRatio ||
+        backloadedSwitchWeek ||
+        debtBudgetWeeks
+      ) {
+        setConfig((prev) =>
+          normalizeConfig({
+            ...prev,
+            ...(weeks && { weeks: Number.parseInt(weeks, 10) }),
+            ...(friction && {
+              friction: Number.parseFloat(friction),
+              alpha: 1 - Number.parseFloat(friction)
+            }),
+            ...(refactorSchedule && {
+              refactorSchedule:
+                refactorSchedule as TechnicalDebtConfig['refactorSchedule']
+            }),
+            ...(refactorRatio && {
+              refactorRatio: Number.parseFloat(refactorRatio)
+            }),
+            ...(backloadedSwitchWeek && {
+              backloadedSwitchWeek: Number.parseInt(backloadedSwitchWeek, 10)
+            }),
+            ...(debtBudgetWeeks && {
+              debtBudgetWeeks: Number.parseFloat(debtBudgetWeeks)
+            })
+          })
+        )
+        setSelectedPreset('')
+      }
+    }
+  }, [])
+
+  // Update URL when config changes (without page reload)
+  useEffect(() => {
+    if (globalThis.window === undefined) return
+
+    const params = new URLSearchParams()
+    if (selectedPreset && selectedPreset !== 'baseline') {
+      params.set('preset', selectedPreset)
+    } else {
+      // Store individual config values if not using a preset
+      if (config.weeks !== 52) params.set('weeks', config.weeks.toString())
+      if (Math.abs(config.friction - DEFAULT_FRICTION) > 0.001)
+        params.set('friction', config.friction.toString())
+      if (config.refactorSchedule !== 'none')
+        params.set('refactorSchedule', config.refactorSchedule)
+      if (Math.abs(config.refactorRatio - 0.2) > 0.01)
+        params.set('refactorRatio', config.refactorRatio.toString())
+      if (config.backloadedSwitchWeek !== DEFAULT_BACKLOADED_SWITCH_WEEK)
+        params.set(
+          'backloadedSwitchWeek',
+          config.backloadedSwitchWeek.toString()
+        )
+      if (Math.abs(config.debtBudgetWeeks - DEFAULT_DEBT_BUDGET_WEEKS) > 0.1)
+        params.set('debtBudgetWeeks', config.debtBudgetWeeks.toString())
+    }
+
+    const paramsString = params.toString()
+    const newUrl =
+      paramsString === ''
+        ? globalThis.window.location.pathname
+        : `${globalThis.window.location.pathname}?${paramsString}`
+
+    globalThis.window.history.replaceState({}, '', newUrl)
+  }, [config, selectedPreset])
+
+  const handleShare = async () => {
+    if (globalThis.window === undefined) return
+
+    const params = new URLSearchParams()
+    if (selectedPreset) {
+      params.set('preset', selectedPreset)
+    } else {
+      params.set('weeks', config.weeks.toString())
+      params.set('friction', config.friction.toString())
+      params.set('refactorSchedule', config.refactorSchedule)
+      params.set('refactorRatio', config.refactorRatio.toString())
+      params.set('backloadedSwitchWeek', config.backloadedSwitchWeek.toString())
+      params.set('debtBudgetWeeks', config.debtBudgetWeeks.toString())
+    }
+
+    const url = `${globalThis.window.location.origin}${globalThis.window.location.pathname}?${params.toString()}`
+
+    try {
+      await navigator.clipboard.writeText(url)
+      setShareCopied(true)
+      setTimeout(() => setShareCopied(false), 2000)
+    } catch {
+      // Fallback for older browsers
+      const textArea = document.createElement('textarea')
+      textArea.value = url
+      textArea.style.position = 'fixed'
+      textArea.style.opacity = '0'
+      document.body.appendChild(textArea)
+      textArea.select()
+      try {
+        document.execCommand('copy')
+        setShareCopied(true)
+        setTimeout(() => setShareCopied(false), 2000)
+      } catch (error_) {
+        console.error('Failed to copy URL:', error_)
+      }
+      textArea.remove()
+    }
+  }
 
   const modelResults = useMemo(() => calculateModel(config), [config])
 
@@ -202,59 +384,6 @@ const TechnicalDebtModel = () => {
     setConfig((prev) =>
       normalizeConfig({ ...prev, [key]: value } as TechnicalDebtConfig)
     )
-  }
-
-  const presets: Record<
-    string,
-    { title: string; default: boolean } & Partial<TechnicalDebtConfig>
-  > = {
-    baseline: {
-      title: 'Baseline',
-      default: true,
-      alpha: 0.892,
-      friction: DEFAULT_FRICTION,
-      refactorSchedule: 'none',
-      backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
-      debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
-    },
-    backloaded: {
-      title: 'Backloaded refactoring',
-      default: false,
-      alpha: 0.892,
-      friction: DEFAULT_FRICTION,
-      refactorSchedule: 'backloaded',
-      backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
-      debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
-    },
-    monthly: {
-      title: 'Monthly refactoring',
-      default: false,
-      alpha: 0.892,
-      friction: DEFAULT_FRICTION,
-      refactorSchedule: 'monthly',
-      refactorRatio: 0.85,
-      backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
-      debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
-    },
-    continuous: {
-      title: 'Continuous refactoring',
-      default: false,
-      alpha: 0.892,
-      friction: DEFAULT_FRICTION,
-      refactorSchedule: 'weekly',
-      refactorRatio: 0.18,
-      backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
-      debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
-    },
-    adaptive: {
-      title: 'Adaptive refactoring',
-      default: false,
-      alpha: 0.892,
-      friction: DEFAULT_FRICTION,
-      refactorSchedule: 'custom',
-      backloadedSwitchWeek: DEFAULT_BACKLOADED_SWITCH_WEEK,
-      debtBudgetWeeks: DEFAULT_DEBT_BUDGET_WEEKS
-    }
   }
 
   return (
@@ -1024,16 +1153,17 @@ const TechnicalDebtModel = () => {
                 &quot;value&quot; or &quot;features&quot;?
               </h3>
               <p className="text-sm text-gray-700">
-                Value depends on what you build and whether the market ultimately cares.
-                Features conflate scope with impact. This simulator focuses on something
-                more fundamental: how effectively the system can absorb and implement
-                change.
+                Value depends on what you build and whether the market
+                ultimately cares. Features conflate scope with impact. This
+                simulator focuses on something more fundamental: how effectively
+                the system can absorb and implement change.
               </p>
               <p className="mt-2 text-sm text-gray-700">
-                Change delivery capacity reflects the system’s structural freedom to evolve.
-                Teams with high capacity can respond to feedback, pivot when assumptions
-                are wrong, and deliver what matters. Teams with low capacity are constrained
-                by their system, regardless of how good their ideas are.
+                Change delivery capacity reflects the system’s structural
+                freedom to evolve. Teams with high capacity can respond to
+                feedback, pivot when assumptions are wrong, and deliver what
+                matters. Teams with low capacity are constrained by their
+                system, regardless of how good their ideas are.
               </p>
             </div>
             <div>
@@ -1069,6 +1199,54 @@ const TechnicalDebtModel = () => {
         >
           More on my approach
         </a>
+
+        <div className="mt-10 flex justify-center border-t border-gray-200 pt-8">
+          <button
+            onClick={handleShare}
+            className="bg-primary-600 hover:bg-primary-700 focus:ring-primary-500 inline-flex items-center gap-2 rounded-md px-6 py-3 font-medium text-white transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none"
+            type="button"
+            data-track
+            data-track-prop-placement="tech-debt-simulator-share"
+          >
+            {shareCopied ? (
+              <>
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
+                </svg>
+                <span>Copied!</span>
+              </>
+            ) : (
+              <>
+                <svg
+                  className="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                  />
+                </svg>
+                <span>Share simulator</span>
+              </>
+            )}
+          </button>
+        </div>
 
         <footer className="text-md mt-10 border-t border-gray-200 pt-6 text-gray-500">
           <p>
